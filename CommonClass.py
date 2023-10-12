@@ -172,16 +172,3 @@ class Excel:
             if refText in str(sheet[f"{column}{x}"].value):
                 sheet[f"{column}{x}"].value = None
         return wb
-
-
-    # def align_column_order(wb, columns):
-    #     columns = ["slno", "transaction_date", "value_date", "chequeno_refno", "narration", "deposit", "withdrawal",
-    #                "balance"]
-    #     columns = ["Sl.No.", "Transaction_Date", "Value_Date", "ChequeNo_RefNo", "Narration", "Deposit", "Withdrawal", "Balance"]
-    #
-    #     sheet = wb.active
-    #     for i in range(0, 8):
-    #         sheet[f"{chr(65+sheet.max_column)}1"].value = columns[i]
-    #     for x in range(2, sheet.max_row):
-    #         if "Sl.No." in str()
-    #     return wb
