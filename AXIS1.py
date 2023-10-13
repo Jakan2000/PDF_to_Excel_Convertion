@@ -90,7 +90,7 @@ def axis1_main(wb):
         naration = Excel.alter_header_name(chqno, refHeaderText3, headerText3, lastCol)
         debit = Excel.alter_header_name(naration, refHeaderText4, headerText4, lastCol)
         credit = Excel.alter_header_name(debit, refHeaderText5, headerText5, lastCol)
-        balance = Excel.alter_header_name(debit, refHeaderText5, headerText5, lastCol)
+        balance = Excel.alter_header_name(debit, refHeaderText6, headerText6, lastCol)
         deletedColumnG = Excel.delete_column(balance, deleteColumnRefText)
         columnToCreateSlNo = 65 + Excel.column_count(wb)  # 65 => ASCII value "A"
         slnoCreated = Excel.create_slno_column(deletedColumnG, start, end + 1, chr(columnToCreateSlNo))
