@@ -57,7 +57,7 @@ def driver(work_book, bank, type, path):
         wb = banks[bank][type](work_book)
         temp = str(os.path.basename(path)).replace(".pdf", ".xlsx")
         file = temp.replace(".PDF", ".xlsx")
-        wb.save(f"C:/Users/Admin/Desktop/FinalOutput/{file}")
+        wb.save(f"C:/Users/Admin/Desktop/FinalOutput/TEMP_{file}")
         sheet = wb.active
         config = configparser.ConfigParser()
         config.read(".env")
@@ -69,6 +69,29 @@ def driver(work_book, bank, type, path):
         conn = None
         # Connect to the PostgreSQL database
         try:
+            df = pandas.read_excel(f"C:/Users/Admin/Desktop/FinalOutput/TEMP_{file}", na_values=[""])
+            column_name1 = "Sl.No."
+            column_name2 = "Transaction_Date"
+            column_name3 = "Value_Date"
+            column_name4 = "ChequeNo_RefNo"
+            column_name5 = "Narration"
+            column_name6 = "Withdrawal"
+            column_name7 = "Deposit"
+            column_name8 = "Balance"
+            column_data1 = df[column_name1]
+            column_data2 = df[column_name2]
+            column_data3 = df[column_name3]
+            column_data4 = df[column_name4]
+            column_data5 = df[column_name5]
+            column_data6 = df[column_name6]
+            column_data7 = df[column_name7]
+            column_data8 = df[column_name8]
+            new_df = pandas.DataFrame(
+                {column_name1: column_data1, column_name2: column_data2, column_name3: column_data3,
+                 column_name4: column_data4, column_name5: column_data5, column_name6: column_data6,
+                 column_name7: column_data7, column_name8: column_data8})
+            new_df.to_excel(f"C:/Users/Admin/Desktop/FinalOutput/{file}", index=False)
+            os.remove(f"C:/Users/Admin/Desktop/FinalOutput/TEMP_{file}")
             connection = psycopg2.connect(
                 dbname=dbname,
                 user=user,
