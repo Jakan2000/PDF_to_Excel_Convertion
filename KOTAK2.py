@@ -81,7 +81,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
     return wb
 
 
-def kotak1_validation(wb):
+def kotak2_validation(wb):
     sheet = wb.active
     max_column = sheet.max_column
     countOfColumn = 5
@@ -92,7 +92,7 @@ def kotak1_validation(wb):
 
 
 def kotak2_main(wb):
-    if kotak1_validation(wb):
+    if kotak2_validation(wb):
         raise Exception(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
     else:
         sheet = wb.active
