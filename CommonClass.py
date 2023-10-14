@@ -172,3 +172,16 @@ class Excel:
             if refText in str(sheet[f"{column}{x}"].value):
                 sheet[f"{column}{x}"].value = None
         return wb
+
+    def transaction_type_column(wb):
+        sheet = wb.active
+        Excel.creat_column(wb, header = "Transaction_Type")
+        trans_type_column = chr(Excel.find_column_index_by_header(wb, header = "Transaction_Type"))
+        withdrawal_column = chr(Excel.find_column_index_by_header(wb, header = "Withdrawal"))
+        deposit_column = chr(Excel.find_column_index_by_header(wb, header = "Deposit"))
+        for i in range(2, sheet.max_row + 1):
+            if sheet[f"{withdrawal_column}{i}"].value is not None:
+                sheet[f"{trans_type_column}{i}"].value = "Debit"
+            if sheet[f"{deposit_column}{i}"].value is not None:
+                sheet[f"{trans_type_column}{i}"].value = "Credit"
+        return wb
