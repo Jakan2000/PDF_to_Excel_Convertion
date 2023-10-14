@@ -61,14 +61,23 @@ def driver(work_book, bank, type, path):
         wb.save(f"C:/Users/Admin/Desktop/FinalOutput/TEMP_{file}")
         try:
             df = pandas.read_excel(f"C:/Users/Admin/Desktop/FinalOutput/TEMP_{file}", na_values=[""])
+            # Convert "Transaction_Date" and "Value_Date" columns to datetime
+            df['Transaction_Date'] = pandas.to_datetime(df['Transaction_Date'], format='%Y-%m-%d')
+            df['Value_Date'] = pandas.to_datetime(df['Value_Date'], format='%Y-%m-%d')
+
+            # Extract the date component from "Transaction_Date" and "Value_Date" columns
+            df['Transaction_Date'] = df['Transaction_Date'].dt.date
+            df['Value_Date'] = df['Value_Date'].dt.date
+
             column_name1 = "Sl.No."
             column_name2 = "Transaction_Date"
             column_name3 = "Value_Date"
             column_name4 = "ChequeNo_RefNo"
             column_name5 = "Narration"
-            column_name6 = "Withdrawal"
+            column_name6 = "Transaction_Type"
             column_name7 = "Deposit"
-            column_name8 = "Balance"
+            column_name8 = "Withdrawal"
+            column_name9 = "Balance"
             column_data1 = df[column_name1]
             column_data2 = df[column_name2]
             column_data3 = df[column_name3]
@@ -77,14 +86,12 @@ def driver(work_book, bank, type, path):
             column_data6 = df[column_name6]
             column_data7 = df[column_name7]
             column_data8 = df[column_name8]
-            new_df = pandas.DataFrame({column_name1: column_data1, column_name2: column_data2, column_name3: column_data3, column_name4: column_data4, column_name5: column_data5, column_name6: column_data6, column_name7: column_data7, column_name8: column_data8})
+            column_data9 = df[column_name9]
+            new_df = pandas.DataFrame({column_name1: column_data1, column_name2: column_data2, column_name3: column_data3, column_name4: column_data4, column_name5: column_data5, column_name6: column_data6, column_name7: column_data7, column_name8: column_data8, column_name9: column_data9})
             new_df.to_excel(f"C:/Users/Admin/Desktop/FinalOutput/{file}", index=False)
             os.remove(f"C:/Users/Admin/Desktop/FinalOutput/TEMP_{file}")
-            df = new_df.rename(
-                columns={"Sl.No.": "slno", "Transaction_Date": "transaction_date", "Value_Date": "value_date", "ChequeNo_RefNo": "chequeno_refno", "Narration": "narration", "Withdrawal": "withdrawal", "Deposit": "deposit", "Balance": "balance"})
-            # df.to_excel(f"C:/Users/Admin/Desktop/FinalOutput/NEW_DATA FRAME{file}", index=False)
-            # exit()
-            column_names = ["slno", "transaction_date", "value_date", "chequeno_refno", "narration", "withdrawal", "deposit", "balance"]
+            df = new_df.rename(columns={"Transaction_Date": "trx_date", "Value_Date": "value_date", "ChequeNo_RefNo": "ref_no_org", "Narration": "description", "Deposit": "deposit", "Withdrawal": "withdrawal", "Balance": "balance"})
+            column_names = ["trx_date", "value_date", "ref_no_org", "description", "deposit", "withdrawal", "balance"]
             column_data = df[column_names]
             column_data = column_data.applymap(lambda x: None if pandas.isna(x) else x)
             config = configparser.ConfigParser()
@@ -102,13 +109,13 @@ def driver(work_book, bank, type, path):
                 "database": database,
             }
             schema = "ksv"
-            table_name = "example_table"
+            table_name = "bank_stmt_lines_t"
             connection = psycopg2.connect(**postgres_credentials)
             cursor = connection.cursor()
             insert_query = f"""
                 INSERT INTO {schema}.{table_name}
-                (slno, transaction_date, value_date, chequeno_refno, narration, withdrawal, deposit, balance)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                (trx_date, value_date, ref_no_org, description, deposit, withdrawal, balance)
+                VALUES (%s, %s, %s, %s, %s, %s, %s)
             """
             values = [tuple(row) for row in column_data.values]
             cursor.executemany(insert_query, values)
@@ -118,7 +125,6 @@ def driver(work_book, bank, type, path):
             print("Records inserted successfully.")
         except Exception as e:
             print(f"An error occurred: {e}")
-
     else:
         raise Exception(f"<Bank or type not found in the dictionary>")
 
