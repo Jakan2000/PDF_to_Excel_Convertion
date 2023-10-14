@@ -208,6 +208,7 @@ def indian_bank1_main(wb):
         replacedNoneCHQNO = Excel.empty_cell_to_none(slCreated, start, end + 1, columnTextToMakeEmptyCellToNone1)  # end+1 to include last row
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(replacedNoneCHQNO, start, end + 1, columnTextToMakeEmptyCellToNone2)  # end+1 to include last row
         replacedNonedeposit = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, columnTextToMakeEmptyCellToNone3)  # end+1 to include last row
+        createdTransTypeColumn = Excel.transaction_type_column(replacedNonedeposit)
         return wb
 
 

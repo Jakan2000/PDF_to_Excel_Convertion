@@ -70,6 +70,15 @@ def driver(work_book, bank, type, path):
         # Connect to the PostgreSQL database
         try:
             df = pandas.read_excel(f"C:/Users/Admin/Desktop/FinalOutput/TEMP_{file}", na_values=[""])
+
+            # Convert "Transaction_Date" and "Value_Date" columns to datetime
+            df['Transaction_Date'] = pandas.to_datetime(df['Transaction_Date'], format='%Y-%m-%d')
+            df['Value_Date'] = pandas.to_datetime(df['Value_Date'], format='%Y-%m-%d')
+
+            # Extract the date component from "Transaction_Date" and "Value_Date" columns
+            df['Transaction_Date'] = df['Transaction_Date'].dt.date
+            df['Value_Date'] = df['Value_Date'].dt.date
+
             column_name1 = "Sl.No."
             column_name2 = "Transaction_Date"
             column_name3 = "Value_Date"
@@ -240,6 +249,7 @@ if __name__ == "__main__":
     # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/IOB_-_8713.pdf", "iob", "type1")
     # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Kotak1._Apr-22_637102.pdf", "kotak", "type1")
     # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Kotak_-_5887.PDF", "kotak", "type2")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Kotak_-7611180008.PDF", "kotak", "type2") =>> dharshini statement
     # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/SBI12._March_-_2023.pdf", "sbi", "type1")
     # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/TMB_-_2333.pdf", "tmb", "type1")
     # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/8._YES_bank_-_8241_Aug-Oct.pdf", "yes", "type1")

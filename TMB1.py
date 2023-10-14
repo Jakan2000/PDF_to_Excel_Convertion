@@ -182,8 +182,9 @@ def tmb1_main(wb):
         balance = Excel.alter_header_name(credit, refHeaderText6, headerText6, lastCol)
         convertedDateA = dateConversion(balance, start + 1, end + 1,
                                         dateConversionColumn1)  # start+1 to Skip Header, end+1 to Include Last Row
-        res = Excel.finalise_column(convertedDateA, columns)
-        return res
+        columnFinalised = Excel.finalise_column(convertedDateA, columns)
+        createdTransTypeColumn = Excel.transaction_type_column(columnFinalised)
+        return wb
 
 
 if __name__ == "__main__":

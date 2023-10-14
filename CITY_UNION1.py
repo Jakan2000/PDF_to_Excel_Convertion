@@ -89,6 +89,7 @@ def cityunion1_main(wb):
         replacedNoneCHQNO = Excel.empty_cell_to_none(negativeColumnChecked, start, end + 1, headerTextToReplaceNone1)
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(replacedNoneCHQNO, start, end + 1, headerTextToReplaceNone2)
         replacedNoneVALUEDATE = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, headerTextToReplaceNone3)
+        createdTransTypeColumn = Excel.transaction_type_column(replacedNoneVALUEDATE)
         return wb
 
 

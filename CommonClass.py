@@ -180,8 +180,8 @@ class Excel:
         withdrawal_column = chr(Excel.find_column_index_by_header(wb, header = "Withdrawal"))
         deposit_column = chr(Excel.find_column_index_by_header(wb, header = "Deposit"))
         for i in range(2, sheet.max_row + 1):
-            if sheet[f"{withdrawal_column}{i}"].value is not None:
+            if sheet[f"{withdrawal_column}{i}"].value is not None and float(str(sheet[f"{withdrawal_column}{i}"].value)) >= 1:
                 sheet[f"{trans_type_column}{i}"].value = "Debit"
-            if sheet[f"{deposit_column}{i}"].value is not None:
+            if sheet[f"{deposit_column}{i}"].value is not None and float(str(sheet[f"{deposit_column}{i}"].value)) >= 1:
                 sheet[f"{trans_type_column}{i}"].value = "Credit"
         return wb

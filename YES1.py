@@ -172,6 +172,7 @@ def yes1_main(wb):
         slCreated = Excel.create_slno_column(balance, start, end + 1, chr(columnToCreateSlNo))
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(slCreated, start, end + 1, headerTextToReplaceToNone1)
         replacedNoneDEPOSIT = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, headerTextToReplaceToNone2)
+        createdTransTypeColumn = Excel.transaction_type_column(replacedNoneDEPOSIT)
         return wb
 
 

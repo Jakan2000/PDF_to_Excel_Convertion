@@ -210,6 +210,7 @@ def federal1_main(wb):
         withdrawalNoneReplaced = Excel.empty_cell_to_none(neagativeValueChecked, start + 1, end + 1, headerTextToMakeEmptyCellsToNone1)
         depositNoneReplaced = Excel.empty_cell_to_none(withdrawalNoneReplaced, start + 1, end + 1, headerTextToMakeEmptyCellsToNone2)
         chqnoNoneReplaced = Excel.empty_cell_to_none(depositNoneReplaced, start + 1, end + 1, headerTextToMakeEmptyCellsToNone3)
+        createdTransTypeColumn = Excel.transaction_type_column(chqnoNoneReplaced)
         return wb
 
 

@@ -122,15 +122,15 @@ def indusind1_main(wb):
         headerText5 = "Deposit"
         headerText6 = "Balance"
         stringAlignColumn1 = "B"
+        refTextToRemoveRow1 = "Brought Forward"
+        columnToRemoveRow = "B"
         columns = ["Transaction_Date", "Value_Date", "ChequeNo_RefNo", "Narration", "Deposit", "Withdrawal", "Balance"]
         start, end = Excel.get_start_end_row_index(wb, startText, endText, startEndRefColumn)
         end = sheet.max_row
-        dupHeaderDeleted1 = deleteRowsByRange(wb, start, end, deleteFlagStartText1, deleteFlagStopText1,
-                                              deleteFlagStartTextRefColumn1, deleteFlagStopTextRefColumn1)
+        dupHeaderDeleted1 = deleteRowsByRange(wb, start, end, deleteFlagStartText1, deleteFlagStopText1, deleteFlagStartTextRefColumn1, deleteFlagStopTextRefColumn1)
         start, end = Excel.get_start_end_row_index(dupHeaderDeleted1, startText, endText, startEndRefColumn)
         end = sheet.max_row
-        dupHeaderDeleted2 = deleteRowsByRange(dupHeaderDeleted1, start, end, deleteFlagStartText1, deleteFlagStopText1,
-                                              deleteFlagStopTextRefColumn1, deleteFlagStopTextRefColumn1)
+        dupHeaderDeleted2 = deleteRowsByRange(dupHeaderDeleted1, start, end, deleteFlagStartText1, deleteFlagStopText1, deleteFlagStopTextRefColumn1, deleteFlagStopTextRefColumn1)
         start, end = Excel.get_start_end_row_index(dupHeaderDeleted2, startText, endText, startEndRefColumn)
         end = sheet.max_row
         mergedColumnB = mergingRows(dupHeaderDeleted2, start, end, refColumnToMerg, columnToMerg)
@@ -148,10 +148,12 @@ def indusind1_main(wb):
         credit = Excel.alter_header_name(debit, refHeaderText5, headerText5, lastCol)
         balance = Excel.alter_header_name(credit, refHeaderText6, headerText6, lastCol)
         alignedStringB = Excel.string_align(balance, start, end + 1, stringAlignColumn1)
+        broughtForwardRowRemoved = Excel.remove_row(alignedStringB, start, end + 1, refTextToRemoveRow1, columnToRemoveRow)
         columnToCreateSlNo = 65 + Excel.column_count(wb)
-        slCreated = Excel.create_slno_column(alignedStringB, start, end + 1, chr(columnToCreateSlNo))
-        res = Excel.finalise_column(slCreated, columns)
-        return res
+        slCreated = Excel.create_slno_column(broughtForwardRowRemoved, start, end + 1, chr(columnToCreateSlNo))
+        columnFinalised = Excel.finalise_column(slCreated, columns)
+        createdTransTypeColumn = Excel.transaction_type_column(columnFinalised)
+        return wb
 
 
 if __name__ == "__main__":

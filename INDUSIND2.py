@@ -97,7 +97,8 @@ def indusind2_main(wb):
         replacedNoneE = replace_to_none(replacedNoneD, start, end + 1, refTextToReplace, refColumnToReplaceText2)
         columnToCreateSlNo = 65 + Excel.column_count(wb)
         slCreated = Excel.create_slno_column(replacedNoneE, start, end + 1, chr(columnToCreateSlNo))
-        res = Excel.finalise_column(slCreated, columns)
+        columnFinalised = Excel.finalise_column(slCreated, columns)
+        createdTransTypeColumn = Excel.transaction_type_column(columnFinalised)
         return wb
 
 

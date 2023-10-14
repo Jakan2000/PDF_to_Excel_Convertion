@@ -170,6 +170,7 @@ def sbi1_main(wb):
         columnToCreateSlNo = 65 + Excel.column_count(wb)
         slCreated = Excel.create_slno_column(balance, start, end + 1, chr(columnToCreateSlNo))
         replacedToNoneCHQNO = Excel.empty_cell_to_none(slCreated, start, end + 1, headerToReplaceEmptyCellToNone1)
+        createdTransTypeColumn = Excel.transaction_type_column(replacedToNoneCHQNO)
         return wb
 
 

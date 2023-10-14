@@ -150,6 +150,7 @@ def dbs1_main(wb):
         replacedNoneCHQNO = Excel.empty_cell_to_none(negativeValueChecked, start, end + 1, headerTextToReplaceEmptyCellToNone1)
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(replacedNoneCHQNO, start, end + 1, headerTextToReplaceEmptyCellToNone2)
         replacedNoneDEPOSIT = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, headerTextToReplaceEmptyCellToNone3)
+        createdTransTypeColumn = Excel.transaction_type_column(replacedNoneDEPOSIT)
         return wb
 
 

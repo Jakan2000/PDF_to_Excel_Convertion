@@ -215,6 +215,7 @@ def icici3_main(wb):
         replacednonechqno = Excel.empty_cell_to_none(noneReplacedE, start, end + 1, replaceEmptyColumeByNone1)
         replacednonewithdrawal = Excel.empty_cell_to_none(replacednonechqno, start, end + 1, replaceEmptyColumeByNone2)
         replacednoneDeposit = Excel.empty_cell_to_none(replacednonewithdrawal, start, end + 1, replaceEmptyColumeByNone3)
+        createdTransTypeColumn = Excel.transaction_type_column(replacednoneDeposit)
         return wb
 
 

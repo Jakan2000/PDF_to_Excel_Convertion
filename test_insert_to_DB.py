@@ -90,8 +90,8 @@ def driver(work_book, bank, type, path):
             new_df = pandas.DataFrame({column_name1: column_data1, column_name2: column_data2, column_name3: column_data3, column_name4: column_data4, column_name5: column_data5, column_name6: column_data6, column_name7: column_data7, column_name8: column_data8, column_name9: column_data9})
             new_df.to_excel(f"C:/Users/Admin/Desktop/FinalOutput/{file}", index=False)
             os.remove(f"C:/Users/Admin/Desktop/FinalOutput/TEMP_{file}")
-            df = new_df.rename(columns={"Transaction_Date": "trx_date", "Value_Date": "value_date", "ChequeNo_RefNo": "ref_no_org", "Narration": "description", "Deposit": "deposit", "Withdrawal": "withdrawal", "Balance": "balance"})
-            column_names = ["trx_date", "value_date", "ref_no_org", "description", "deposit", "withdrawal", "balance"]
+            df = new_df.rename(columns={"Transaction_Type": "trx_type", "Transaction_Date": "trx_date", "Value_Date": "value_date", "ChequeNo_RefNo": "ref_no_org", "Narration": "description", "Deposit": "deposit", "Withdrawal": "withdrawal", "Balance": "balance"})
+            column_names = ["trx_type", "trx_date", "value_date", "ref_no_org", "description", "deposit", "withdrawal", "balance"]
             column_data = df[column_names]
             column_data = column_data.applymap(lambda x: None if pandas.isna(x) else x)
             config = configparser.ConfigParser()
@@ -114,8 +114,8 @@ def driver(work_book, bank, type, path):
             cursor = connection.cursor()
             insert_query = f"""
                 INSERT INTO {schema}.{table_name}
-                (trx_date, value_date, ref_no_org, description, deposit, withdrawal, balance)
-                VALUES (%s, %s, %s, %s, %s, %s, %s)
+                (trx_type, trx_date, value_date, ref_no_org, description, deposit, withdrawal, balance)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
             """
             values = [tuple(row) for row in column_data.values]
             cursor.executemany(insert_query, values)

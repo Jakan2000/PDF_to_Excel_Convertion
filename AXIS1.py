@@ -100,6 +100,7 @@ def axis1_main(wb):
         chqnoConverted = Excel.empty_cell_to_none(valueDateConverted, start, end + 1, headerTextToEmptyCellToNone2)
         withdrawalConverted = Excel.empty_cell_to_none(chqnoConverted, start, end + 1, headerTextToEmptyCellToNone3)
         depositConverted = Excel.empty_cell_to_none(withdrawalConverted, start, end + 1, headerTextToEmptyCellToNone4)
+        createdTransTypeColumn = Excel.transaction_type_column(depositConverted)
         return wb
 
 

@@ -157,6 +157,7 @@ def kotak2_main(wb):
         comaRemoved = Excel.remove_string(finalisedColumns, start, end + 1, refStringToRemove, columnToRemoveString1)
         stringAlignedB = Excel.string_align(comaRemoved, start, end + 1, columnToAlignString1)
         replacedToNoneCHQNO = Excel.empty_cell_to_none(stringAlignedB, start, end + 1, headerToReplaceEmptyCellToNone1)
+        createdTransTypeColumn = Excel.transaction_type_column(replacedToNoneCHQNO)
         return wb
 
 

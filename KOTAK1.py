@@ -206,6 +206,7 @@ def kotak1_main(wb):
         stringRemovedCR = removeString(balance, start, end + 1, refTextToRemove1, stringRemoveColumn1)
         columnFinalised = Excel.finalise_column(stringRemovedCR, columns)
         comaRemoved = Excel.remove_string(columnFinalised, start, end + 1, refStringToRemove, columnToRemoveString1)
+        createdTransTypeColumn = Excel.transaction_type_column(comaRemoved)
         return wb
 
 

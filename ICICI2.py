@@ -132,8 +132,9 @@ def icici2_main(wb):
         alignedB = Excel.string_align(alignedA, start, end, stringAlignColumn2)
         columnToCreateSlNo = 65 + Excel.column_count(wb)
         slCreated = Excel.create_slno_column(alignedB, start, end + 1, chr(columnToCreateSlNo))
-        res = Excel.finalise_column(slCreated, columns)
-        return res
+        columnFinalised = Excel.finalise_column(slCreated, columns)
+        createdTransTypeColumn = Excel.transaction_type_column(columnFinalised)
+        return wb
 
 
 if __name__ == "__main__":

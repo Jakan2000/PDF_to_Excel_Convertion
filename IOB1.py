@@ -120,6 +120,7 @@ def iob1_main(wb):
         slCreated = Excel.create_slno_column(valuedate, start, end + 1, chr(columnToCreateSlNo))
         replacedToNoneD = Excel.replace_to_none(slCreated, start, end + 1, refTextToReplaceToNone, columnToReplaceTextToNone1)
         replacedToNoneE = Excel.replace_to_none(replacedToNoneD, start, end + 1, refTextToReplaceToNone, columnToReplaceTextToNone2)
+        createdTransTypeColumn = Excel.transaction_type_column(replacedToNoneE)
         return wb
 
 

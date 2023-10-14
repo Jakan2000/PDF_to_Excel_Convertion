@@ -207,6 +207,7 @@ def icici1_main(wb):
         stringRemovedE = Excel.remove_string(chqnoNoneReplaced, start, end + 1, stringToRemove1, columnToRemoveString1)
         stringRemovedF = Excel.remove_string(stringRemovedE, start, end + 1, stringToRemove1, columnToRemoveString2)
         stringRemovedG = Excel.remove_string(stringRemovedF, start, end + 1, stringToRemove1, columnToRemoveString3)
+        createdTransTypeColumn = Excel.transaction_type_column(stringRemovedG)
         return wb
 
 

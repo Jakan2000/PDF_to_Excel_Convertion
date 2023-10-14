@@ -211,7 +211,8 @@ def hdfc1_main(wb):
         balance = Excel.alter_header_name(credit, refHeaderText7, headerText7, lastCol)
         columnToCreateSlNo = 65 + Excel.column_count(wb)
         slnoCreated = Excel.create_slno_column(balance, start, end + 1, chr(columnToCreateSlNo))
-        res = Excel.check_neagativeValue_by_column(slnoCreated, negativeValueColumnRefText1)
+        negativeValueChecked = Excel.check_neagativeValue_by_column(slnoCreated, negativeValueColumnRefText1)
+        createdTransTypeColumn = Excel.transaction_type_column(negativeValueChecked)
         return wb
 
 

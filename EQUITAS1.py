@@ -129,7 +129,8 @@ def equitas1_main(wb):
         columnToCreateSlNo = 65 + Excel.column_count(wb)
         slnoCreated = Excel.create_slno_column(balance, start, end + 1, chr(columnToCreateSlNo))
         columnFinalised = Excel.finalise_column(slnoCreated, columns)
-        res = Excel.check_neagativeValue_by_column(slnoCreated, negativeValueColumnRefText1)
+        negativeValueChecked = Excel.check_neagativeValue_by_column(slnoCreated, negativeValueColumnRefText1)
+        createdTransTypeColumn = Excel.transaction_type_column(negativeValueChecked)
         return wb
 
 
