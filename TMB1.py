@@ -1,11 +1,17 @@
-import os
 from datetime import datetime
 
-from openpyxl.utils import column_index_from_string
 import openpyxl
 
 from KSV.FormatingExcelFiles.AlignmentData import addAlignmentData
 from KSV.FormatingExcelFiles.CommonClass import Excel
+
+
+def string_in_column(wb, text):
+    sheet = wb.active
+    for column in range(65, sheet.max_column+65):
+        for row in range(1, sheet.max_row):
+            if text in str(sheet[f"{chr(column)}{row}"].value):
+                return chr(column)
 
 
 def dateConversion(wb, start, end, column):
@@ -132,9 +138,13 @@ def tmb1_main(wb):
     if tmb1_validation(wb):
         raise Exception(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
     else:
-        startText = "Chq. No."
+        column = string_in_column(wb, text="Closing Balance")
+        if column == "D":
+            startText = "Withdrawals"
+        if column == "C":
+            startText = "Chq. No."
+        startEndRefColumn = column
         endText = "Closing Balance"
-        startEndRefColumn = "C"
         deleteFlagRefText1 = "Page"
         deleteFlagRefText2 = "Date"
         deleteFlagRefColumn = "A"
@@ -180,15 +190,15 @@ def tmb1_main(wb):
         debit = Excel.alter_header_name(chqno, refHeaderText4, headerText4, lastCol)
         credit = Excel.alter_header_name(debit, refHeaderText5, headerText5, lastCol)
         balance = Excel.alter_header_name(credit, refHeaderText6, headerText6, lastCol)
-        convertedDateA = dateConversion(balance, start + 1, end + 1,
-                                        dateConversionColumn1)  # start+1 to Skip Header, end+1 to Include Last Row
+        convertedDateA = dateConversion(balance, start + 1, end + 1, dateConversionColumn1)  # start+1 to Skip Header, end+1 to Include Last Row
         columnFinalised = Excel.finalise_column(convertedDateA, columns)
         createdTransTypeColumn = Excel.transaction_type_column(columnFinalised)
         return wb
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/TMB_-_2333__23-09-2023-11-52-23.xlsx"
+    # path = "C:/Users/Admin/Downloads/TMB_-_2333__23-09-2023-11-52-23.xlsx"
+    path = "C:/Users/Admin/Desktop/tmb2.xlsx"  # muthu bro statement
     wb = openpyxl.load_workbook(path)
     result = tmb1_main(wb)
     result.save('C:/Users/Admin/Desktop/FinalOutput/TMB1output.xlsx')
