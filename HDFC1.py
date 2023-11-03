@@ -3,8 +3,8 @@ from datetime import datetime
 
 import openpyxl
 
-from KSV.FormatingExcelFiles.AlignmentData import addAlignmentData
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.AlignmentData import addAlignmentData
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def dateConvertion(wb, start, end, column, ref):

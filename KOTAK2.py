@@ -2,7 +2,7 @@ from datetime import datetime
 
 import openpyxl
 
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def seperate_debit_credit_column(wb, sourceColumn, withdrawal, deposit):

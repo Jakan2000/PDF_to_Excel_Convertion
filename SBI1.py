@@ -3,7 +3,7 @@ import os
 import openpyxl
 from datetime import datetime
 
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def deleteHeader(wb, start):

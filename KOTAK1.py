@@ -2,8 +2,8 @@ import os
 from datetime import datetime
 from openpyxl.utils import column_index_from_string
 import openpyxl
-from KSV.FormatingExcelFiles.AlignmentData import addAlignmentData
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.AlignmentData import addAlignmentData
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def removeString(wb, start, end, refText, column):

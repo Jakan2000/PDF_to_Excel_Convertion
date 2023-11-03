@@ -3,7 +3,7 @@ from datetime import datetime
 import openpyxl
 from openpyxl.utils import column_index_from_string
 
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def aligningColumn(wb, start, end, mergingColumn, refColumn):

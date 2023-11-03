@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 import openpyxl
 
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def dateConvertion(wb, start, end, column):

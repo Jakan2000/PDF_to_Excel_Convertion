@@ -2,7 +2,6 @@ import configparser
 import os
 import os.path
 import tkinter
-import tkinter as tk
 from datetime import datetime
 from io import BytesIO
 from tkinter import filedialog
@@ -111,6 +110,7 @@ def driver(work_book, bank, type, path):
                             "balance"]
             column_data = df[column_names]
             column_data = column_data.applymap(lambda x: None if pandas.isna(x) else x)
+            #  reading data from .env file
             config = configparser.ConfigParser()
             config.read(".env")
             user = config.get("DEFAULT", "USER")

@@ -2,7 +2,7 @@ from datetime import datetime
 
 import openpyxl
 
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def replace_to_none(wb, start, end, refText, column):

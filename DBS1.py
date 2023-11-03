@@ -3,7 +3,7 @@ from datetime import datetime
 
 import openpyxl
 
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def removeNone(wb, start, end, column):

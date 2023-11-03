@@ -2,8 +2,8 @@ from datetime import datetime
 
 import openpyxl
 
-from KSV.FormatingExcelFiles.AlignmentData import addAlignmentData
-from KSV.FormatingExcelFiles.CommonClass import Excel
+from FormatingExcelFiles.AlignmentData import addAlignmentData
+from FormatingExcelFiles.CommonClass import Excel
 
 
 def string_in_column(wb, text):
