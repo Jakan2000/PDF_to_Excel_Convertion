@@ -1,4 +1,3 @@
-import os
 from datetime import datetime
 
 import openpyxl
@@ -76,8 +75,9 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
 def dbs1_validation(wb):
     sheet = wb.active
     max_column = sheet.max_column
-    countOfColumn = 9
-    if max_column < countOfColumn or max_column > countOfColumn:
+    countOfColumn1 = 9
+    countOfColumn2 = 8
+    if (max_column < countOfColumn1 or max_column > countOfColumn1) and (max_column < countOfColumn2 or max_column > countOfColumn2):
         return True
     else:
         return False
@@ -91,7 +91,10 @@ def dbs1_main(wb):
         startText = "Transaction date"
         endText = "Summary"
         startEndRefColumn = "A"
-        deleteFlagStartText = "DBS Bank India Ltd."
+        if sheet.max_column == 9:
+            deleteFlagStartText = "DBS Bank India Ltd."
+        if sheet.max_column == 8:
+            deleteFlagStartText = "Account statement"
         deleteFlagStopText = "Transaction date"
         deleteFlagRefColumn = "A"
         columnToMerg1 = "D"
@@ -119,6 +122,7 @@ def dbs1_main(wb):
         headerTextToReplaceEmptyCellToNone1 = "ChequeNo_RefNo"
         headerTextToReplaceEmptyCellToNone2 = "Withdrawal"
         headerTextToReplaceEmptyCellToNone3 = "Deposit"
+        negativeValueColumnRefText2 = "Balance"
         start, end = Excel.get_start_end_row_index(wb, startText, endText, startEndRefColumn)
         duplicateHeaderRemoved = Excel.delete_rows_by_range(wb, start, end, deleteFlagStartText, deleteFlagStopText, deleteFlagRefColumn)
         start, end = Excel.get_start_end_row_index(duplicateHeaderRemoved, startText, endText, startEndRefColumn)
@@ -151,11 +155,13 @@ def dbs1_main(wb):
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(replacedNoneCHQNO, start, end + 1, headerTextToReplaceEmptyCellToNone2)
         replacedNoneDEPOSIT = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, headerTextToReplaceEmptyCellToNone3)
         createdTransTypeColumn = Excel.transaction_type_column(replacedNoneDEPOSIT)
+        negativeValueCheckedBAlance = Excel.check_neagativeValue_by_column(createdTransTypeColumn, negativeValueColumnRefText2)
         return wb
 
 
 if __name__ == "__main__":
     path = "C:/Users/Admin/Downloads/LVB_-_0145P.W_-_1L1675876_unlocked__12-09-2023-15-56-14.xlsx"
+    # path = "C:/Users/Admin/Desktop/test.xlsx"
     wb = openpyxl.load_workbook(path)
     result = dbs1_main(wb)
     result.save('C:/Users/Admin/Desktop/FinalOutput/DBS1output.xlsx')

@@ -139,7 +139,6 @@ class Excel:
                 column_index = column
                 break
         return column_index
-
     def check_neagativeValue_by_column(wb, header):
         sheet = wb.active
         column = Excel.find_column_index_by_header(wb, header)
