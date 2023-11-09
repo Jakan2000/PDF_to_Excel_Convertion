@@ -2,6 +2,7 @@ import configparser
 import os
 import os.path
 import tkinter
+import tkinter as tk
 from datetime import datetime
 from io import BytesIO
 from tkinter import filedialog
@@ -34,9 +35,7 @@ from TMB1 import tmb1_main
 from YES1 import yes1_main
 
 
-def driver(work_book, bank, type, path):
-    # work_book.save("C:/Users/Admin/Desktop/test.xlsx")
-    # exit()
+def driver(work_book, bank, type, path, caller):
     banks = {"axis": {"type1": axis1_main},
              "canara": {"type1": canara1_main},
              "city union": {"type1": cityunion1_main},
@@ -98,10 +97,11 @@ def driver(work_book, bank, type, path):
                 {column_name1: column_data1, column_name2: column_data2, column_name3: column_data3,
                  column_name4: column_data4, column_name5: column_data5, column_name6: column_data6,
                  column_name7: column_data7, column_name8: column_data8, column_name9: column_data9})
-            root = tkinter.Tk()
-            root.withdraw()
-            file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Excel Files", "*.xlsx")])
-            new_df.to_excel(file_path, index=False)
+            if caller == "appsmith":
+                root = tkinter.Tk()
+                root.withdraw()
+                file_path = filedialog.asksaveasfilename(defaultextension=".xlsx", filetypes=[("Excel Files", "*.xlsx")])
+                new_df.to_excel(file_path, index=False)
             df = new_df.rename(
                 columns={"Transaction_Type": "trx_type", "Transaction_Date": "trx_date", "Value_Date": "value_date",
                          "ChequeNo_RefNo": "ref_no_org", "Narration": "description", "Deposit": "deposit",
@@ -110,7 +110,6 @@ def driver(work_book, bank, type, path):
                             "balance"]
             column_data = df[column_names]
             column_data = column_data.applymap(lambda x: None if pandas.isna(x) else x)
-            #  reading data from .env file
             config = configparser.ConfigParser()
             config.read(".env")
             user = config.get("DEFAULT", "USER")
@@ -203,7 +202,7 @@ def convert_bytes_to_excel(pdf_bytes):
     return load_workbook(output_xlsx), output_xlsx
 
 
-def pdf_to_excel_main(pdf_url, bank, type):
+def pdf_to_excel_main(pdf_url, bank, type, caller):
     pdf_bytes = convert_url_to_bytes(pdf_url)
     output_workbook, output_workbook_xlsx = convert_bytes_to_excel(pdf_bytes)
     sheet = output_workbook.active
@@ -211,32 +210,31 @@ def pdf_to_excel_main(pdf_url, bank, type):
     if max_column < 2:
         raise Exception("Insufficient Data In convert_bytes_to_excel To Process Driver Dictionary")
     else:
-        result = driver(output_workbook, bank, type, pdf_url)
+        result = driver(output_workbook, bank, type, pdf_url, caller)
     os.remove(output_workbook_xlsx)  # Remove the output workbook XLSX file
     return result
 
 
 if __name__ == "__main__":
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/1.Axis_-_8874-PW_-_GNAN842166790_unlocked.pdf", "axis", "type1")
-    pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/test_Axis.pdf", "axis", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/1.Canara_-_6183.pdf", "canara", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/CITY_UNION_BANK_-_SB-500101012199098.pdf", "city union", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/LVB_-_0145P.W_-_1L1675876_unlocked.pdf", "dbs", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/LVB_-_rama2408_unlocked.pdf", "dbs", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Equitas_-_6802_unlocked.pdf", "equitas", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/2.%20R%20RAVICHANDRAN%20-%20Federal%20-%202416%20Pass%20-%20RAVI016%20.pdf", "federal", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/HDFC_-_7768.pdf", "hdfc", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/ICICI_-_3281.pdf", "icici", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/ICICI_-_2207PW-088601502207_unlocked.pdf", "icici", "type2")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/ilovepdf_merged_7.pdf", "icici", "type3")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/SRT_-_INDIAN_BANK_-_6096825697_.pdf", "indian bank", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Senthil_indusind_pdf.io.pdf", "indusind", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/1._Indusind_-_2673.pdf", "indusind", "type2")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/IOB_-_8713.pdf", "iob", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Kotak1._Apr-22_637102.pdf", "kotak", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Kotak_-_5887.PDF", "kotak", "type2")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/SBI12._March_-_2023.pdf", "sbi", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/TMB_-_2333.pdf", "tmb", "type1")
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/2._Jan_to_March_-_TMB_-_363100050305246_Pass-1994_unlocked.pdf", "tmb", "type1") # muthu bro statement
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/1.Axis_-_8874-PW_-_GNAN842166790_unlocked.pdf", "axis", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/1.Canara_-_6183.pdf", "canara", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/CITY_UNION_BANK_-_SB-500101012199098.pdf", "city union", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/LVB_-_0145P.W_-_1L1675876_unlocked.pdf", "dbs", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Equitas_-_6802_unlocked.pdf", "equitas", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/2.%20R%20RAVICHANDRAN%20-%20Federal%20-%202416%20Pass%20-%20RAVI016%20.pdf", "federal", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/HDFC_-_7768.pdf", "hdfc", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/ICICI_-_3281.pdf", "icici", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/ICICI_-_2207PW-088601502207_unlocked.pdf", "icici", "type2", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/ilovepdf_merged_7.pdf", "icici", "type3", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/SRT_-_INDIAN_BANK_-_6096825697_.pdf", "indian bank", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Senthil_indusind_pdf.io.pdf", "indusind", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/1._Indusind_-_2673.pdf", "indusind", "type2", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/IOB_-_8713.pdf", "iob", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Kotak1._Apr-22_637102.pdf", "kotak", "type1", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/Kotak_-_5887.PDF", "kotak", "type2", "appsmith")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/SBI12._March_-_2023.pdf", "sbi", "type1", "appsmith")
 
-    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/8._YES_bank_-_8241_Aug-Oct.pdf", "yes", "type1")
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/TMB_-_2333.pdf", "tmb", "type1", "appsmith")
+    pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/2._Jan_to_March_-_TMB_-_363100050305246_Pass-1994_unlocked.pdf", "tmb", "type1", "appsmith") # muthu bro statement
+
+    # pdf_to_excel_main("http://ksvca-server-01:3502/ksv/bank_statements/8._YES_bank_-_8241_Aug-Oct.pdf", "yes", "type1", "appsmith")

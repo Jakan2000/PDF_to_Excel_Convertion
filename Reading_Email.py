@@ -2,7 +2,10 @@ import configparser
 import email
 import imaplib
 import os
+import shutil
+
 from minio import Minio
+import fitz
 
 from FormatingExcelFiles.main_driver import pdf_to_excel_main
 
@@ -10,14 +13,24 @@ config = configparser.ConfigParser()
 config.read(".env")
 
 
-def minio_upload_pdf(file_path):
+def unlock_pdf(input_path, output_path, password):
+    pdf_document = fitz.open(input_path)
+    if pdf_document.is_encrypted:
+        pdf_document.authenticate(password)
+    pdf_document.save(output_path)
+    pdf_document.close()
+    return output_path
 
-    client = Minio('ksvca-server-01:3502', access_key=config.get("DEFAULT", "MINIO_ACCESS_KEY"), secret_key=config.get("DEFAULT", "MINIO_SECRET_KEY"), secure=False)
+
+def minio_upload_pdf(file_path):
+    client = Minio('ksvca-server-01:3502', access_key=config.get("DEFAULT", "MINIO_ACCESS_KEY"),
+                   secret_key=config.get("DEFAULT", "MINIO_SECRET_KEY"), secure=False)
     bucket_name = 'ksv'
     folder_path = 'bank_statements/'
     file_name = file_path.split('/')[-1]
     client.fput_object(bucket_name, folder_path + file_name, file_path)
-    url = client.presigned_get_object(bucket_name, folder_path + file_name, response_headers={'response-content-type': 'application/pdf'})
+    url = client.presigned_get_object(bucket_name, folder_path + file_name,
+                                      response_headers={'response-content-type': 'application/pdf'})
     return url
 
 
@@ -28,8 +41,9 @@ def read_emails():
     mail.login(receiver_email, email_password)
     mail.select('inbox')
 
-    _, data = mail.search(None, 'UNSEEN')  # Fetch only unread emails
+    _, data = mail.search(None, 'ALL')  # Fetch All emails
     mail_ids = data[0]
+
     id_list = mail_ids.split()
 
     download_directory = os.path.join(os.path.expanduser('~'), 'Downloads')
@@ -71,7 +85,7 @@ def read_emails():
                 "From": from_address,
                 "Subject": subject,
                 "EmailContent": email_content,
-                "PDFAttachment": pdf_attachment.replace("\\", "/"),
+                "PDFAttachment": pdf_attachment.replace("\\", "/") if pdf_attachment else None,
                 "URL": None,
             })
 
@@ -85,20 +99,30 @@ def read_emails():
 
     if email_data_list:
         for index in range(0, len(email_data_list)):
-            url = minio_upload_pdf(file_path=email_data_list[index]["PDFAttachment"])
-            temp = url.split("?")
-            pdf_url = temp[0]
-            email_data_list[index]["URL"] = pdf_url
-            os.remove(email_data_list[index]["PDFAttachment"])
-            pdf_to_excel_main(email_data_list[index]["URL"], "axis", "type1")
+            if email_data_list[index]["PDFAttachment"]:
+                temp_op = email_data_list[index]['PDFAttachment'].split(".pdf")
+                output_path = temp_op[0] + "_unlocked" + ".pdf"
+                op = unlock_pdf(input_path=email_data_list[index]["PDFAttachment"], output_path=output_path, password="srin2005")
+                url = minio_upload_pdf(op)
+                if url:
+                    temp = url.split("?")
+                    pdf_url = temp[0]
+                    email_data_list[index]["URL"] = pdf_url
+                    os.remove(email_data_list[index]["PDFAttachment"])
+                    email_data_list[index]["PDFAttachment"] = op
+                    os.remove(op)
+                    # pdf_to_excel_main(email_data_list[index]["URL"], "icici", "type2", "email")
 
     else:
         print("Email data list is empty.")
         raise Exception("Email data list is empty.")
-
-    return email_data_list  # Return the list of email data
+    return email_data_list
 
 
 if __name__ == "__main__":
     print(read_emails())
     # minio_upload_pdf(file_path="C:/Users/Admin/Downloads/test_Axis.pdf")
+    # output_path = unlock_pdf(input_path="C:/Users/Admin/Desktop/Statement_2023MTH10_184523781.pdf",
+    #                         output_path="C:/Users/Admin/Desktop/Statement_2023MTH10_184523781_unlocked.pdf", password='srin2005')
+    # os.remove("C:/Users/Admin/Desktop/Statement_2023MTH10_184523781.pdf")
+    # os.remove(output_path)
