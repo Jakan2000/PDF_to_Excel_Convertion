@@ -98,7 +98,7 @@ def read_emails():
     mail.logout()
 
     if email_data_list:
-        for index in range(0, len(email_data_list)):
+        for index in range(len(email_data_list)):
             if email_data_list[index]["PDFAttachment"]:
                 temp_op = email_data_list[index]['PDFAttachment'].split(".pdf")
                 output_path = temp_op[0] + "_unlocked" + ".pdf"
@@ -111,16 +111,17 @@ def read_emails():
                     os.remove(email_data_list[index]["PDFAttachment"])
                     email_data_list[index]["PDFAttachment"] = op
                     os.remove(op)
-                    # pdf_to_excel_main(email_data_list[index]["URL"], "icici", "type2", "email")
+                    pdf_to_excel_main(email_data_list[index]["URL"], "axis", "type1", "email")
 
     else:
         print("Email data list is empty.")
         raise Exception("Email data list is empty.")
+    print(email_data_list)
     return email_data_list
 
 
 if __name__ == "__main__":
-    print(read_emails())
+    read_emails()
     # minio_upload_pdf(file_path="C:/Users/Admin/Downloads/test_Axis.pdf")
     # output_path = unlock_pdf(input_path="C:/Users/Admin/Desktop/Statement_2023MTH10_184523781.pdf",
     #                         output_path="C:/Users/Admin/Desktop/Statement_2023MTH10_184523781_unlocked.pdf", password='srin2005')
