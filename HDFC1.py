@@ -1,10 +1,9 @@
-import os
 from datetime import datetime
 
 import openpyxl
 
-from FormatingExcelFiles.AlignmentData import addAlignmentData
-from FormatingExcelFiles.CommonClass import Excel
+from AlignmentData import addAlignmentData
+from CommonClass import Excel
 
 
 def dateConvertion(wb, start, end, column, ref):
@@ -141,7 +140,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
 def hdfc1_validation(wb):
     sheet = wb.active
     max_column = sheet.max_column
-    countOfColumn = 8
+    countOfColumn = 7
     if max_column < countOfColumn or max_column > countOfColumn:
         return True
     else:
@@ -151,7 +150,10 @@ def hdfc1_validation(wb):
 def hdfc1_main(wb):
     sheet = wb.active
     if hdfc1_validation(wb):
-        raise Exception(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
         startText = "Narration"
         endText = "STATEMENT SUMMARY :-"
@@ -194,13 +196,10 @@ def hdfc1_main(wb):
         start, end = Excel.get_start_end_row_index(footerDeleted, startText, endText, startEndRefColumn)
         headerDeleted = deleteHeader(footerDeleted, start - 1, end)  # start-1 to Skip Header
         start, end = Excel.get_start_end_row_index(headerDeleted, startText, endText, startEndRefColumn)
-        columnAligned = aligningAllColumns(headerDeleted, start, end + 1,
-                                           refColumnToAlignAllColumn)  # end+1 to Include Last Row
+        columnAligned = aligningAllColumns(headerDeleted, start, end + 1, refColumnToAlignAllColumn)  # end+1 to Include Last Row
         alignColumns(columnAligned, start, end, headData, refColumnToAlignColumn)
-        convertedDateA = dateConvertion(columnAligned, start + 1, end + 1, dateConversionColumn1,
-                                        dateRefText)  # start+1 to Skip Header, end+1 to Include Last Row
-        convertedDateD = dateConvertion(convertedDateA, start + 1, end + 1, dateConversionColumn2,
-                                        dateRefText)  # start+1 to Skip Header, end+1 to Include Last Row
+        convertedDateA = dateConvertion(columnAligned, start + 1, end + 1, dateConversionColumn1, dateRefText)  # start+1 to Skip Header, end+1 to Include Last Row
+        convertedDateD = dateConvertion(convertedDateA, start + 1, end + 1, dateConversionColumn2, dateRefText)  # start+1 to Skip Header, end+1 to Include Last Row
         lastCol = 65 + Excel.column_count(wb)
         transdate = Excel.alter_header_name(convertedDateD, refHeaderText1, headerText1, lastCol)
         naration = Excel.alter_header_name(transdate, refHeaderText2, headerText2, lastCol)
@@ -213,11 +212,13 @@ def hdfc1_main(wb):
         slnoCreated = Excel.create_slno_column(balance, start, end + 1, chr(columnToCreateSlNo))
         negativeValueChecked = Excel.check_neagativeValue_by_column(slnoCreated, negativeValueColumnRefText1)
         createdTransTypeColumn = Excel.transaction_type_column(negativeValueChecked)
-        return wb
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/HDFC_-_7768__05-09-2023-14-56-07.xlsx"
+    path = "C:/Users/Admin/Downloads/hdfc.xlsx"
     wb = openpyxl.load_workbook(path)
     result = hdfc1_main(wb)
-    result.save('C:/Users/Admin/Desktop/FinalOutput/HDFC1output.xlsx')
+    result.save('C:/Users/Admin/Desktop/HDFC1output.xlsx')

@@ -1,9 +1,8 @@
-import os
 from datetime import datetime
-from openpyxl.utils import column_index_from_string
+
 import openpyxl
 
-from FormatingExcelFiles.CommonClass import Excel
+from CommonClass import Excel
 
 
 def dateConversion(wb, start, end, column):
@@ -40,7 +39,10 @@ def cityunion1_validation(wb):
 def cityunion1_main(wb):
     sheet = wb.active
     if cityunion1_validation(wb):
-        raise Exception(f"<=INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
         startText = "DATE"
         endText = "TOTAL"
@@ -67,14 +69,12 @@ def cityunion1_main(wb):
         headerTextToReplaceNone2 = "Withdrawal"
         headerTextToReplaceNone3 = "Value_Date"
         start, end = Excel.get_start_end_row_index(wb, startText, endText, startEndRefColumn)
-        dupHeadersRemoved = Excel.delete_rows_by_range(wb, start, end, deleteFlagStartText, deleteFlagStopText,
-                                              deleteFlagRefColumn)
+        dupHeadersRemoved = Excel.delete_rows_by_range(wb, start, end, deleteFlagStartText, deleteFlagStopText, deleteFlagRefColumn)
         start, end = Excel.get_start_end_row_index(dupHeadersRemoved, startText, endText, startEndRefColumn)
         footerDeleted = deleteFooter(dupHeadersRemoved, end - 1)  # end-1 to Include Last Row
         headerDeleted = deleteHeader(footerDeleted, start - 1)  # start-1 to Skip Header
         start, end = Excel.get_start_end_row_index(headerDeleted, startText, endText, startEndRefColumn)
-        convertedToDateA = dateConversion(headerDeleted, start + 1, end + 1,
-                                          dateConversionColumn)  # start+1 to Skip Header, end+1 to include last row
+        convertedToDateA = dateConversion(headerDeleted, start + 1, end + 1, dateConversionColumn)  # start+1 to Skip Header, end+1 to include last row
         lastCol = 65 + Excel.column_count(wb)
         transdate = Excel.alter_header_name(convertedToDateA, refHeaderText1, headerText1, lastCol)
         narration = Excel.alter_header_name(transdate, refHeaderText2, headerText2, lastCol)
@@ -90,11 +90,13 @@ def cityunion1_main(wb):
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(replacedNoneCHQNO, start, end + 1, headerTextToReplaceNone2)
         replacedNoneVALUEDATE = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, headerTextToReplaceNone3)
         createdTransTypeColumn = Excel.transaction_type_column(replacedNoneVALUEDATE)
-        return wb
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":
     path = "C:/Users/Admin/Downloads/CITY_UNION_BANK_-_SB-500101012199098__23-09-2023-18-18-25.xlsx"
     wb = openpyxl.load_workbook(path)
     result = cityunion1_main(wb)
-    result.save("C:/Users/Admin/Desktop/FinalOutput/CITY_UNION1output.xlsx")
+    result["data"].save("C:/Users/Admin/Desktop/FinalOutput/CITY_UNION1output.xlsx")

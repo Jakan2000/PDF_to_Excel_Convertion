@@ -1,8 +1,8 @@
-import os
 from datetime import datetime
+
 import openpyxl
 
-from FormatingExcelFiles.CommonClass import Excel
+from CommonClass import Excel
 
 
 def dateConvertion(wb, start, end, column):
@@ -94,7 +94,7 @@ def mergHeaderText(wb, start, column):
 def canara1_validation(wb):
     sheet = wb.active
     max_column = sheet.max_column
-    countOfColumn = 9
+    countOfColumn = 9   # need to change the logic for 8 column -> previous logic 9 columns
     if max_column < countOfColumn or max_column > countOfColumn:
         return True
     else:
@@ -103,8 +103,13 @@ def canara1_validation(wb):
 
 def canara1_main(wb):
     sheet = wb.active
+    # wb.save('C:/Users/Admin/Desktop/CANARA1output.xlsx')
+    # exit()
     if canara1_validation(wb):
-        raise Exception(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
         startText = "TRANS"
         endText = "UNLESS THE CONSTITUENT BRINGS TO THE NOTICE OF THE BANK"
@@ -181,7 +186,9 @@ def canara1_main(wb):
         slnoCreated = Excel.create_slno_column(balance, start, end + 1, chr(columnToCreateSlNo))
         negativeColumnChecked = Excel.check_neagativeValue_by_column(slnoCreated, negativeValueColumnRefText1)
         createdTransTypeColumn = Excel.transaction_type_column(negativeColumnChecked)
-        return wb
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":

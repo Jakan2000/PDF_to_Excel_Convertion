@@ -2,7 +2,7 @@ from datetime import datetime
 
 import openpyxl
 
-from FormatingExcelFiles.CommonClass import Excel
+from CommonClass import Excel
 
 
 def removeNone(wb, start, end, column):
@@ -75,30 +75,34 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
 def dbs1_validation(wb):
     sheet = wb.active
     max_column = sheet.max_column
-    countOfColumn1 = 9
-    countOfColumn2 = 8
-    if (max_column < countOfColumn1 or max_column > countOfColumn1) and (max_column < countOfColumn2 or max_column > countOfColumn2):
-        return True
-    else:
+    countOfColumn1 = 8
+    countOfColumn2 = 9
+    if max_column == countOfColumn1:
         return False
+    if max_column == countOfColumn2:
+        return False
+    else:
+        return True
 
 
 def dbs1_main(wb):
     sheet = wb.active
     if dbs1_validation(wb):
-        raise Exception(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
         startText = "Transaction date"
         endText = "Summary"
         startEndRefColumn = "A"
-        if sheet.max_column == 9:
-            deleteFlagStartText = "DBS Bank India Ltd."
-        if sheet.max_column == 8:
-            deleteFlagStartText = "Account statement"
+        deleteFlagStartText = "DBS Bank India Ltd."
         deleteFlagStopText = "Transaction date"
         deleteFlagRefColumn = "A"
         columnToMerg1 = "D"
         refColumnToMerg = "A"
+        refTextToRemoveRows1 = "Account statement"
+        refTextToRemoveRows2 = "Transaction date"
         dateConversionColumn1 = "A"
         dateConversionColumn2 = "B"
         stringAlignColumn1 = "D"
@@ -122,7 +126,6 @@ def dbs1_main(wb):
         headerTextToReplaceEmptyCellToNone1 = "ChequeNo_RefNo"
         headerTextToReplaceEmptyCellToNone2 = "Withdrawal"
         headerTextToReplaceEmptyCellToNone3 = "Deposit"
-        negativeValueColumnRefText2 = "Balance"
         start, end = Excel.get_start_end_row_index(wb, startText, endText, startEndRefColumn)
         duplicateHeaderRemoved = Excel.delete_rows_by_range(wb, start, end, deleteFlagStartText, deleteFlagStopText, deleteFlagRefColumn)
         start, end = Excel.get_start_end_row_index(duplicateHeaderRemoved, startText, endText, startEndRefColumn)
@@ -130,7 +133,10 @@ def dbs1_main(wb):
         noneRowsRemoved = removingNoneRows(rowsMergedD, start, end, refColumnToMerg)
         start, end = Excel.get_start_end_row_index(noneRowsRemoved, startText, endText, startEndRefColumn)
         start, end = Excel.get_start_end_row_index(noneRowsRemoved, startText, endText, startEndRefColumn)
-        dateConvertedA = dateConversion(noneRowsRemoved, start + 1, end, dateConversionColumn1)  # start-1 to Skip Header
+        Excel.remove_rows(wb, start, end, refTextToRemoveRows1, refColumnToMerg)
+        Excel.remove_rows(wb, start, end, refTextToRemoveRows2, refColumnToMerg)
+        start, end = Excel.get_start_end_row_index(noneRowsRemoved, startText, endText, startEndRefColumn)
+        dateConvertedA = dateConversion(wb, start + 1, end, dateConversionColumn1)  # start-1 to Skip Header
         dateConvertedB = dateConversion(dateConvertedA, start + 1, end, dateConversionColumn2)  # start-1 to Skip Header
         footerDeleted = deleteFooter(dateConvertedB, end - 1)  # end-1 to Include End Footer
         headerDeleted = deleteHeader(footerDeleted, start - 1)  # start-1 to Skip Header
@@ -155,13 +161,14 @@ def dbs1_main(wb):
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(replacedNoneCHQNO, start, end + 1, headerTextToReplaceEmptyCellToNone2)
         replacedNoneDEPOSIT = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, headerTextToReplaceEmptyCellToNone3)
         createdTransTypeColumn = Excel.transaction_type_column(replacedNoneDEPOSIT)
-        negativeValueCheckedBAlance = Excel.check_neagativeValue_by_column(createdTransTypeColumn, negativeValueColumnRefText2)
-        return wb
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/LVB_-_0145P.W_-_1L1675876_unlocked__12-09-2023-15-56-14.xlsx"
-    # path = "C:/Users/Admin/Desktop/test.xlsx"
+    path = "C:/Users/Admin/Downloads/LVB-0697__05-12-2023-19-02-44.xlsx"
+    # path = "C:/Users/Admin/Desktop/KSV/source_excel_files/LVB_-_0145P.W_-_1L1675876_unlocked__12-09-2023-15-56-14.xlsx"
     wb = openpyxl.load_workbook(path)
     result = dbs1_main(wb)
-    result.save('C:/Users/Admin/Desktop/FinalOutput/DBS1output.xlsx')
+    result["data"].save('C:/Users/Admin/Desktop/DBS1output.xlsx')

@@ -3,7 +3,7 @@ from datetime import datetime
 from openpyxl.utils import column_index_from_string
 import openpyxl
 
-from FormatingExcelFiles.CommonClass import Excel
+from CommonClass import Excel
 
 
 def removeString(wb, start, end, refText, column):
@@ -101,7 +101,10 @@ def indian_bank1_validation(wb):
 def indian_bank1_main(wb):
     sheet = wb.active
     if indian_bank1_validation(wb):
-        raise Exception(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
         startText = "ValueDate"
         endText = " Statement Downloaded By"
@@ -209,7 +212,9 @@ def indian_bank1_main(wb):
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(replacedNoneCHQNO, start, end + 1, columnTextToMakeEmptyCellToNone2)  # end+1 to include last row
         replacedNonedeposit = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, columnTextToMakeEmptyCellToNone3)  # end+1 to include last row
         createdTransTypeColumn = Excel.transaction_type_column(replacedNonedeposit)
-        return wb
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":

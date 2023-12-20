@@ -1,10 +1,8 @@
-import os
-from datetime import datetime
+import configparser
 
-import pandas
-from openpyxl.utils import column_index_from_string
 import openpyxl
-from openpyxl.utils.dataframe import dataframe_to_rows
+from minio import Minio
+from openpyxl.utils import column_index_from_string
 
 
 class Excel:
@@ -139,15 +137,16 @@ class Excel:
                 column_index = column
                 break
         return column_index
+
     def check_neagativeValue_by_column(wb, header):
-        sheet = wb.active
-        column = Excel.find_column_index_by_header(wb, header)
-        for i in range(2, sheet.max_row + 1):
-            value = sheet[f"{chr(column)}{i}"].value
-            if isinstance(value, str) and value.strip() != '' and float(value.replace(',', '')) < 0.0:
-                temp = str(sheet[f"{chr(column)}{i}"].value).replace(',', '')
-                sheet[f"{chr(column + 1)}{i}"].value = float(temp.replace("-", ""))
-                sheet[f"{chr(column)}{i}"].value = None
+        # sheet = wb.active
+        # column = Excel.find_column_index_by_header(wb, header)
+        # for i in range(2, sheet.max_row + 1):
+        #     value = sheet[f"{chr(column)}{i}"].value
+        #     if isinstance(value, str) and value.strip() != '' and float(value.replace(',', '')) < 0.0:
+        #         temp = str(sheet[f"{chr(column)}{i}"].value).replace(',', '')
+        #         sheet[f"{chr(column + 1)}{i}"].value = float(temp.replace("-", ""))
+        #         sheet[f"{chr(column)}{i}"].value = None
         return wb
 
     def empty_cell_to_none(wb, start, end, header):
@@ -172,15 +171,94 @@ class Excel:
                 sheet[f"{column}{x}"].value = None
         return wb
 
+    # def transaction_type_column(wb):
+    #     sheet = wb.active
+    #     Excel.creat_column(wb, header="Transaction_Type")
+    #     trans_type_column = chr(Excel.find_column_index_by_header(wb, header="Transaction_Type"))
+    #     withdrawal_column = chr(Excel.find_column_index_by_header(wb, header="Withdrawal"))
+    #     deposit_column = chr(Excel.find_column_index_by_header(wb, header="Deposit"))
+    #     for i in range(2, sheet.max_row + 1):
+    #         if sheet[f"{withdrawal_column}{i}"].value is not None and float(str(sheet[f"{withdrawal_column}{i}"].value)) >= 1:
+    #             sheet[f"{trans_type_column}{i}"].value = "Debit"
+    #
+    #         if sheet[f"{deposit_column}{i}"].value is not None and float(str(sheet[f"{deposit_column}{i}"].value)) >= 1:
+    #             sheet[f"{trans_type_column}{i}"].value = "Credit"
+    #     return wb
+
     def transaction_type_column(wb):
         sheet = wb.active
-        Excel.creat_column(wb, header = "Transaction_Type")
-        trans_type_column = chr(Excel.find_column_index_by_header(wb, header = "Transaction_Type"))
-        withdrawal_column = chr(Excel.find_column_index_by_header(wb, header = "Withdrawal"))
-        deposit_column = chr(Excel.find_column_index_by_header(wb, header = "Deposit"))
+        Excel.creat_column(wb, header="Transaction_Type")
+        trans_type_column = chr(Excel.find_column_index_by_header(wb, header="Transaction_Type"))
+        withdrawal_column = chr(Excel.find_column_index_by_header(wb, header="Withdrawal"))
+        deposit_column = chr(Excel.find_column_index_by_header(wb, header="Deposit"))
+
         for i in range(2, sheet.max_row + 1):
-            if sheet[f"{withdrawal_column}{i}"].value is not None and float(str(sheet[f"{withdrawal_column}{i}"].value)) >= 1:
-                sheet[f"{trans_type_column}{i}"].value = "Debit"
-            if sheet[f"{deposit_column}{i}"].value is not None and float(str(sheet[f"{deposit_column}{i}"].value)) >= 1:
-                sheet[f"{trans_type_column}{i}"].value = "Credit"
+            withdrawal_value = sheet[f"{withdrawal_column}{i}"].value
+            deposit_value = sheet[f"{deposit_column}{i}"].value
+
+            if withdrawal_value is not None:
+                try:
+                    withdrawal_float = float(str(withdrawal_value))
+                    if withdrawal_float >= 1:
+                        sheet[f"{trans_type_column}{i}"].value = "Debit"
+                except ValueError as e:
+                    print(f"Error processing withdrawal value at row {i}: {e}")
+
+            if deposit_value is not None:
+                try:
+                    deposit_float = float(str(deposit_value))
+                    if deposit_float >= 1:
+                        sheet[f"{trans_type_column}{i}"].value = "Credit"
+                except ValueError as e:
+                    print(f"Error processing deposit value at row {i}: {e}")
+
         return wb
+
+    def minio_upload_pdf(file_path, bucket_name, folder_path):
+        config = configparser.ConfigParser()
+        config.read(".env")
+        client = Minio('ksvca-server-01:3502', access_key=config.get("DEFAULT", "MINIO_ACCESS_KEY"), secret_key=config.get("DEFAULT", "MINIO_SECRET_KEY"), secure=False)
+        if r"/" in file_path:
+            file_name = file_path.split(r'/')[-1]
+        if R"Downloads\temp_" in file_path:
+            file_name = file_path.split(r"Downloads\temp_")[-1]
+        client.fput_object(bucket_name, folder_path + file_name, file_path)
+        url = client.presigned_get_object(bucket_name, folder_path + file_name, response_headers={'response-content-type': 'application/pdf'})
+        return url
+
+    # Checck Header Alignment, does header had skipped a column
+    def check_header_alignment(wb, start, startEndRefColumn, countOfColumn):
+        sheet = wb.active
+        column = ord(startEndRefColumn)
+        row = start
+        for i in range(0, countOfColumn):
+            column += 1
+            if sheet[f"{chr(column)}{row}"].value is None:
+                for col in range(column, countOfColumn + 65 + 1):
+                        sheet[f"{chr(col)}{row}"].value = sheet[f"{chr(col + 1)}{row}"].value
+        return wb
+
+    #Find Header in between Data rows
+    def find_header(wb, start, end, refText, refColumn):
+        sheet = wb.active
+        rows = []
+        for row in range(start, end):
+            if sheet[f"{refColumn}{row}"].value == refText:
+                rows.append(row)
+        return rows
+
+    # remove the rows that has the empty date column cell
+    def removeNoneRows(wb, start, end, column):
+        sheet = wb.active
+        for x in range(end - 1, start, -1):
+            if sheet[f"{column}{x}"].value is None:
+                sheet.delete_rows(x)
+        return wb
+
+
+
+
+
+
+
+

@@ -1,9 +1,20 @@
-import os
 from datetime import datetime
-from openpyxl.utils import column_index_from_string
+
 import openpyxl
 
-from FormatingExcelFiles.CommonClass import Excel
+from CommonClass import Excel
+
+
+def aligningAllColumns(wb, start, end, refColumn):
+    sheet = wb.active
+    for i in range(start, end):
+        if sheet[f"{refColumn}{i}"].value is None:
+            sheet[f'F{i}'].value = sheet[f'E{i}'].value
+            sheet[f'E{i}'].value = sheet[f'D{i}'].value
+            sheet[f'D{i}'].value = sheet[f'C{i}'].value
+            sheet[f'C{i}'].value = sheet[f'B{i}'].value
+            sheet[f'B{i}'].value = None
+    return wb
 
 
 def dateConvertion(wb, start, end, column):
@@ -77,11 +88,14 @@ def icici2_validation(wb):
 def icici2_main(wb):
     sheet = wb.active
     if icici2_validation(wb):
-        raise ValueError(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
-        startText = "PARTICULARS"
-        endText = "TOTAL"
-        startEndDefColumn = "C"
+        startText = "DATE"
+        endText = "Account Related Other Information"
+        startEndDefColumn = "A"
         deleteFlagStartText = "Page"
         deleteFlagEndText = "MODE"
         refColumn1 = "B"
@@ -89,6 +103,7 @@ def icici2_main(wb):
         columnToMerg1 = "C"
         openBalRefText = "B/F"
         openBalRefColumn = "C"
+        refColumnToAlignAllColumns = "F"
         dateConversionColumn = "A"
         refTextDeleteColumn = "MODE**"
         refHeaderText1 = "DATE"
@@ -107,6 +122,10 @@ def icici2_main(wb):
         stringAlignColumn3 = "C"
         stringAlignColumn4 = "D"
         stringAlignColumn5 = "E"
+        headerToMakeEmptyCellToNOne1 = "Deposit"
+        headerToMakeEmptyCellToNOne2 = "Withdrawal"
+        refStringToRemoveFromColumn1 = "None"
+        columnToRemoveNone = "C"
         columns = ["Transaction_Date", "Value_Date", "ChequeNo_RefNo", "Narration", "Deposit", "Withdrawal", "Balance"]
         start, end = Excel.get_start_end_row_index(wb, startText, endText, startEndDefColumn)
         rowsRemoveD = Excel.delete_rows_by_range(wb, start, end, deleteFlagStartText, deleteFlagEndText, refColumn1)
@@ -120,8 +139,8 @@ def icici2_main(wb):
         start, end = Excel.get_start_end_row_index(headerDeleted, startText, endText, startEndDefColumn)
         removeOpenBal = Excel.remove_row(headerDeleted, start, end, openBalRefText, openBalRefColumn)
         start, end = Excel.get_start_end_row_index(removeOpenBal, startText, endText, startEndDefColumn)
-        dateConvertedA = dateConvertion(removeOpenBal, start + 1, end + 1,
-                                        dateConversionColumn)  # start+1 to Skip Header, end+1 to Include Last Row
+        alignedAllColumns = aligningAllColumns(removeOpenBal, start, end+1, refColumnToAlignAllColumns)
+        dateConvertedA = dateConvertion(alignedAllColumns, start + 1, end + 1, dateConversionColumn)  # start+1 to Skip Header, end+1 to Include Last Row
         deletedModeColumn = Excel.delete_column(wb, refTextDeleteColumn)
         date = Excel.alter_header_name(deletedModeColumn, refHeaderText1, headerText1, lastCol - 1)
         naration = Excel.alter_header_name(date, refHeaderText2, headerText2, lastCol - 1)
@@ -133,12 +152,19 @@ def icici2_main(wb):
         columnToCreateSlNo = 65 + Excel.column_count(wb)
         slCreated = Excel.create_slno_column(alignedB, start, end + 1, chr(columnToCreateSlNo))
         columnFinalised = Excel.finalise_column(slCreated, columns)
-        createdTransTypeColumn = Excel.transaction_type_column(columnFinalised)
-        return wb
+        noneRemovedDeposit = Excel.remove_string(columnFinalised, start, end+1, refStringToRemoveFromColumn1, columnToRemoveNone)
+        depositMadeNone = Excel.empty_cell_to_none(noneRemovedDeposit, start, end+1, headerToMakeEmptyCellToNOne1)
+        withdrawalMadeNone = Excel.empty_cell_to_none(depositMadeNone, start, end+1, headerToMakeEmptyCellToNOne2)
+        createdTransTypeColumn = Excel.transaction_type_column(withdrawalMadeNone)
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/ICICI_-_2207PW-088601502207_unlocked__15-09-2023-12-58-00.xlsx"
+    path = "C:/Users/Admin/Desktop/KSV/source_excel_files/ICICI_-_2207PW-088601502207_unlocked__15-09-2023-12-58-00.xlsx"
+    # path = "C:/Users/Admin/Downloads/2._Rajamani_-_ICICI_8226 (1)__23-11-2023-13-21-31.xlsx"
     wb = openpyxl.load_workbook(path)
     result = icici2_main(wb)
-    result.save('C:/Users/Admin/Desktop/FinalOutput/ICICI2output.xlsx')
+    # result.save('C:/Users/Admin/Desktop/FinalOutput/ICICI2output.xlsx')
+    result.save('C:/Users/Admin/Desktop/ICICI2output.xlsx')

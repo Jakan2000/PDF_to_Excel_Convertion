@@ -1,9 +1,8 @@
-import os
 from datetime import datetime
 
 import openpyxl
 
-from FormatingExcelFiles.CommonClass import Excel
+from CommonClass import Excel
 
 
 def makeNone(wb, start, end, column):
@@ -93,13 +92,16 @@ def yes1_validation(wb):
 def yes1_main(wb):
     sheet = wb.active
     if yes1_validation(wb):
-        raise Exception(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
-        startText = """TransactionDate"""
+        startText = "TransactionDate"
         endText = "Opening Balance"
         startEndRefColumn = "A"
         deleteFlagStartText = "Customer Id"
-        deleteFlagStopText = """TransactionDate"""
+        deleteFlagStopText = "TransactionDate"
         deleteFlagRefColumn = "A"
         columnToMerg = "D"
         refColumnToMerg = "A"
@@ -173,11 +175,13 @@ def yes1_main(wb):
         replacedNoneWITHDRAWAL = Excel.empty_cell_to_none(slCreated, start, end + 1, headerTextToReplaceToNone1)
         replacedNoneDEPOSIT = Excel.empty_cell_to_none(replacedNoneWITHDRAWAL, start, end + 1, headerTextToReplaceToNone2)
         createdTransTypeColumn = Excel.transaction_type_column(replacedNoneDEPOSIT)
-        return wb
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/8._YES_bank_-_8241_Aug-Oct__23-09-2023-16-16-58.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = yes1_main(wb)
-    result.save("C:/Users/Admin/Desktop/FinalOutput/YES1output.xlsx")
+    result["data"].save("C:/Users/Admin/Desktop/YES1output.xlsx")

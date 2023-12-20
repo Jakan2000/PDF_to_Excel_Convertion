@@ -2,12 +2,11 @@ import configparser
 import email
 import imaplib
 import os
-import shutil
 
-from minio import Minio
 import fitz
+from minio import Minio
 
-from FormatingExcelFiles.main_driver import pdf_to_excel_main
+from main_driver import pdf_to_excel_main
 
 config = configparser.ConfigParser()
 config.read(".env")
@@ -22,15 +21,12 @@ def unlock_pdf(input_path, output_path, password):
     return output_path
 
 
-def minio_upload_pdf(file_path):
+def minio_upload_pdf(file_path, bucket_name, folder_path):
     client = Minio('ksvca-server-01:3502', access_key=config.get("DEFAULT", "MINIO_ACCESS_KEY"),
                    secret_key=config.get("DEFAULT", "MINIO_SECRET_KEY"), secure=False)
-    bucket_name = 'ksv'
-    folder_path = 'bank_statements/'
     file_name = file_path.split('/')[-1]
     client.fput_object(bucket_name, folder_path + file_name, file_path)
-    url = client.presigned_get_object(bucket_name, folder_path + file_name,
-                                      response_headers={'response-content-type': 'application/pdf'})
+    url = client.presigned_get_object(bucket_name, folder_path + file_name, response_headers={'response-content-type': 'application/pdf'})
     return url
 
 
@@ -103,7 +99,7 @@ def read_emails():
                 temp_op = email_data_list[index]['PDFAttachment'].split(".pdf")
                 output_path = temp_op[0] + "_unlocked" + ".pdf"
                 op = unlock_pdf(input_path=email_data_list[index]["PDFAttachment"], output_path=output_path, password="srin2005")
-                url = minio_upload_pdf(op)
+                url = minio_upload_pdf(file_path=op, bucket_name='ksv', folder_path='bank_statements/')
                 if url:
                     temp = url.split("?")
                     pdf_url = temp[0]
@@ -123,7 +119,6 @@ def read_emails():
 if __name__ == "__main__":
     read_emails()
     # minio_upload_pdf(file_path="C:/Users/Admin/Downloads/test_Axis.pdf")
-    # output_path = unlock_pdf(input_path="C:/Users/Admin/Desktop/Statement_2023MTH10_184523781.pdf",
-    #                         output_path="C:/Users/Admin/Desktop/Statement_2023MTH10_184523781_unlocked.pdf", password='srin2005')
+    # output_path = unlock_pdf(input_path="C:/Users/Admin/Desktop/Statement_2023MTH10_184523781.pdf", output_path="C:/Users/Admin/Desktop/Statement_2023MTH10_184523781_unlocked.pdf", password='srin2005')
     # os.remove("C:/Users/Admin/Desktop/Statement_2023MTH10_184523781.pdf")
     # os.remove(output_path)

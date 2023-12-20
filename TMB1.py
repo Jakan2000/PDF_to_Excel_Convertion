@@ -2,8 +2,8 @@ from datetime import datetime
 
 import openpyxl
 
-from FormatingExcelFiles.AlignmentData import addAlignmentData
-from FormatingExcelFiles.CommonClass import Excel
+from AlignmentData import addAlignmentData
+from CommonClass import Excel
 
 
 def string_in_column(wb, text):
@@ -136,7 +136,10 @@ def tmb1_validation(wb):
 def tmb1_main(wb):
     sheet = wb.active
     if tmb1_validation(wb):
-        raise Exception(f"<= INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
         column = string_in_column(wb, text="Closing Balance")
         if column == "D":
@@ -193,7 +196,9 @@ def tmb1_main(wb):
         convertedDateA = dateConversion(balance, start + 1, end + 1, dateConversionColumn1)  # start+1 to Skip Header, end+1 to Include Last Row
         columnFinalised = Excel.finalise_column(convertedDateA, columns)
         createdTransTypeColumn = Excel.transaction_type_column(columnFinalised)
-        return wb
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":

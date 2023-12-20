@@ -1,9 +1,8 @@
-import os
 from datetime import datetime
 
 import openpyxl
 
-from FormatingExcelFiles.CommonClass import Excel
+from CommonClass import Excel
 
 
 def dateHeaderAlter(wb, refText, actualText, lastCol):
@@ -120,7 +119,10 @@ def federal1_validation(wb):
 def federal1_main(wb):
     sheet = wb.active
     if federal1_validation(wb):
-        raise Exception(f"<<= {os.path.basename(path)} =>> INVALID FORMATE =>  <Count Of Column Mismatch>")
+        print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
+        response = {"data": None,
+                    "msg": "<= INVALID FORMATE : Count Of Column Mismatch =>"}
+        return response
     else:
         startText = "Particulars"
         endText = "GRAND TOTAL"
@@ -211,7 +213,9 @@ def federal1_main(wb):
         depositNoneReplaced = Excel.empty_cell_to_none(withdrawalNoneReplaced, start + 1, end + 1, headerTextToMakeEmptyCellsToNone2)
         chqnoNoneReplaced = Excel.empty_cell_to_none(depositNoneReplaced, start + 1, end + 1, headerTextToMakeEmptyCellsToNone3)
         createdTransTypeColumn = Excel.transaction_type_column(chqnoNoneReplaced)
-        return wb
+        response = {"data": wb,
+                    "msg": None}
+        return response
 
 
 if __name__ == "__main__":
