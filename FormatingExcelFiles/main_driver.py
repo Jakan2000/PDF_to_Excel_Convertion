@@ -61,7 +61,7 @@ def driver(work_book, bank, type, pdf_url, caller):
              "yes_bank": {"type1": yes1_main},
              }
     if bank in banks and type in banks[bank]:  # check is bank and tpe present in the banks json
-        result = banks[bank][type](work_book)  # calling the appropriate function
+        result = banks[bank][type](work_book)  # calling the appropriate function -> function call statement
         if result["msg"] is None:  # if msg is none then the data has the excel file
             wb = result["data"]
             response = to_db_and_return_response(wb, pdf_url, caller)  # insert the excel file to DB
@@ -114,7 +114,7 @@ def to_db_and_return_response(wb, pdf_url, caller):
             {column_name1: column_data1, column_name2: column_data2, column_name3: column_data3,
              column_name4: column_data4, column_name5: column_data5, column_name6: column_data6,
              column_name7: column_data7, column_name8: column_data8, column_name9: column_data9})
-        # storing the new data frame in a temp file
+        # storing the new data frame in a temp file and removed the slno column / rearranged the columns of deposit and withdrawal
         temp_new_df = pandas.DataFrame(
             {column_name2: column_data2, column_name3: column_data3,
              column_name4: column_data4, column_name5: column_data5, column_name6: column_data6, column_name8: column_data8,
@@ -131,14 +131,15 @@ def to_db_and_return_response(wb, pdf_url, caller):
         config = configparser.ConfigParser()
         config.read(".env")
         postgres_credentials = {
-            "user": config.get("DEFAULT", "USER"),
-            "password": config.get("DEFAULT", "PASSWORD"),
-            "host": config.get("DEFAULT", "HOST"),
-            "port": config.get("DEFAULT", "PORT"),
-            "database": config.get("DEFAULT", "DATABASE"),
+            "user": config.get("DEFAULT", "USER"),  # reading the data from environment variable (.env) file
+            "password": config.get("DEFAULT", "PASSWORD"),  # reading the data from environment variable (.env) file
+            "host": config.get("DEFAULT", "HOST"),  # reading the data from environment variable (.env) file
+            "port": config.get("DEFAULT", "PORT"),  # reading the data from environment variable (.env) file
+            "database": config.get("DEFAULT", "DATABASE"),  # reading the data from environment variable (.env) file
         }
         schema = "ksv"
         table_name = "bank_stmt_lines_t"
+        # connecting with DB
         connection = psycopg2.connect(**postgres_credentials)
         cursor = connection.cursor()
         insert_query = f"""
@@ -152,7 +153,7 @@ def to_db_and_return_response(wb, pdf_url, caller):
         cursor.close()
         connection.close()
         response = "Records inserted successfully."
-        if caller == "appsmith":  # if the api calling is from appsmith return the response as json
+        if caller == "appsmith":  # if the api calling is from appsmith returning the response as json
             split_file_name = pdf_url.split("/")
             file_name = split_file_name[len(split_file_name) - 1].replace(".pdf", ".xlsx")  # get the file name from the pdf url
             file_name = file_name.replace(".PDF", ".xlsx")   # replacing the Upper case .PDF also
@@ -179,7 +180,7 @@ def to_db_and_return_response(wb, pdf_url, caller):
         return response
 
 
-def delete_files_with_criteria(folder_path, keyword, extension):
+def delete_files_with_criteria(folder_path, keyword, extension):  # delete the temp file created by aspose lib
     # Get a list of all files in the folder
     files = os.listdir(folder_path)
     # Iterate through the files and delete those with the specified extension and keyword
