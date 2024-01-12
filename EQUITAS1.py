@@ -24,6 +24,7 @@ def dateConversion(wb, start, end, column):
         - The 'start' parameter denotes the first row to start converting dates.
         - The 'end' parameter denotes the row where date conversion stops (exclusive).
         - The original Workbook is modified in place.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating from table data start row to table data end row
@@ -47,6 +48,7 @@ def deleteHeader(wb, start):
         - The 'start' parameter denotes the row index from which rows will be deleted and onwards.
         - Rows are deleted in-place, and the original Workbook is modified.
         - If 'start' is 1, the entire sheet will be cleared, as it includes the header row.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterate from table data start row to table data end row
@@ -70,6 +72,7 @@ def deleteFooter(wb, end):
         - The 'end' parameter denotes the row index until which rows will be deleted (exclusive).
         - Rows are deleted in-place, and the original Workbook is modified.
         - If 'end' is equal to the maximum row count, it will result in an empty sheet.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterate through max row in sheet to table data end row
@@ -96,6 +99,7 @@ def removeNoneRows(wb, start, end, column):
         - The 'end' parameter denotes the row index until which the removal occurs (exclusive).
         - Rows are removed if the specified column's cell value is 'None'.
         - If 'start' and 'end' are equal, no rows will be removed.
+
     """
     sheet = wb.active
     for x in range(end - 1, start, -1):  # iterating through table data end row and table data start row
@@ -125,6 +129,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         - The 'end' parameter denotes the row index until which the merging occurs (exclusive).
         - If 'start' and 'end' are equal, no rows will be merged.
         - The merged data is concatenated and stored in the row where the first occurrence of the reference value is found.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -169,6 +174,7 @@ def equitas1_validation(wb):
         - This function checks whether the Workbook has the expected number of columns required by the core logic.
         - The core logic is designed for a specific count of columns, and this function validates if the Workbook adheres to that count.
         - If the Workbook has a column count different from the expected count, it may indicate an incompatible format.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -197,6 +203,7 @@ def equitas1_main(wb):
         - It validates the format of the Workbook using the `equitas1_validation` function.
         - If the validation is successful, it performs a series of operations to clean, merge, and standardize the data.
         - The processed Workbook is returned along with a status message in the dictionary.
+
     """
     sheet = wb.active
     if equitas1_validation(wb):  # validate columns for the core logic
@@ -261,7 +268,8 @@ def equitas1_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/Equitas_-_6802_unlocked__23-09-2023-12-01-43.xlsx"
+    # path = "C:/Users/Admin/Downloads/Equitas_-_6802_unlocked__23-09-2023-12-01-43.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = equitas1_main(wb)
-    result.save("C:/Users/Admin/Desktop/FinalOutput/EQUITAS1output.xlsx")
+    # result.save("C:/Users/Admin/Desktop/FinalOutput/EQUITAS1output.xlsx")

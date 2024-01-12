@@ -24,6 +24,7 @@ def dateConvertion(wb, start, end, column):
         - The 'start' parameter denotes the first row to start converting dates.
         - The 'end' parameter denotes the row where date conversion stops (exclusive).
         - The original Workbook is modified in place.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterate through start and end row
@@ -102,6 +103,7 @@ def deleteNoneRows(wb, start, end, refColumn):
         - This function deletes rows within the specified range where the date column cell is None.
         - Rows with a None value in the 'refColumn' are removed.
         - The function modifies the provided Workbook object in place.
+
     """
     sheet = wb.active
     for x in range(end, start, -1):  # iterate through end to start row
@@ -131,6 +133,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
 
         Returns:
         openpyxl.Workbook: The modified Workbook object after merging consecutive rows in the specified column.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -179,6 +182,7 @@ def deleteRowByLength(wb, start, end, refColumn, pgNoLength):
         - This function deletes rows within the specified range where the string length in the 'refColumn' is less than 'pgNoLength'.
         - Rows with non-empty values in the 'refColumn' and a string length less than 'pgNoLength' are removed.
         - The function modifies the provided Workbook object in place.
+
     """
     sheet = wb.active
     for x in range(end, start, -1):  # iterating through end and start row
@@ -202,6 +206,7 @@ def deleteFooter(wb, end):
         - This function deletes all rows below the provided 'end' index, essentially removing footer information.
         - Ensure that 'end' corresponds to the last row of your desired data to avoid unintentional data loss.
         - The modified Workbook is returned, and the original Workbook is updated in-place.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):   # iterating from data ending row to the last row
@@ -225,6 +230,7 @@ def mergHeaderText(wb, start, column):
         - This function merges the header text in the specified column from the next row and updates the header.
         - The header text from the next row is concatenated with the current header text.
         - The original Workbook is updated in-place, and the modified Workbook is returned.
+
     """
     sheet = wb.active
     txt = sheet[f"{column}{start}"].value + sheet[f"{column}{start + 1}"].value  # merging header text from next row
@@ -246,6 +252,7 @@ def canara1_validation(wb):
         - This function checks if the number of columns in the Workbook matches the expected count for the core logic.
         - If the count of columns is not equal to the expected count, the function returns True, indicating validation failure.
         - If the count of columns matches the expected count, the function returns False, indicating successful validation.
+
     """
     sheet = wb.active
     max_column = sheet.max_column   # get max column in the sheet, using predefined function
@@ -272,6 +279,7 @@ def canara1_main(wb):
         - This function applies a series of data processing steps and formatting to the Workbook based on the canara1 logic.
         - The processing steps include removing unwanted rows and headers, merging columns, aligning data, converting date formats, deleting columns, and more.
         - The function returns a dictionary with the processed Workbook data and a message indicating the success of the operation.
+
     """
     sheet = wb.active  # get active sheet
     if canara1_validation(wb):  # validate columns for the core logic
@@ -363,7 +371,8 @@ def canara1_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/1.Canara_-_6183__11-09-2023-18-32-43.xlsx"
+    # path = "C:/Users/Admin/Downloads/1.Canara_-_6183__11-09-2023-18-32-43.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = canara1_main(wb)
-    result.save('C:/Users/Admin/Desktop/FinalOutput/CANARA1output.xlsx')
+    # result.save('C:/Users/Admin/Desktop/FinalOutput/CANARA1output.xlsx')

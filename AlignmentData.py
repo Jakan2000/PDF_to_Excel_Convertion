@@ -14,6 +14,7 @@ def addAlignmentData(data):
         - The data is added to the next available row in the active sheet.
         - The function uses ASCII values to determine the column in which the data will be added.
         - After adding the data, the Excel file is saved with the new changes.
+
     """
     path = "C:/Users/Admin/Desktop/KSV/Python/AlignmentData.xlsx"  # path of the excel file
     wb = openpyxl.load_workbook(path)  # load the work book

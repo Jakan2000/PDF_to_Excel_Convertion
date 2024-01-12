@@ -24,6 +24,7 @@ def aligningColumn(wb, start, end, mergingColumn, refColumn):
         Note:
         The function assumes that the workbook contains an active sheet. It aligns the data in the specified merging column based on the
         values present in the reference column. The alignment is performed only when the reference column cell value is not None.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row and table data end row
@@ -49,6 +50,7 @@ def dateConvertion(wb, start, end, column):
         Note:
         The function assumes that the workbook contains an active sheet. It iterates through the specified column's data
         and converts the date values to a standard date format ('%d-%b-%Y'). The input dates are assumed to be in the 'dd-MMM-yyyy' format.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterate through table data start row and table data end row
@@ -72,6 +74,7 @@ def remove_space(wb, start, end, column):
         Note:
         The function assumes that the workbook contains an active sheet. It iterates through the specified column's data
         and replaces any spaces in the strings with an empty string.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -93,6 +96,7 @@ def removeHeader(wb, start):
         Note:
         The function assumes that the workbook contains an active sheet. It iterates through rows from the specified start
         index to the first row of the sheet, deleting each row.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of the sheet
@@ -114,6 +118,7 @@ def deleteColumn(wb, column):
         Note:
         The function assumes that the workbook contains an active sheet. It uses the openpyxl.utils.column_index_from_string
         function to obtain the column index from the header name and then deletes the entire column.
+
     """
     sheet = wb.active
     column_index = openpyxl.utils.column_index_from_string(column)  # getting column index by header name using inbuild function
@@ -137,6 +142,7 @@ def removeRowsByDateLength(wb, start, end, column):
         Note:
         The function iterates through the specified range of rows (from end to start) and checks the length of the date
         string in the specified column. If the length is less than a predefined year length, the row is deleted.
+
     """
     sheet = wb.active
     yearLength = 6  # length of the string to remove
@@ -163,6 +169,7 @@ def removeNone(wb, start, end, column):
         The function iterates through the specified range of rows and checks if the cell value in the specified column
         is not None and if "None" is present in the cell value string. If the conditions are met, "None" is replaced
         with an empty string.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterate through table data start column to table data end column
@@ -190,6 +197,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         non-None values in the reference column. It then concatenates the values in the merging column for
         consecutive starting rows and updates the corresponding cell with the merged data. The last row is also
         merged after the loop.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -237,6 +245,7 @@ def mergingDateColumn(wb, start, end, column):
         The function iterates through the specified range of rows and checks for incomplete date strings in the
         date column. If an incomplete date is identified (length less than inCompleteDateLen) and the next row's
         date has a complete year (length equal to yearLength), it concatenates them to form a complete date.
+
     """
     sheet = wb.active
     inCompleteDateLen = 10  # incomplete date length (string)
@@ -262,6 +271,7 @@ def icici3_validation(wb):
         Note:
         The function checks if the number of columns in the active sheet matches the expected count defined
         by the designed core logic (countOfColumn). If the count does not match, it returns True; otherwise, False.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -288,6 +298,7 @@ def icici3_main(wb):
         Otherwise, it executes a sequence of operations, such as merging date columns, aligning misaligned rows, removing "None" values,
         deleting columns, altering header names, creating new columns, and replacing empty cells with "None". The processed workbook
         is returned in the 'data' key of the response dictionary.
+
     """
     sheet = wb.active
     if icici3_validation(wb):  # validate columns for core logic
@@ -401,7 +412,8 @@ def icici3_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/ilovepdf_merged_7__26-09-2023-10-37-33.xlsx"
+    # path = "C:/Users/Admin/Downloads/ilovepdf_merged_7__26-09-2023-10-37-33.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = icici3_main(wb)
-    result.save('C:/Users/Admin/Desktop/FinalOutput/ICICI3output.xlsx')
+    # result.save('C:/Users/Admin/Desktop/FinalOutput/ICICI3output.xlsx')

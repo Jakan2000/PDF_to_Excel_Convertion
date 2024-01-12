@@ -21,6 +21,7 @@ def string_in_column(wb, text):
         This function iterates through each column and row in the provided Excel workbook ('wb') to find the specified
         reference text ('text'). It returns the column letter (in uppercase) where the text is found. If the text is not
         found in any cell, the function returns None.
+
     """
     sheet = wb.active
     for column in range(65, sheet.max_column+65):  # iterating through A to sheet max column
@@ -46,6 +47,7 @@ def dateConversion(wb, start, end, column):
         This function iterates through the specified column of the provided Excel workbook ('wb') and converts the date
         values to a standard date format ("%d-%m-%Y"). The conversion is applied to rows from the 'start' index to the
         'end-1' index (exclusive).
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -72,6 +74,7 @@ def alignColumns(wb, start, end, headData, refColumnToAlign):
         column ('refColumnToAlign'). It handles misaligned records by updating the 'Narration' column with the string
         "Error Record" and setting corresponding cells in other columns to None. Additionally, the function logs the
         misaligned records in a separate Excel file.
+
     """
     sheet = wb.active
     error_records = []  # array to store misaligned error records
@@ -113,6 +116,7 @@ def aligningAllColumns(wb, start, end, refColumn):
         This function aligns misaligned column data in the specified range of the provided Excel workbook ('wb') based on
         the content of a reference column ('refColumn'). It specifically handles cases where the reference column cell value
         is None.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -138,6 +142,7 @@ def deleteHeader(wb, start):
         Note:
         This function deletes rows from the active sheet of the provided Excel workbook ('wb') starting from the specified
         row index ('start') going upwards. It is designed to remove header rows in a table.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to table data end row
@@ -161,6 +166,7 @@ def headerData(wb, start, end):
         This function searches for relevant header information in the specified range of rows (from 'start' to 'end') of the
         active sheet in the provided Excel workbook ('wb'). It identifies and extracts account number, name, and period
         information based on specific patterns found in the Excel sheet.
+
     """
     sheet = wb.active
     acnum = "Undefined"  # creating a variable for account number and assigning string "Undefined"
@@ -192,6 +198,7 @@ def deleteFooter(wb, end):
         Note:
         This function deletes rows in the specified range (from 'end' to the last row) of the active sheet in the provided
         Excel workbook ('wb'). It is intended to remove footer information from the Excel sheet.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through sheet max row to table data end row
@@ -215,6 +222,7 @@ def removeNoneRows(wb, start, end, column):
         Note:
         This function deletes rows in the specified range (from 'start' to 'end' - 1) of the active sheet in the provided
         Excel workbook ('wb') if the specified reference column cell value is None.
+
     """
     sheet = wb.active
     for x in range(end - 1, start, -1):  # iterating through table data end row to table data start row
@@ -241,6 +249,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         This function merges consecutive rows of the specified 'mergingColumn' based on the values in the 'refColumn'.
         Rows are merged if the value in the 'refColumn' is not None, indicating the starting row for merging.
         The last row in the specified range will also be merged.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -285,6 +294,7 @@ def tmb1_validation(wb):
         This function compares the maximum column count in the active sheet of the Excel workbook with the expected
         column count for the TMB1 format. If the column count is not equal to the expected count, it is considered
         as an invalid format.
+
     """
     sheet = wb.active
     max_column = sheet.max_column   # get max column in the sheet, using predefined function
@@ -309,6 +319,7 @@ def tmb1_main(wb):
         This function performs various data processing steps to standardize the TMB1 format in the provided Excel workbook.
         If the workbook format is invalid, it prints an error message and returns a dictionary with a None data attribute and
         an error message. Otherwise, it returns a dictionary with the processed workbook and a None message.
+
     """
     sheet = wb.active
     if tmb1_validation(wb):  # validating columns for the core logic written
@@ -379,7 +390,8 @@ def tmb1_main(wb):
 
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Downloads/TMB_-_2333__23-09-2023-11-52-23.xlsx"
-    path = "C:/Users/Admin/Desktop/TMB_-_0406_Till_march__25-12-2023-11-58-13.xlsx"
+    # path = "C:/Users/Admin/Desktop/TMB_-_0406_Till_march__25-12-2023-11-58-13.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = tmb1_main(wb)
-    result["data"].save('C:/Users/Admin/Desktop/TMB1output.xlsx')
+    # result["data"].save('C:/Users/Admin/Desktop/TMB1output.xlsx')

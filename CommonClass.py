@@ -25,6 +25,7 @@ class Excel:
             Notes:
             - The function iterates through the specified column to find the row indexes of the start and end text.
             - If the start or end text is not found, the corresponding index is set to 0.
+
         """
         sheet = wb.active
         start = 0
@@ -57,6 +58,7 @@ class Excel:
             - The function iterates through the specified range of rows and adds a serial number column.
             - The first row of the specified column is assigned as the header ("Sl.No.").
             - Subsequent rows are assigned consecutive serial numbers.
+
         """
         sheet = wb.active
         slno = 1  # header row index
@@ -81,6 +83,7 @@ class Excel:
             Notes:
             - The function iterates through the columns in the first row and counts until an empty or None cell is encountered.
             - The count represents the number of columns with header text in the first row.
+
         """
         sheet = wb.active
         column = 65  # ASCII value of "A"
@@ -105,6 +108,7 @@ class Excel:
            Notes:
            - The function determines the next available column index by using the Excel.column_count function.
            - The header is assigned to the first row of the new column.
+
         """
         sheet = wb.active
         max_column = Excel.column_count(
@@ -127,6 +131,7 @@ class Excel:
             Notes:
             - The function iterates through the specified standard column headers and checks if they exist in the workbook.
             - If a standard column is missing, it is added to the workbook.
+
         """
         sheet = wb.active
         missing_columns = []  # array to store missing column
@@ -160,6 +165,7 @@ class Excel:
            Notes:
            - The function iterates through the specified range of rows in the given column.
            - For each cell, it removes newline characters (\n) from the string content.
+
         """
         sheet = wb.active
         for i in range(start, end):  # iterate through start row and end row
@@ -183,6 +189,7 @@ class Excel:
             - The function iterates through the headers in the first row of each column.
             - If the reference text is present in a header, it replaces it with the specified standard column name.
             - The iteration stops when the last column index is reached.
+
         """
         sheet = wb.active
         column = 65  # ASCII value of "A"
@@ -211,6 +218,7 @@ class Excel:
             - The function iterates through the specified range of rows in the given column.
             - If the reference text is found in a cell, the corresponding row is deleted.
             - The iteration stops when the row is deleted.
+
         """
         sheet = wb.active
         for x in range(end, start, -1):  # iterate through end row and start row
@@ -237,6 +245,7 @@ class Excel:
             - The function iterates through the specified range of rows in the given column.
             - For each row where the reference text is found in the cell, the row is deleted.
             - The iteration stops when the starting row index is reached.
+
         """
         sheet = wb.active
         for x in range(end, start, -1):  # iterate through end row to start row
@@ -264,6 +273,7 @@ class Excel:
             - It identifies the start and stop of the range based on the provided start and stop text.
             - Rows within the identified range are marked for deletion.
             - The deletion is performed in reverse order to avoid index problems.
+
         """
         sheet = wb.active
         delete_flag = False
@@ -294,6 +304,7 @@ class Excel:
             - The function iterates through all the columns in the sheet.
             - It searches for the specified reference text in the header of each column.
             - If the reference text is found, the corresponding column is deleted.
+
         """
         sheet = wb.active
         column_index = None
@@ -319,6 +330,7 @@ class Excel:
             Notes:
             - The function directly accesses cells in the first row of columns A to H.
             - It retrieves the values from these cells and returns them as a list.
+
         """
         sheet = wb.active
         header = [sheet["A1"].value, sheet["B1"].value, sheet["C1"].value, sheet["D1"].value, sheet["E1"].value,
@@ -341,6 +353,7 @@ class Excel:
            - It searches for the specified header text in the first cell of each column.
            - If the header text is found, the corresponding column index is returned.
            - If the header is not found in any column, None is returned.
+
         """
         sheet = wb.active
         column_index = None
@@ -378,6 +391,7 @@ class Excel:
            - The function finds the column index using the provided header text.
            - It then iterates through the specified range of rows in that column.
            - If a cell is empty (with a length less than 1), the cell value is set to `None`.
+
         """
         sheet = wb.active
         column = Excel.find_column_index_by_header(wb, header)  # find column index using header text
@@ -403,6 +417,7 @@ class Excel:
             Notes:
             - The function iterates through the specified range of cells in the given column.
             - If the reference string is found in a cell, it is replaced with an empty string.
+
         """
         sheet = wb.active
         for x in range(start, end):  # iterating through all cells from start to end row
@@ -427,6 +442,7 @@ class Excel:
             Notes:
             - The function iterates through the specified range of cells in the given column.
             - If the reference text is found in a cell, the cell value is replaced with `None`.
+
         """
         sheet = wb.active
         for x in range(start, end):  # iterate through start and end row
@@ -450,6 +466,7 @@ class Excel:
             - If the value in the "Withdrawal" column is >= 1, the transaction type is set to "Debit."
             - If the value in the "Deposit" column is >= 1, the transaction type is set to "Credit."
             - The function handles errors gracefully, printing a message if there's an issue processing values.
+
         """
         sheet = wb.active
         Excel.creat_column(wb, header="Transaction_Type")  # creating new transaction type column
@@ -496,6 +513,7 @@ class Excel:
             - The function determines the file name from the file path, handling both "/" and "\" separators.
             - The PDF file is uploaded to the specified bucket and folder within Minio.
             - The presigned URL of the uploaded PDF file is generated and returned.
+
         """
         config = configparser.ConfigParser()
         config.read(".env")  # reading values from environment variable (.env) file
@@ -524,6 +542,7 @@ class Excel:
            - The function creates a new Openpyxl Workbook and a new worksheet.
            - It appends the DataFrame data to the worksheet row by row.
            - The resulting Openpyxl Workbook contains the data from the Pandas DataFrame.
+
         """
         workbook = Workbook()  # Create a new Openpyxl Workbook
         worksheet = workbook.active  # Create a new worksheet

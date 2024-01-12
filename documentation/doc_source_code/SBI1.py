@@ -19,6 +19,7 @@ def deleteHeader(wb, start):
         Note:
         This function deletes rows in reverse order starting from the specified 'start' row index.
         The 'wb' parameter is modified in-place, and the modified workbook is returned.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row
@@ -41,6 +42,7 @@ def removeFooter(wb, end):
         This function deletes rows in reverse order starting from the last row of the sheet
         up to the specified 'end' row index. The 'wb' parameter is modified in-place,
         and the modified workbook is returned.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through max row of sheet to table data end row
@@ -65,6 +67,7 @@ def dateConvertion(wb, start, end, column):
         This function iterates through the rows in the specified range (from 'start' to 'end')
         and converts the date values in the specified 'column' to a standard date format.
         The 'wb' parameter is modified in-place, and the modified workbook is returned.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -90,6 +93,7 @@ def removeRowsByDateLength(wb, start, end, column):
         and deletes rows where the length of the date values in the specified 'column'
         is less than a predefined 'yearLength'. The 'wb' parameter is modified in-place,
         and the modified workbook is returned.
+
     """
     sheet = wb.active
     yearLength = 6  # year string length in date column cell
@@ -118,6 +122,7 @@ def mergingRowsByDateLength(wb, start, end, refColumn, mergingColumn):
         and merges rows in the 'mergingColumn' based on the date length in the 'refColumn'.
         Rows are merged if the 'refColumn' cell value is not None and has a length greater than or equal to 'dateWithFullLen'.
         The 'wb' parameter is modified in-place, and the modified workbook is returned.
+
     """
     sheet = wb.active
     dateWithFullLen = 10  # string length of complete date
@@ -167,6 +172,7 @@ def removeNone(wb, start, end, column):
         This function iterates through the rows in the specified range (from 'start' to 'end')
         and removes occurrences of the string "None" from the specified 'column'.
         The 'wb' parameter is modified in-place, and the modified workbook is returned.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -192,6 +198,7 @@ def mergingDateColumn(wb, start, end, column):
         This function iterates through the rows in the specified range (from 'start' to 'end')
         and merges incomplete date strings with corresponding year strings in the specified 'column'.
         The 'wb' parameter is modified in-place, and the modified workbook is returned.
+
     """
     sheet = wb.active
     inCompleteDateLen = 10  # incomplete date string length
@@ -219,6 +226,7 @@ def sbi1_validation(wb):
         is equal to the designed core logic count (7 columns for SBI Type 1 format).
         If the column count is not equal, it returns True, indicating a validation failure.
         Otherwise, it returns False, indicating that the column count is valid.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # getting sheet max column
@@ -238,13 +246,14 @@ def sbi1_main(wb):
 
         Returns:
         - dict: A dictionary containing processed data and an optional message.
-            - "data": The modified Excel workbook.
-            - "msg": An optional message. If None, the processing was successful.
+        - "data": The modified Excel workbook.
+        - "msg": An optional message. If None, the processing was successful.
 
         Note:
         This function performs a series of data processing steps on the provided Excel workbook ('wb') to standardize the format
         and structure of SBI Type 1 statements. It includes tasks such as header and footer removal, column merging,
         string alignment, date conversion, and header name alteration.
+
     """
     sheet = wb.active
     if sbi1_validation(wb):  # validating column count for core logic
@@ -344,7 +353,8 @@ if __name__ == "__main__":
     # path = "C:/Users/Admin/Desktop/10. January - 2023__29-12-2023-02-59-45.xlsx"
     # path = "C:/Users/Admin/Desktop/11. February - 2023__29-12-2023-03-02-23.xlsx"
     # path = "C:/Users/Admin/Desktop/12. March - 2023__29-12-2023-03-04-04.xlsx"
-    path = "C:/Users/Admin/Downloads/40499XXXXXX_HEJ2C9U8_unlocked__29-12-2023-14-16-03.xlsx"
+    # path = "C:/Users/Admin/Downloads/40499XXXXXX_HEJ2C9U8_unlocked__29-12-2023-14-16-03.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = sbi1_main(wb)
-    result["data"].save('C:/Users/Admin/Desktop/SBI1output.xlsx')
+    # result["data"].save('C:/Users/Admin/Desktop/SBI1output.xlsx')

@@ -56,6 +56,7 @@ def driver(work_book, bank, type, pdf_url, caller):
         This function acts as a driver to call specific processing functions based on the provided bank and type.
         It then inserts the processed data into the database using the `to_db_and_return_response` function.
         The function returns a dictionary containing the processed data, file name, and a status message.
+
     """
     banks = {"axis": {"type1": axis1_main},
              "canara": {"type1": canara1_main},
@@ -119,6 +120,7 @@ def to_db_and_return_response(wb, pdf_url, caller):
         5. Insert records into the database.
         6. If the caller is "appsmith," upload the processed Excel file to MinIO and return the file URL.
         7. Clean up temporary files.
+
     """
     temp = str(os.path.basename(pdf_url)).replace(".pdf", ".xlsx")  # storing Excel file name in temp variable
     file = temp.replace(".PDF", ".xlsx")  # replace if the .PDF is in Uppercase also
@@ -239,6 +241,7 @@ def delete_files_with_criteria(folder_path, keyword, extension):
         Note:
         This function iterates through all files in the specified folder and deletes those
         that match both the specified keyword and extension criteria.
+
     """
     # Get a list of all files in the folder
     files = os.listdir(folder_path)
@@ -262,6 +265,7 @@ def convert_url_to_bytes(pdf_url):
         Note:
         This function fetches the PDF file from the provided URL, extracts the bytes
         data for each page, and returns a list containing the bytes data for each page.
+
     """
     bytes_list = []
     response = requests.get(pdf_url)
@@ -293,6 +297,7 @@ def convert_bytes_to_excel(pdf_bytes):
         This function takes a list of bytes data representing each page of a PDF file,
         converts them to an Excel workbook, and saves the workbook to a file.
         The resulting Excel workbook and the filename are returned as a tuple.
+
     """
     def create_output_excel(output_xlsx):
         # Create a new Excel workbook
@@ -357,6 +362,7 @@ def pdf_to_excel_main(pdf_url, bank, type, caller):
         This function serves as the main entry point for converting a PDF file to an Excel workbook.
         It determines the conversion method based on the specified 'bank' and 'type' parameters.
         The resulting Excel workbook is processed using the 'driver' function and the response is returned as a dictionary.
+
     """
     if bank == "icici" and type == "type4":
         result = icici4_main(pdf_url)  # conversion done using camelot library

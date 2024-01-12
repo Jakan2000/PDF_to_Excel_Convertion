@@ -21,6 +21,7 @@ def makeNone(wb, start, end, column):
         Note:
         This function iterates through the specified range of rows in the given column and replaces the values of
         empty cells with 'None'. It is particularly useful when standardizing and cleaning data in Excel workbooks.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row and table data end row
@@ -45,6 +46,7 @@ def removeNone(wb, start, end, column):
         Note:
         This function iterates through the specified range of rows in the given column and removes occurrences of
         the string "None" from non-empty cells. It is useful for cleaning and standardizing data in Excel workbooks.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -69,6 +71,7 @@ def dateConversion(wb, start, end, column):
         Note:
         This function iterates through the specified range of rows in the given column and converts date values to
         a standard date format ("%d %b %Y"). It is useful for standardizing date formats in Excel workbooks.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -91,6 +94,7 @@ def deleteHeader(wb, start):
        This function iterates through the specified range of rows, starting from the bottom,
        and deletes rows up to the specified starting row index. It is useful for removing header
        information from Excel workbooks.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of sheet
@@ -113,6 +117,7 @@ def deleteFooter(wb, end):
        This function iterates through the specified range of rows, starting from the bottom
        of the Excel sheet, and deletes rows up to the specified ending row index. It is useful
        for removing footer information from Excel workbooks.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through sheet max row to table data end row
@@ -137,6 +142,7 @@ def removeNoneRows(wb, start, end, column):
         This function iterates through the specified range of rows, checking the value in the specified reference column.
         Rows with a None value in the reference column are removed from the workbook. It is useful for cleaning up data
         by removing rows with missing or undefined values in a particular column.
+
     """
     sheet = wb.active
     for x in range(end - 1, start, -1):  # iterating through table data end row to table data start row
@@ -163,6 +169,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         This function iterates through the specified range of rows, merging consecutive rows in the specified column
         based on the value in the reference column. The merged data is updated in the workbook, and the modified workbook
         is then returned.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -208,6 +215,7 @@ def yes1_validation(wb):
         core logic. The expected column count is defined by the variable 'countOfColumn'. If the workbook has a different
         number of columns, the function returns True, indicating a validation failure. Otherwise, it returns False,
         indicating that the workbook is valid for the specified core logic.
+
     """
     sheet = wb.active
     max_column = sheet.max_column   # get max column in the sheet, using predefined function
@@ -235,6 +243,7 @@ def yes1_main(wb):
         is returned. Otherwise, the function performs tasks such as aligning strings, removing "None" values, merging
         misaligned rows, converting date formats, and standardizing column names. The resulting workbook is then returned
         along with a success message.
+
     """
     sheet = wb.active
     if yes1_validation(wb):  # validating columns for the core logic written
@@ -330,4 +339,4 @@ if __name__ == "__main__":
     path = ""
     wb = openpyxl.load_workbook(path)
     result = yes1_main(wb)
-    result["data"].save("C:/Users/Admin/Desktop/YES1output.xlsx")
+    # result["data"].save("C:/Users/Admin/Desktop/YES1output.xlsx")

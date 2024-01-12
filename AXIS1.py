@@ -22,6 +22,7 @@ def deleteNoneRows(wb, start, end, refColumn):
         - The function iterates from the end to the start row and checks if the specified column has a None value.
         - If a row contains a None value in the specified column, that row is deleted.
         - The function modifies the Workbook in-place and returns the updated Workbook.
+
     """
     sheet = wb.active
     for x in range(end, start, -1):  # iterate from end to start row
@@ -49,6 +50,7 @@ def dateConvertion(wb, start, end, column):
         - The function iterates through the specified rows and converts date values in the specified column.
         - The date values are converted to a standard date format ("%d-%m-%Y").
         - The function modifies the Workbook in-place and returns the updated Workbook.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through start and end row
@@ -71,6 +73,7 @@ def deleteHeader(wb, start):
         - The function iterates from the specified start index to the header row (row index 0).
         - Rows above the start index (including the start index row) are deleted.
         - The function modifies the Workbook in-place and returns the updated Workbook.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating from header row to the 0 index row
@@ -93,6 +96,7 @@ def deleteFooter(wb, end):
        - The function iterates from the last row (maximum row index) to the specified end index.
        - Rows below the end index (including the end index row) are deleted.
        - The function modifies the Workbook in-place and returns the updated Workbook.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating from data ending row to the last row
@@ -120,6 +124,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         - The merged value is formed by concatenating the data in the mergingColumn for corresponding rows.
         - The last row (end index row) is also considered for merging.
         - The function modifies the Workbook in-place and returns the updated Workbook.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data which was scattered
@@ -167,6 +172,7 @@ def axis1_validation(wb):
        - The expected count is set to 7 (countOfColumn), representing the column count for a specific logic.
        - If the count matches, the validation is successful, and the function returns True.
        - If the count does not match, the validation fails, and the function returns False.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column in the sheet, using predefined function
@@ -194,6 +200,7 @@ def axis1_main(wb):
         - Data processing includes validation, column alignment, header replacement, and other operations.
         - The modified Workbook is included in the response dictionary under the 'data' key.
         - The 'msg' key contains a message indicating the success or failure of the operation.
+
     """
     sheet = wb.active  # get active sheet
     if axis1_validation(wb):  # validate columns for the core logic
@@ -274,8 +281,9 @@ def axis1_main(wb):
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Downloads/1.Axis_-_8874-PW_-_GNAN842166790_unlocked__19-09-2023-14-05-39.xlsx"
     # path = "C:/Users/Admin/Downloads/1.SVTTransports-AXIS1437__23-11-2023-17-46-06.xlsx"
-    path = "C:/Users/Admin/Downloads/AXIS_-_5664__31-12-2023-13-17-11.xlsx"
+    # path = "C:/Users/Admin/Downloads/AXIS_-_5664__31-12-2023-13-17-11.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = axis1_main(wb)
     # result.save('C:/Users/Admin/Desktop/FinalOutput/AXIS1output.xlsx')
-    result["data"].save('C:/Users/Admin/Desktop/AXIS1output.xlsx')
+    # result["data"].save('C:/Users/Admin/Desktop/AXIS1output.xlsx')

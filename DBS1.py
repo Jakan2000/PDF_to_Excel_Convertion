@@ -5,7 +5,7 @@ import openpyxl
 from CommonClass import Excel
 
 
-def removeNone(wb, start, end, column):  # removing "None" string from a column cells
+def removeNone(wb, start, end, column):
     """
         Remove the string "None" from cells in a specified column within the given Excel workbook.
 
@@ -23,6 +23,7 @@ def removeNone(wb, start, end, column):  # removing "None" string from a column 
         - For each cell in the column within the range, it checks if the cell is not None and if the cell value contains the string "None".
         - If both conditions are met, it replaces the "None" string with an empty string in the cell.
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating from start to end row
@@ -47,6 +48,7 @@ def deleteHeader(wb, start):
         - The 'start' parameter denotes the row index from which rows above will be deleted.
         - If 'start' is 1, it will remove all rows above the first row, effectively clearing the sheet.
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating from table data header row to sheet's 1st row
@@ -73,6 +75,7 @@ def dateConversion(wb, start, end, column):
         - The 'start' parameter denotes the first row to start converting dates.
         - The 'end' parameter denotes the row where date conversion stops (exclusive).
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterate from table data start to end row
@@ -96,6 +99,7 @@ def deleteFooter(wb, end):
         - The 'end' parameter denotes the row index until which rows below will be deleted.
         - If 'end' is the last row index, it will effectively clear the sheet below that row.
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through max row in the sheet to last row of table data
@@ -122,6 +126,7 @@ def removingNoneRows(wb, start, end, refColumn):
         - The 'end' parameter denotes the row where checking for empty values stops (exclusive).
         - The 'refColumn' parameter indicates the column to be used as a reference for empty value checks.
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     for x in range(end, start, -1):  # iterating through table data end row to table data start row
@@ -152,6 +157,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         - The 'refColumn' parameter indicates the column used for identifying the starting row of a group to be merged.
         - The 'mergingColumn' parameter indicates the column where merging should be applied.
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     dataToMerge = []    # array to store row data which was scattered
@@ -198,6 +204,7 @@ def dbs1_validation(wb):  # the conversion of pdf to excel may cause this statem
         - The validation is based on a specific core logic that can handle either 8 or 9 columns.
         - If the number of columns is 8 or 9, the format is considered valid; otherwise, it is considered invalid.
         - The original workbook is not modified by this function.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -228,6 +235,7 @@ def dbs1_main(wb):
         - If the format is invalid, it prints an error message and returns a dictionary with a message and None.
         - If the format is valid, it proceeds with transforming the data based on specified operations.
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     if dbs1_validation(wb):  # validating the column count for the core logic
@@ -313,7 +321,8 @@ def dbs1_main(wb):
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Downloads/LVB-0697__05-12-2023-19-02-44.xlsx"
     # path = "C:/Users/Admin/Desktop/KSV/source_excel_files/LVB_-_0145P.W_-_1L1675876_unlocked__12-09-2023-15-56-14.xlsx"
-    path = "C:/Users/Admin/Desktop/0ba801750000001800837_ESTATEMENT_022023_0ba8017500000018__27-12-2023-23-53-03.xlsx"
+    # path = "C:/Users/Admin/Desktop/0ba801750000001800837_ESTATEMENT_022023_0ba8017500000018__27-12-2023-23-53-03.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = dbs1_main(wb)
-    result["data"].save('C:/Users/Admin/Desktop/DBS1output.xlsx')
+    # result["data"].save('C:/Users/Admin/Desktop/DBS1output.xlsx')

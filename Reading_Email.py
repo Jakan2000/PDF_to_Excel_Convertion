@@ -23,6 +23,7 @@ def unlock_pdf(input_path, output_path, password):
 
        Returns:
        str: Path to the saved unlocked PDF file.
+
     """
     pdf_document = fitz.open(input_path)  # Open the PDF document
     if pdf_document.is_encrypted:  # Check if the PDF is encrypted
@@ -43,6 +44,7 @@ def minio_upload_pdf(file_path, bucket_name, folder_path):
 
         Returns:
         str: The URL of the uploaded PDF file.
+
     """
     client = Minio('ksvca-server-01:3502', access_key=config.get("DEFAULT", "MINIO_ACCESS_KEY"),
                    secret_key=config.get("DEFAULT", "MINIO_SECRET_KEY"), secure=False)  # connecting with minio
@@ -59,6 +61,7 @@ def read_emails():  # reading unreaded email in inbox folder in Gmail
         Returns:
         list: A list of dictionaries containing email data, including sender, subject, email content,
               PDF attachment information, URL after unlocking and uploading, and additional processing.
+
     """
     receiver_email = "cyborgwayne2000@gmail.com"  # receiver email -> KSV email
     mail = imaplib.IMAP4_SSL('imap.gmail.com')  # Connect to Gmail server

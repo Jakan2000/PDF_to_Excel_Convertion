@@ -22,6 +22,7 @@ def aligningAllColumns(wb, start, end, refColumn):
         - This function is designed for aligning columns in a specified range when the value in the reference column is None.
         - Columns from F to B are shifted to the right, and the value in column E is moved to column F, and so on.
         - The specified range is inclusive of both the start and end indices.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start column to table data end column
@@ -50,6 +51,7 @@ def dateConvertion(wb, start, end, column):
         Note:
         - This function converts the date values in the specified column to the standard date format "%d-%m-%Y".
         - The specified range is inclusive of both the start and end indices.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -71,6 +73,7 @@ def deleteHeader(wb, start):
         Note:
         - This function deletes rows from the top of the sheet (above the start index) down to the 1st row of the sheet.
         - The specified start index is inclusive, and rows above it will be removed.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of sheet
@@ -92,6 +95,7 @@ def deleteFooter(wb, end):
         Note:
         - This function deletes rows from the bottom of the sheet (below the end index) up to the last row of the sheet.
         - The specified end index is inclusive, and rows below it will be removed.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through max row of sheet to table data end row
@@ -114,8 +118,9 @@ def removeNoneRows(wb, start, end, column):
 
         Note:
         - This function iterates through the specified range (from end to start) and removes rows
-          where the cell value in the specified column is None.
+        where the cell value in the specified column is None.
         - The specified range is inclusive (both start and end indices are included).
+
     """
     sheet = wb.active
     for x in range(end - 1, start, -1):  # iterating through table data end row to table data start row
@@ -140,9 +145,10 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
 
         Note:
         - This function iterates through the specified range and merges consecutive rows with the same value
-          in the reference column for the specified merging column.
+        in the reference column for the specified merging column.
         - The merged value is a concatenation of the original values in the merging column for each consecutive row.
         - The last row in the specified range will be merged outside the loop.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -185,9 +191,10 @@ def icici2_validation(wb):
 
         Note:
         - This function checks whether the number of columns in the active sheet of the workbook is equal to
-          the expected count for the ICICI2 core logic.
+        the expected count for the ICICI2 core logic.
         - If the count of columns is not equal to the expected count, the validation fails (returns True).
         - If the count of columns is equal to the expected count, the validation passes (returns False).
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -208,27 +215,28 @@ def icici2_main(wb):
 
         Returns:
         - response (dict): A dictionary containing the processed workbook (`data`) and an optional error message (`msg`).
-                          If there is a column count mismatch, an error message is included; otherwise, the message is set to None.
+        If there is a column count mismatch, an error message is included; otherwise, the message is set to None.
 
         Operations:
         1. Column Validation:
-           - Checks if the workbook has the expected number of columns using the `icici2_validation` function.
-           - If the validation fails, it prints an error message, creates a response dictionary with a corresponding error message, and returns the response.
+        - Checks if the workbook has the expected number of columns using the `icici2_validation` function.
+        - If the validation fails, it prints an error message, creates a response dictionary with a corresponding error message, and returns the response.
 
         2. Data Processing Steps:
-           - Defines various constants such as start and end text, reference columns, header texts, and column names.
-           - Utilizes helper functions from an `Excel` module (assuming it's defined elsewhere) for operations like deleting rows,
-             merging columns, aligning columns, converting dates, deleting columns, altering header names, string alignment,
-             creating serial numbers, standardizing column count, removing specific strings, making empty cells to None, and creating a new transaction type column.
+        - Defines various constants such as start and end text, reference columns, header texts, and column names.
+        - Utilizes helper functions from an `Excel` module (assuming it's defined elsewhere) for operations like deleting rows,
+        merging columns, aligning columns, converting dates, deleting columns, altering header names, string alignment,
+        creating serial numbers, standardizing column count, removing specific strings, making empty cells to None, and creating a new transaction type column.
 
         3. Workbook Processing Flow:
-           - Retrieves the start and end row indices based on specific header texts to define the data range.
-           - Deletes unnecessary rows using the `Excel.delete_rows_by_range` function.
+        - Retrieves the start and end row indices based on specific header texts to define the data range.
+        - Deletes unnecessary rows using the `Excel.delete_rows_by_range` function.
 
         Note:
         The function follows a structured approach to process financial data in an Excel workbook. It ensures that the data is cleaned, aligned, and formatted
         according to specified standards. The `Excel` module is assumed to contain helper functions for common Excel operations.
-        """
+
+    """
     sheet = wb.active
     if icici2_validation(wb):  # validate columns for the core logic
         print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
@@ -308,8 +316,9 @@ def icici2_main(wb):
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Desktop/KSV/source_excel_files/ICICI_-_2207PW-088601502207_unlocked__15-09-2023-12-58-00.xlsx"
     # path = "C:/Users/Admin/Downloads/2._Rajamani_-_ICICI_8226 (1)__23-11-2023-13-21-31.xlsx"
-    path = "C:/Users/Admin/Downloads/GOKUL_ICICI_-_PASS_GOKU2210_unlocked__28-12-2023-17-36-15.xlsx"
+    # path = "C:/Users/Admin/Downloads/GOKUL_ICICI_-_PASS_GOKU2210_unlocked__28-12-2023-17-36-15.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = icici2_main(wb)
     # result.save('C:/Users/Admin/Desktop/FinalOutput/ICICI2output.xlsx')
-    result["data"].save('C:/Users/Admin/Desktop/ICICI2output.xlsx')
+    # result["data"].save('C:/Users/Admin/Desktop/ICICI2output.xlsx')

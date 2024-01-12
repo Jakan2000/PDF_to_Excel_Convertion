@@ -27,6 +27,7 @@ def dateConversion(wb, start, end, column):
         Note:
         The function iterates through the specified range of rows in the given column, checks if the cell is not empty,
         and converts the date to a standard date format ('%d/%m/%Y'). The converted date is then assigned back to the cell.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -54,6 +55,7 @@ def removeNoneRows(wb, start, end, column):
         Note:
         The function iterates through the specified range of rows in the given column, and if the cell value is None,
         it deletes the entire row. Rows are processed in reverse order to avoid index issues during deletion.
+
     """
     sheet = wb.active
     for x in range(end - 1, start, -1):  # iterating through table data end row to table data start row
@@ -75,6 +77,7 @@ def remove_header(wb, start):
 
         Note:
         The function iterates through rows from the specified start index to the first row (row 1) and deletes each row.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to table data end row
@@ -99,6 +102,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         Note:
         The function iterates through the specified range of rows, identifies starting rows based on the reference column,
         and merges the corresponding rows in the specified merging column.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -141,6 +145,7 @@ def pandas_df_to_openpyxl(df):
 
         Note:
         The function creates a new Openpyxl Workbook and worksheet, then appends the DataFrame data to the worksheet.
+
     """
     workbook = Workbook()  # Create a new Openpyxl Workbook
     worksheet = workbook.active  # Create a new worksheet
@@ -163,6 +168,7 @@ def icici4_validation(wb):
         Note:
         The function checks if the number of columns in the active sheet of the workbook matches the expected count
         for the ICICI4 format.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -188,6 +194,7 @@ def icici4_main(pdf_url):
         extracts tables using Camelot, and converts the data into an Openpyxl Workbook. It then performs
         various operations on the data to standardize the format. The result is returned as a dictionary
         containing the processed data or an error message.
+
     """
     startText = "Value Date"  # header text to define table data start row
     endText = ""  # reference text to define table data end row -> hear if empty string means max row of sheet
@@ -273,10 +280,11 @@ def icici4_main(pdf_url):
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Desktop/KSV/source_excel_files/2._ICICI_-_4642__27-11-2023-17-43-28.xlsx"
     # path = "C:/Users/Admin/Downloads/2._ICICI_-_4642.pdf"
-    path = "http://ksvca-server-01:3502/ksv/%2Funlock_pdf/2._ICICI_-_4642.pdf"
+    # path = "http://ksvca-server-01:3502/ksv/%2Funlock_pdf/2._ICICI_-_4642.pdf"
+    path = ""
     # wb = openpyxl.load_workbook(path)
     result = icici4_main(path)
-    if result["data"] is not None:
-        result["data"].save('C:/Users/Admin/Desktop/ICICI4output.xlsx')
-    else:
-        print(result["msg"])
+    # if result["data"] is not None:
+    #     result["data"].save('C:/Users/Admin/Desktop/ICICI4output.xlsx')
+    # else:
+    #     print(result["msg"])

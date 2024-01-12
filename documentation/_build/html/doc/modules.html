@@ -1,0 +1,535 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../">
+  <head><meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../genindex.html" /><link rel="search" title="Search" href="../search.html" />
+
+    <!-- Generated with Sphinx 7.2.6 and Furo 2023.09.10 -->
+        <title>doc_source_code - pdf_to_excel_convertion 1.0.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo.css?v=135e06be" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/furo-extensions.css?v=36a5483c" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #f8f8f8;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-half" viewBox="0 0 24 24">
+    <title>Auto light/dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-shadow">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M13 12h5" />
+      <path d="M13 15h4" />
+      <path d="M13 18h1" />
+      <path d="M13 9h4" />
+      <path d="M13 6h1" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../index.html"><div class="brand">pdf_to_excel_convertion 1.0.0 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../index.html">
+  
+  
+  <span class="sidebar-brand-text">pdf_to_excel_convertion 1.0.0 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto"><use href="#svg-sun-half"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main">
+          <section id="doc-source-code">
+<h1>doc_source_code<a class="headerlink" href="#doc-source-code" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="doc_source_code.html">doc_source_code package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.AXIS1">doc_source_code.AXIS1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.AXIS1.axis1_main"><code class="docutils literal notranslate"><span class="pre">axis1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.AXIS1.axis1_validation"><code class="docutils literal notranslate"><span class="pre">axis1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.AXIS1.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.AXIS1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.AXIS1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.AXIS1.deleteNoneRows"><code class="docutils literal notranslate"><span class="pre">deleteNoneRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.AXIS1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.AlignmentData">doc_source_code.AlignmentData module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.AlignmentData.addAlignmentData"><code class="docutils literal notranslate"><span class="pre">addAlignmentData()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.CANARA1">doc_source_code.CANARA1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.alignColumn"><code class="docutils literal notranslate"><span class="pre">alignColumn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.canara1_main"><code class="docutils literal notranslate"><span class="pre">canara1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.canara1_validation"><code class="docutils literal notranslate"><span class="pre">canara1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.deleteNoneRows"><code class="docutils literal notranslate"><span class="pre">deleteNoneRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.deleteRowByLength"><code class="docutils literal notranslate"><span class="pre">deleteRowByLength()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.delete_header"><code class="docutils literal notranslate"><span class="pre">delete_header()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.mergHeaderText"><code class="docutils literal notranslate"><span class="pre">mergHeaderText()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CANARA1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.CITY_UNION1">doc_source_code.CITY_UNION1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CITY_UNION1.cityunion1_main"><code class="docutils literal notranslate"><span class="pre">cityunion1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CITY_UNION1.cityunion1_validation"><code class="docutils literal notranslate"><span class="pre">cityunion1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CITY_UNION1.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CITY_UNION1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CITY_UNION1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.CommonClass">doc_source_code.CommonClass module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel"><code class="docutils literal notranslate"><span class="pre">Excel</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.alter_header_name"><code class="docutils literal notranslate"><span class="pre">Excel.alter_header_name()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.check_neagativeValue_by_column"><code class="docutils literal notranslate"><span class="pre">Excel.check_neagativeValue_by_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.column_count"><code class="docutils literal notranslate"><span class="pre">Excel.column_count()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.creat_column"><code class="docutils literal notranslate"><span class="pre">Excel.creat_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.create_slno_column"><code class="docutils literal notranslate"><span class="pre">Excel.create_slno_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.delete_column"><code class="docutils literal notranslate"><span class="pre">Excel.delete_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.delete_rows_by_range"><code class="docutils literal notranslate"><span class="pre">Excel.delete_rows_by_range()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.empty_cell_to_none"><code class="docutils literal notranslate"><span class="pre">Excel.empty_cell_to_none()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.finalise_column"><code class="docutils literal notranslate"><span class="pre">Excel.finalise_column()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.find_column_index_by_header"><code class="docutils literal notranslate"><span class="pre">Excel.find_column_index_by_header()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.get_header"><code class="docutils literal notranslate"><span class="pre">Excel.get_header()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.get_start_end_row_index"><code class="docutils literal notranslate"><span class="pre">Excel.get_start_end_row_index()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.minio_upload_pdf"><code class="docutils literal notranslate"><span class="pre">Excel.minio_upload_pdf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.pandas_df_to_openpyxl"><code class="docutils literal notranslate"><span class="pre">Excel.pandas_df_to_openpyxl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.remove_row"><code class="docutils literal notranslate"><span class="pre">Excel.remove_row()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.remove_rows"><code class="docutils literal notranslate"><span class="pre">Excel.remove_rows()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.remove_string"><code class="docutils literal notranslate"><span class="pre">Excel.remove_string()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.replace_to_none"><code class="docutils literal notranslate"><span class="pre">Excel.replace_to_none()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.string_align"><code class="docutils literal notranslate"><span class="pre">Excel.string_align()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="doc_source_code.html#doc_source_code.CommonClass.Excel.transaction_type_column"><code class="docutils literal notranslate"><span class="pre">Excel.transaction_type_column()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.DBS1">doc_source_code.DBS1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.DBS1.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.DBS1.dbs1_main"><code class="docutils literal notranslate"><span class="pre">dbs1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.DBS1.dbs1_validation"><code class="docutils literal notranslate"><span class="pre">dbs1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.DBS1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.DBS1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.DBS1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.DBS1.removeNone"><code class="docutils literal notranslate"><span class="pre">removeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.DBS1.removingNoneRows"><code class="docutils literal notranslate"><span class="pre">removingNoneRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.EQUITAS1">doc_source_code.EQUITAS1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.EQUITAS1.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.EQUITAS1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.EQUITAS1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.EQUITAS1.equitas1_main"><code class="docutils literal notranslate"><span class="pre">equitas1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.EQUITAS1.equitas1_validation"><code class="docutils literal notranslate"><span class="pre">equitas1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.EQUITAS1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.EQUITAS1.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.FEDERAL1">doc_source_code.FEDERAL1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.dateHeaderAlter"><code class="docutils literal notranslate"><span class="pre">dateHeaderAlter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.deleteRow"><code class="docutils literal notranslate"><span class="pre">deleteRow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.federal1_main"><code class="docutils literal notranslate"><span class="pre">federal1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.federal1_validation"><code class="docutils literal notranslate"><span class="pre">federal1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.removeNone"><code class="docutils literal notranslate"><span class="pre">removeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.removeRowsOnRange"><code class="docutils literal notranslate"><span class="pre">removeRowsOnRange()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.FEDERAL1.removingNullRows"><code class="docutils literal notranslate"><span class="pre">removingNullRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.HDFC1">doc_source_code.HDFC1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.alignColumns"><code class="docutils literal notranslate"><span class="pre">alignColumns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.aligningAllColumns"><code class="docutils literal notranslate"><span class="pre">aligningAllColumns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.hdfc1_main"><code class="docutils literal notranslate"><span class="pre">hdfc1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.hdfc1_validation"><code class="docutils literal notranslate"><span class="pre">hdfc1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.headerData"><code class="docutils literal notranslate"><span class="pre">headerData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.HDFC1.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.ICICI1">doc_source_code.ICICI1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.delete_footer"><code class="docutils literal notranslate"><span class="pre">delete_footer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.delete_header"><code class="docutils literal notranslate"><span class="pre">delete_header()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.delete_nonerows"><code class="docutils literal notranslate"><span class="pre">delete_nonerows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.delete_pagenorow"><code class="docutils literal notranslate"><span class="pre">delete_pagenorow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.icici1_main"><code class="docutils literal notranslate"><span class="pre">icici1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.icici1_validation"><code class="docutils literal notranslate"><span class="pre">icici1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.merging_rows"><code class="docutils literal notranslate"><span class="pre">merging_rows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI1.remove_none"><code class="docutils literal notranslate"><span class="pre">remove_none()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.ICICI2">doc_source_code.ICICI2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI2.aligningAllColumns"><code class="docutils literal notranslate"><span class="pre">aligningAllColumns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI2.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI2.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI2.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI2.icici2_main"><code class="docutils literal notranslate"><span class="pre">icici2_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI2.icici2_validation"><code class="docutils literal notranslate"><span class="pre">icici2_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI2.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI2.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.ICICI3">doc_source_code.ICICI3 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.aligningColumn"><code class="docutils literal notranslate"><span class="pre">aligningColumn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.deleteColumn"><code class="docutils literal notranslate"><span class="pre">deleteColumn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.icici3_main"><code class="docutils literal notranslate"><span class="pre">icici3_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.icici3_validation"><code class="docutils literal notranslate"><span class="pre">icici3_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.mergingDateColumn"><code class="docutils literal notranslate"><span class="pre">mergingDateColumn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.removeHeader"><code class="docutils literal notranslate"><span class="pre">removeHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.removeNone"><code class="docutils literal notranslate"><span class="pre">removeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.removeRowsByDateLength"><code class="docutils literal notranslate"><span class="pre">removeRowsByDateLength()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI3.remove_space"><code class="docutils literal notranslate"><span class="pre">remove_space()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.ICICI4">doc_source_code.ICICI4 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI4.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI4.icici4_main"><code class="docutils literal notranslate"><span class="pre">icici4_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI4.icici4_validation"><code class="docutils literal notranslate"><span class="pre">icici4_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI4.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI4.pandas_df_to_openpyxl"><code class="docutils literal notranslate"><span class="pre">pandas_df_to_openpyxl()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI4.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.ICICI4.remove_header"><code class="docutils literal notranslate"><span class="pre">remove_header()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.INDIAN_BANK1">doc_source_code.INDIAN_BANK1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.deleteColumn"><code class="docutils literal notranslate"><span class="pre">deleteColumn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.indian_bank1_main"><code class="docutils literal notranslate"><span class="pre">indian_bank1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.indian_bank1_validation"><code class="docutils literal notranslate"><span class="pre">indian_bank1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.makeNone"><code class="docutils literal notranslate"><span class="pre">makeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.removeHeader"><code class="docutils literal notranslate"><span class="pre">removeHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.removeNone"><code class="docutils literal notranslate"><span class="pre">removeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDIAN_BANK1.removeString"><code class="docutils literal notranslate"><span class="pre">removeString()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.INDUSIND1">doc_source_code.INDUSIND1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND1.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND1.deleteRowsByRange"><code class="docutils literal notranslate"><span class="pre">deleteRowsByRange()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND1.indusind1_main"><code class="docutils literal notranslate"><span class="pre">indusind1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND1.indusind1_validation"><code class="docutils literal notranslate"><span class="pre">indusind1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND1.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.INDUSIND2">doc_source_code.INDUSIND2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND2.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND2.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND2.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND2.indusind2_main"><code class="docutils literal notranslate"><span class="pre">indusind2_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND2.indusind2_validation"><code class="docutils literal notranslate"><span class="pre">indusind2_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.INDUSIND2.replace_to_none"><code class="docutils literal notranslate"><span class="pre">replace_to_none()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.IOB1">doc_source_code.IOB1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB1.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB1.iob1_main"><code class="docutils literal notranslate"><span class="pre">iob1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB1.iob1_validation"><code class="docutils literal notranslate"><span class="pre">iob1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB1.removeNone"><code class="docutils literal notranslate"><span class="pre">removeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB1.splitingDate"><code class="docutils literal notranslate"><span class="pre">splitingDate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.IOB2">doc_source_code.IOB2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB2.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB2.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB2.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB2.iob2_main"><code class="docutils literal notranslate"><span class="pre">iob2_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.IOB2.iob2_validation"><code class="docutils literal notranslate"><span class="pre">iob2_validation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.KOTAK1">doc_source_code.KOTAK1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.alignColumns"><code class="docutils literal notranslate"><span class="pre">alignColumns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.deleteRowByDateLen"><code class="docutils literal notranslate"><span class="pre">deleteRowByDateLen()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.headerData"><code class="docutils literal notranslate"><span class="pre">headerData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.kotak1_main"><code class="docutils literal notranslate"><span class="pre">kotak1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.kotak1_validation"><code class="docutils literal notranslate"><span class="pre">kotak1_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.removeFooter"><code class="docutils literal notranslate"><span class="pre">removeFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.removeHeader"><code class="docutils literal notranslate"><span class="pre">removeHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK1.removeString"><code class="docutils literal notranslate"><span class="pre">removeString()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.KOTAK2">doc_source_code.KOTAK2 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.createColumn"><code class="docutils literal notranslate"><span class="pre">createColumn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.kotak2_main"><code class="docutils literal notranslate"><span class="pre">kotak2_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.kotak2_validation"><code class="docutils literal notranslate"><span class="pre">kotak2_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK2.seperate_debit_credit_column"><code class="docutils literal notranslate"><span class="pre">seperate_debit_credit_column()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.KOTAK3">doc_source_code.KOTAK3 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.align_balance_column"><code class="docutils literal notranslate"><span class="pre">align_balance_column()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.align_date_column"><code class="docutils literal notranslate"><span class="pre">align_date_column()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.aligningAllColumns"><code class="docutils literal notranslate"><span class="pre">aligningAllColumns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.kotak3_main"><code class="docutils literal notranslate"><span class="pre">kotak3_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.kotak3_validation"><code class="docutils literal notranslate"><span class="pre">kotak3_validation()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.make_none_date_column"><code class="docutils literal notranslate"><span class="pre">make_none_date_column()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.KOTAK3.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#doc-source-code-reading-email-module">doc_source_code.Reading_Email module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.SBI1">doc_source_code.SBI1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.dateConvertion"><code class="docutils literal notranslate"><span class="pre">dateConvertion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.mergingDateColumn"><code class="docutils literal notranslate"><span class="pre">mergingDateColumn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.mergingRowsByDateLength"><code class="docutils literal notranslate"><span class="pre">mergingRowsByDateLength()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.removeFooter"><code class="docutils literal notranslate"><span class="pre">removeFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.removeNone"><code class="docutils literal notranslate"><span class="pre">removeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.removeRowsByDateLength"><code class="docutils literal notranslate"><span class="pre">removeRowsByDateLength()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.sbi1_main"><code class="docutils literal notranslate"><span class="pre">sbi1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.SBI1.sbi1_validation"><code class="docutils literal notranslate"><span class="pre">sbi1_validation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.TMB1">doc_source_code.TMB1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.alignColumns"><code class="docutils literal notranslate"><span class="pre">alignColumns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.aligningAllColumns"><code class="docutils literal notranslate"><span class="pre">aligningAllColumns()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.headerData"><code class="docutils literal notranslate"><span class="pre">headerData()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.string_in_column"><code class="docutils literal notranslate"><span class="pre">string_in_column()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.tmb1_main"><code class="docutils literal notranslate"><span class="pre">tmb1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.TMB1.tmb1_validation"><code class="docutils literal notranslate"><span class="pre">tmb1_validation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.Unlock_PDF">doc_source_code.Unlock_PDF module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.Unlock_PDF.unlock_pdf"><code class="docutils literal notranslate"><span class="pre">unlock_pdf()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.YES1">doc_source_code.YES1 module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.dateConversion"><code class="docutils literal notranslate"><span class="pre">dateConversion()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.deleteFooter"><code class="docutils literal notranslate"><span class="pre">deleteFooter()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.deleteHeader"><code class="docutils literal notranslate"><span class="pre">deleteHeader()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.makeNone"><code class="docutils literal notranslate"><span class="pre">makeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.mergingRows"><code class="docutils literal notranslate"><span class="pre">mergingRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.removeNone"><code class="docutils literal notranslate"><span class="pre">removeNone()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.removeNoneRows"><code class="docutils literal notranslate"><span class="pre">removeNoneRows()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.yes1_main"><code class="docutils literal notranslate"><span class="pre">yes1_main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.YES1.yes1_validation"><code class="docutils literal notranslate"><span class="pre">yes1_validation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#doc-source-code-main-driver-module">doc_source_code.main_driver module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code.manage">doc_source_code.manage module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="doc_source_code.html#doc_source_code.manage.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="doc_source_code.html#module-doc_source_code">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; 2024, jakan
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../_static/documentation_options.js?v=8d563738"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/furo.js?v=32e29ea5"></script>
+    </body>
+</html>

@@ -412,7 +412,8 @@ def icici1_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/ICICI_-_3281__05-09-2023-15-28-06.xlsx"
+    # path = "C:/Users/Admin/Downloads/ICICI_-_3281__05-09-2023-15-28-06.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = icici1_main(wb)
-    result.save('C:/Users/Admin/Desktop/FinalOutput/ICICI1output.xlsx')
+    # result.save('C:/Users/Admin/Desktop/FinalOutput/ICICI1output.xlsx')

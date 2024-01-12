@@ -21,6 +21,7 @@ def dateConversion(wb, start, end, column):
         Note:
         The function uses the datetime.strptime method to parse the date values in the specified column
         and then updates the Workbook with the parsed date values in a standard date format ("%d-%b-%Y").
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through tabe data start row to table data end row
@@ -44,6 +45,7 @@ def removeNone(wb, start, end, column):
         Note:
         The function iterates through the specified column and checks each cell for the presence of the string "None".
         If the cell value is not None and contains the string "None", it replaces the occurrence with an empty string.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -68,6 +70,7 @@ def splitingDate(wb, start, end, column):
         Note:
         The function iterates through the specified column and extracts transaction date and value date
         by splitting the date with "(" symbol. It then updates the Workbook with the extracted values.
+
     """
     sheet = wb.active
     valueDateColumn = "H"  # column having value date
@@ -92,6 +95,7 @@ def deleteHeader(wb, start):
         Note:
         The function iterates through the specified rows, starting from the specified row index 'start'
         and deletes each row until it reaches the 1st row of the sheet, effectively removing header data.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of sheet
@@ -113,6 +117,7 @@ def deleteFooter(wb, end):
         Note:
         The function iterates through the specified rows, starting from the last row of the sheet,
         and deletes each row until it reaches the specified 'end' row, effectively removing footer data.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through max row of sheet to table data end row
@@ -129,11 +134,12 @@ def iob1_validation(wb):
 
         Returns:
         - bool: True if the number of columns in the active sheet is not equal to the expected core logic column count (7),
-                False otherwise.
+        False otherwise.
 
         Note:
         The function checks if the maximum number of columns in the active sheet is not equal to the expected core logic column count (7).
         If the condition is met, it returns True, indicating a validation failure. Otherwise, it returns False, indicating a successful validation.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -153,14 +159,15 @@ def iob1_main(wb):
 
         Returns:
         - dict: A dictionary containing processed data and a message.
-            - "data": The modified Workbook object.
-            - "msg": A message indicating the result of the processing.
+        - "data": The modified Workbook object.
+        - "msg": A message indicating the result of the processing.
 
         Note:
         The function performs various operations on the provided Workbook object to standardize and process the data.
         It involves validation, header renaming, column deletion, date conversion, string alignment, and other operations.
 
         The processed data is returned along with a message indicating the success or failure of the processing.
+
     """
     sheet = wb.active
     if iob1_validation(wb):  # validating column count for core logic
@@ -236,7 +243,8 @@ def iob1_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/IOB_-_8713__23-09-2023-17-44-36.xlsx"
+    # path = "C:/Users/Admin/Downloads/IOB_-_8713__23-09-2023-17-44-36.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = iob1_main(wb)
-    result.save("C:/Users/Admin/Desktop/FinalOutput/IOB1output.xlsx")
+    # result.save("C:/Users/Admin/Desktop/FinalOutput/IOB1output.xlsx")

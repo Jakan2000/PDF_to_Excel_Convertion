@@ -24,6 +24,7 @@ def removeString(wb, start, end, refText, column):
         This function iterates through the specified range and checks if the reference text
         is present in the cell value of the specified column. If found, it replaces the reference
         text with an empty string.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -45,6 +46,7 @@ def deleteColumn(wb, column):
 
         Note:
         This function uses the Openpyxl library to delete the specified column from the active sheet of the Workbook.
+
     """
     sheet = wb.active
     column_index = openpyxl.utils.column_index_from_string(column)  # getting column index
@@ -68,6 +70,7 @@ def makeNone(wb, start, end, column):
         Note:
         This function iterates through the specified column in the active sheet of the Workbook,
         replaces empty cells with None, and returns the modified Workbook.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -92,6 +95,7 @@ def removeNone(wb, start, end, column):
         Note:
         This function iterates through the specified column in the active sheet of the Workbook,
         removes the string "None" from non-empty cells, and returns the modified Workbook.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -116,6 +120,7 @@ def dateConversion(wb, start, end, column):
         Note:
         This function iterates through the specified column in the active sheet of the Workbook,
         converts date values to the standard date format ("%d/%m/%Y"), and returns the modified Workbook.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -137,6 +142,7 @@ def removeHeader(wb, start):
         Note:
         This function iterates through rows from the specified start index to the first row (1),
         deleting each row and returns the modified Workbook.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of sheet
@@ -160,6 +166,7 @@ def removeNoneRows(wb, start, end, column):
         Note:
         This function iterates through rows from the end row to the start row (exclusive),
         deleting each row where the reference column cell value is None, and returns the modified Workbook.
+
     """
     sheet = wb.active
     for x in range(end - 1, start, -1):  # iterating through table data end row to table data start row
@@ -187,6 +194,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         This function iterates through rows in the specified range and merges rows in the desired column ('mergingColumn')
         based on the presence of values in the reference column ('refColumn'). It concatenates the values of consecutive rows
         in 'mergingColumn' until a new starting row in 'refColumn' is encountered.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -231,6 +239,7 @@ def indian_bank1_validation(wb):
         This function checks if the number of columns in the active sheet of the workbook matches the expected count.
         If the count is not equal to the expected value, it returns True, indicating a validation failure. Otherwise,
         it returns False, indicating successful validation.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -256,6 +265,7 @@ def indian_bank1_main(wb):
         This function performs various operations on the input workbook to standardize the data according to
         Indian Bank1 specifications. It validates the columns, removes unwanted rows, deletes specific columns,
         merges rows, converts date formats, alters header names, creates additional columns, and more.
+
     """
     sheet = wb.active
     if indian_bank1_validation(wb):  # validate columns for the core logic
@@ -374,7 +384,8 @@ def indian_bank1_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/SRT_-_INDIAN_BANK_-_6096825697___23-09-2023-10-24-18.xlsx"
+    # path = "C:/Users/Admin/Downloads/SRT_-_INDIAN_BANK_-_6096825697___23-09-2023-10-24-18.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = indian_bank1_main(wb)
-    result.save("C:/Users/Admin/Desktop/FinalOutput/INDIAN_BANK1output.xlsx")
+    # result.save("C:/Users/Admin/Desktop/FinalOutput/INDIAN_BANK1output.xlsx")

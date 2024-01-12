@@ -24,6 +24,7 @@ def removeString(wb, start, end, refText, column):
         The function iterates through the specified range of rows in the specified column.
         If the reference string is found in a cell value, it replaces the reference string with an empty string.
         The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -50,6 +51,7 @@ def dateConvertion(wb, start, end, column):
         It uses the datetime.strptime method to parse the existing date format ("%d-%b-%y")
         and assigns the converted date back to the cell value.
         The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -72,6 +74,7 @@ def deleteHeader(wb, start):
         The function iterates through the specified range of rows (from 'start' to the 1st row) in reverse order,
         using openpyxl's delete_rows method to remove each row.
         The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of sheet
@@ -88,9 +91,9 @@ def alignColumns(wb, start, end, headData, refColumnToAlign):
         - start (int): The starting row index for iterating through the table data.
         - end (int): The ending row index for iterating through the table data.
         - headData (list): A list containing data for alignment criteria, where:
-            - headData[0] (str): Account number.
-            - headData[1] (str): Name.
-            - headData[2] (str): Period.
+        - headData[0] (str): Account number.
+        - headData[1] (str): Name.
+        - headData[2] (str): Period.
         - refColumnToAlign (str): The reference column (e.g., 'G') used for alignment.
 
         Returns:
@@ -101,6 +104,7 @@ def alignColumns(wb, start, end, headData, refColumnToAlign):
         If a cell in the specified reference column is not None, it extracts data from relevant columns (A to G),
         calls addAlignmentData() function to add the data to the Excel file, and appends the row index to error_records.
         Finally, for each error record, the function updates the 'Narration' column and makes other columns None.
+
     """
     sheet = wb.active
     error_records = []
@@ -139,14 +143,15 @@ def headerData(wb, start, end):
 
         Returns:
         - list: A list containing header data, where:
-            - list[0] (str): Account number.
-            - list[1] (str): Name.
-            - list[2] (str): Period.
+        - list[0] (str): Account number.
+        - list[1] (str): Name.
+        - list[2] (str): Period.
 
         Note:
         The function iterates through the specified range of rows (from 'start' to 'end') in reverse order.
         It searches for specific strings ('Period' in D column and 'Account No' in A column) to extract relevant information.
         The account number is extracted by removing unnecessary characters and spaces.
+
     """
     sheet = wb.active
     acnum = "Undefined"
@@ -182,6 +187,7 @@ def deleteRowByDateLen(wb, start, dateLen, refColumn):
         Note:
         The function iterates through the specified range of rows (from 'sheet.max_row' to 'start') in reverse order.
         It checks the length of the date in the specified column ('refColumn') and deletes rows where the length is less than 'dateLen'.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, start, -1):  # iterating through max row of sheet to table data start tow
@@ -342,7 +348,7 @@ def kotak1_main(wb):
 
         Returns:
         - dict: A dictionary containing the processed Workbook and an optional message.
-            Example: {"data": wb, "msg": None}
+        Example: {"data": wb, "msg": None}
 
         Note:
         This function processes the provided Workbook to standardize the format of a Kotak Mahindra Bank statement.
@@ -351,6 +357,7 @@ def kotak1_main(wb):
 
         If the Workbook fails the validation (kotak1_validation), it prints an error message and returns a response
         dictionary indicating the validation failure.
+
     """
     if kotak1_validation(wb):  # validating column count for core logic
         print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
@@ -426,7 +433,8 @@ def kotak1_main(wb):
 
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Downloads/Kotak1._Apr-22_637102__06-09-2023-14-01-34.xlsx"
-    path = "C:/Users/Admin/Desktop/1._Kotak_-_7212_-_01-Apr-20_to_31-Mar-21__27-12-2023-11-20-55.xlsx"
+    # path = "C:/Users/Admin/Desktop/1._Kotak_-_7212_-_01-Apr-20_to_31-Mar-21__27-12-2023-11-20-55.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = kotak1_main(wb)
-    result.save("C:/Users/Admin/Desktop/FinalOutput/Kotak1output.xlsx")
+    # result.save("C:/Users/Admin/Desktop/FinalOutput/Kotak1output.xlsx")

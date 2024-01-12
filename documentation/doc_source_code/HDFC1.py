@@ -25,6 +25,7 @@ def dateConvertion(wb, start, end, column, ref):
         - This function iterates through the specified column in the given range and converts the date values to a standard date format.
         - The conversion is performed only for the rows where the specified reference text is present in the cell value.
         - The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start column to table data end column
@@ -53,6 +54,7 @@ def alignColumns(wb, start, end, headData, refColumnToAlign):
         - The data is then passed to the addAlignmentData() function (not provided) to store the misaligned row data to the Excel file.
         - Error records are marked with "Error Record" in the narration column to easily identify them.
         - The modified Workbook is returned.
+
     """
     sheet = wb.active
     error_records = []  # array to store error records row index
@@ -97,6 +99,7 @@ def deleteHeader(wb, start, end):
         - This function iterates through the specified range of rows in reverse order (from end to start).
         - It deletes each row above the specified starting index.
         - The modified Workbook is returned.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data starting row to 1st row of the sheet
@@ -121,6 +124,7 @@ def aligningAllColumns(wb, start, end, refColumn):
         - This function iterates through the specified range of rows.
         - If the value in the specified reference column is None, it aligns the data by shifting values from right to left.
         - The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -150,6 +154,7 @@ def deleteFooter(wb, start, end):
         - This function iterates through the rows from the last row of the sheet to the specified end row.
         - It deletes each row in the specified range.
         - The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterate through max row of sheet to table data end row
@@ -175,6 +180,7 @@ def headerData(wb, start, end):
         - It iterates through the rows from the specified start row to the sheet's 1st row.
         - Extracts account number, customer ID, IFSC, and statement period from specific cell values.
         - Returns a list containing statement details.
+
     """
     sheet = wb.active
     s1 = "Undefined"  # variable to store header data
@@ -224,6 +230,7 @@ def removeNoneRows(wb, start, end, column):
         - This function iterates through the rows from the specified end row to the start row.
         - Deletes rows where the reference column cell value is None.
         - Returns the modified Workbook object.
+
     """
     sheet = wb.active
     for x in range(end, start, -1):  # iterating through table data end row to table data start row
@@ -252,6 +259,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         - The reference column value indicates the starting row of the merging operation.
         - The merged result is stored in the corresponding cell of the reference column.
         - The last row may not be merged during iteration, so an additional merge is performed for the last row.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -295,6 +303,7 @@ def hdfc1_validation(wb):
         Notes:
         - This function checks whether the number of columns in the workbook matches the expected count.
         - The expected count is set to 7 columns as per the designed core logic.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -318,22 +327,22 @@ def hdfc1_main(wb):
         Overview:
         - Validates the column count in the workbook using hdfc1_validation function.
         - Performs various data cleaning and standardization tasks:
-            - Deletes unnecessary rows based on specified start and end texts.
-            - Merges misaligned rows in a specified column.
-            - Removes rows where a reference column cell value is None.
-            - Deletes footer rows.
-            - Aligns column data using reference columns and manual alignment.
-            - Converts date columns to a standard date format.
-            - Renames headers to standardize them.
-            - Adds a serial number column.
-            - Checks for negative values in specific columns.
-            - Standardizes the overall column count.
-            - Adds a transaction type column.
+        - Deletes unnecessary rows based on specified start and end texts.
+        - Merges misaligned rows in a specified column.
+        - Removes rows where a reference column cell value is None.
+        - Deletes footer rows.
+        - Aligns column data using reference columns and manual alignment.
+        - Converts date columns to a standard date format.
+        - Renames headers to standardize them.
+        - Adds a serial number column.
+        - Checks for negative values in specific columns.
+        - Standardizes the overall column count.
+        - Adds a transaction type column.
 
         Note:
         - Ensure that the hdfc1_validation, mergingRows, removeNoneRows, deleteFooter,
-          headerData, deleteHeader, aligningAllColumns, alignColumns, dateConvertion,
-          and other related functions are defined and imported before using this function.
+        headerData, deleteHeader, aligningAllColumns, alignColumns, dateConvertion,
+        and other related functions are defined and imported before using this function.
 
     """
     sheet = wb.active
@@ -409,7 +418,8 @@ def hdfc1_main(wb):
 
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Downloads/hdfc.xlsx"
-    path = "C:/Users/Admin/Downloads/50100443515738_1703914785718__30-12-2023-13-53-08.xlsx"
+    # path = "C:/Users/Admin/Downloads/50100443515738_1703914785718__30-12-2023-13-53-08.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = hdfc1_main(wb)
-    result["data"].save('C:/Users/Admin/Desktop/HDFC1output.xlsx')
+    # result["data"].save('C:/Users/Admin/Desktop/HDFC1output.xlsx')

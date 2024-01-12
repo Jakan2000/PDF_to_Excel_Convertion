@@ -21,6 +21,7 @@ def dateConversion(wb, start, end, column):
         Note:
         This function iterates through the specified range of rows in the specified column of the active sheet and converts
         the date values to a standard date format ("%d-%b-%Y").
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -42,6 +43,7 @@ def deleteHeader(wb, start):
         Note:
         This function iterates through the specified range of rows (from start to the 1st row) in the active sheet and deletes
         each row.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of sheet
@@ -64,6 +66,7 @@ def deleteFooter(wb, start, refColumn):
        Note:
        This function iterates through the specified range of rows (from end to the starting row) in the active sheet.
        It checks if the cell value in the specified reference column is None or "None" and deletes the row accordingly.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, start, -1):  # iterating through table data end row to max row of sheet
@@ -90,6 +93,7 @@ def removeNoneRows(wb, start, end, column):
        Note:
        This function iterates through the specified range of rows (from end to start) in the active sheet.
        It checks if the cell value in the specified reference column is None and deletes the row accordingly.
+
     """
     sheet = wb.active
     for x in range(end - 1, start, -1):  # iterating through table data end row to table data start row
@@ -115,6 +119,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         Note:
         This function iterates through the specified range of rows in the active sheet.
         It merges consecutive rows in the specified column ('mergingColumn') based on the presence of data in the reference column ('refColumn').
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -164,6 +169,7 @@ def deleteRowsByRange(wb, start, end, startText, stopText, startRefcolumn, stopR
         Note:
         This function iterates through the specified range of rows in the active sheet.
         It deletes rows based on the conditions specified by the start and stop texts in the respective reference columns.
+
     """
     sheet = wb.active
     delete_flag = False
@@ -193,6 +199,7 @@ def indusind1_validation(wb):
         Note:
         This function checks if the number of columns in the active sheet matches the expected count for the designed core logic.
         It returns True if the count doesn't match, indicating an invalid format, and False otherwise.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -219,6 +226,7 @@ def indusind1_main(wb):
         merging misaligned rows, converting date formats, standardizing column names, and creating additional columns.
         The result is stored in a new workbook, and a response dictionary is returned with the cleaned workbook (`data`)
         and a message (`msg`) indicating the success of the process.
+
     """
     sheet = wb.active
     if indusind1_validation(wb):  # validate columns for the core logic
@@ -288,7 +296,8 @@ def indusind1_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/Senthil_indusind_pdf.io__23-09-2023-14-19-31.xlsx"
+    # path = "C:/Users/Admin/Downloads/Senthil_indusind_pdf.io__23-09-2023-14-19-31.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = indusind1_main(wb)
-    result.save("C:/Users/Admin/Desktop/FinalOutput/INDUSIND1output.xlsx")
+    # result.save("C:/Users/Admin/Desktop/FinalOutput/INDUSIND1output.xlsx")

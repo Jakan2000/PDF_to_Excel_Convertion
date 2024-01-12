@@ -24,6 +24,7 @@ def dateConversion(wb, start, end, column):
         - The 'start' parameter denotes the first row to start converting dates.
         - The 'end' parameter denotes the row where date conversion stops (exclusive).
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through start and end row
@@ -47,6 +48,7 @@ def deleteHeader(wb, start):
         - The 'start' parameter denotes the row index from which rows above will be deleted.
         - If 'start' is 1, it will remove all rows above the first row, effectively clearing the sheet.
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data header text to sheet's 1st row
@@ -70,6 +72,7 @@ def deleteFooter(wb, end):
         - The 'end' parameter denotes the row index until which rows below will be deleted.
         - If 'end' is the last row index, it will effectively clear the sheet below that row.
         - The original workbook is modified in place.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through max row in sheet to table data end row
@@ -93,6 +96,7 @@ def cityunion1_validation(wb):
         - The 'countOfColumn' variable is set to 6, representing the expected number of columns for the core logic.
         - If the actual number of columns is different from the expected count, the function returns True.
         - If the actual number of columns matches the expected count, the function returns False.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # getting the max column using in build function
@@ -122,6 +126,7 @@ def cityunion1_main(wb):
         - The standardization includes altering header names, creating a serial number column, and creating a new transaction type column.
         - The 'data' key in the return dictionary contains the modified workbook.
         - The 'msg' key provides a message indicating the processing result.
+
     """
     sheet = wb.active
     if cityunion1_validation(wb):  # validate columns for the core logic
@@ -182,7 +187,8 @@ def cityunion1_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/CITY_UNION_BANK_-_SB-500101012199098__23-09-2023-18-18-25.xlsx"
+    # path = "C:/Users/Admin/Downloads/CITY_UNION_BANK_-_SB-500101012199098__23-09-2023-18-18-25.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = cityunion1_main(wb)
-    result["data"].save("C:/Users/Admin/Desktop/FinalOutput/CITY_UNION1output.xlsx")
+    # result["data"].save("C:/Users/Admin/Desktop/FinalOutput/CITY_UNION1output.xlsx")

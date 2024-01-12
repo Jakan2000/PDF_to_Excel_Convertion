@@ -23,6 +23,7 @@ def seperate_debit_credit_column(wb, sourceColumn, withdrawal, deposit):
         If the string "Dr" is found in the source column, it extracts the debit amount and stores it in the specified
         withdrawal column. If the string "Cr" is found, it extracts the credit amount and stores it in the specified
         deposit column.
+
     """
     sheet = wb.active
     for i in range(2, sheet.max_row + 1):  # iterating through table data 1st row (2-> skip header row) to sheet max row
@@ -49,6 +50,7 @@ def createColumn(wb, columnName):
         Note:
         This function adds a new column to the active sheet of the Workbook with the specified columnName as the header.
         The new column is added to the right of the existing columns.
+
     """
     sheet = wb.active
     sheet[f"{chr(65+sheet.max_column)}1"].value = columnName  # adding max column count with 65 (ascii value) to get next column of last column
@@ -71,6 +73,7 @@ def dateConvertion(wb, start, end, column):
         Note:
         This function iterates through the specified range of rows and converts the date values in the given column
         to the standard date format ('%d-%m-%Y'). The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -92,6 +95,7 @@ def deleteHeader(wb, start):
         Note:
         This function iterates through the range of rows from the specified 'start' index to the first row (exclusive)
         and deletes each row, effectively removing the header rows. The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating though table data start row to 1st column of sheet
@@ -113,6 +117,7 @@ def deleteFooter(wb, end):
         Note:
         This function iterates through the range of rows from the maximum row in the sheet to the specified 'end' index (exclusive),
         and deletes each row, effectively removing the footer rows. The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through max row of sheet to table data end row
@@ -136,6 +141,7 @@ def removeNoneRows(wb, start, end, column):
         Note:
         This function iterates through the range of rows from 'end' to 'start' (exclusive), checks if the cell in the specified
         reference column is None, and removes the rows where the condition is met. The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for x in range(end - 1, start, -1):  # iterating through table data end row to table data start row
@@ -163,6 +169,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         It merges consecutive rows in the 'mergingColumn' based on the presence of data in the 'refColumn'.
         The reference column 'refColumn' is used to determine the starting row for merging.
         The modified Workbook is then returned.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -208,6 +215,7 @@ def kotak2_validation(wb):
         matches the expected column count for the designed core logic (countOfColumn). If the column count is
         different from the expected count, it returns True indicating a validation failure. Otherwise, it returns
         False indicating a successful validation.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get sheet max column
@@ -227,7 +235,7 @@ def kotak2_main(wb):
 
         Returns:
         - dict: A dictionary containing the processed workbook and an optional message.
-          Example: {"data": wb, "msg": None}
+        Example: {"data": wb, "msg": None}
 
         Note:
         This function performs several data processing steps to standardize the format of a Kotak Bank statement
@@ -236,6 +244,7 @@ def kotak2_main(wb):
 
         If the column count validation using 'kotak2_validation' fails, it prints an error message and returns a
         response dictionary with an error message.
+
     """
     if kotak2_validation(wb):  # validating column count for core logic
         print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
@@ -313,7 +322,8 @@ def kotak2_main(wb):
 
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Desktop/Kotak-9006_unlocked__25-12-2023-16-59-51.xlsx"
-    path = "C:/Users/Admin/Downloads/Kotak_-_5887 (1)_unlocked__28-12-2023-11-17-40.xlsx"
+    # path = "C:/Users/Admin/Downloads/Kotak_-_5887 (1)_unlocked__28-12-2023-11-17-40.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = kotak2_main(wb)
-    result["data"].save("C:/Users/Admin/Desktop/Kotak2output.xlsx")
+    # result["data"].save("C:/Users/Admin/Desktop/Kotak2output.xlsx")

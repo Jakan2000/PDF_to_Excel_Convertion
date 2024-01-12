@@ -2,7 +2,6 @@ import configparser
 import os
 import os.path
 from datetime import datetime
-from distutils.command.config import config
 from io import BytesIO
 
 import aspose.pdf as ap

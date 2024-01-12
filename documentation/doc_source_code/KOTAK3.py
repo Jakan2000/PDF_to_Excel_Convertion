@@ -21,6 +21,7 @@ def removeNoneRows(wb, start, end, column):
         Note:
         This function iterates through the specified range of rows (from 'end' to 'start') in the Excel workbook ('wb').
         If the cell value in the specified reference column ('column') is None, it deletes the corresponding row.
+
     """
     sheet = wb.active
     for x in range(end, start, -1):  # iterating through table data end row to table data start row
@@ -73,6 +74,7 @@ def dateConvertion(wb, start, end, column):
         This function iterates through the specified range of rows (from 'start' to 'end') in the Excel workbook ('wb').
         It assumes that the date values in the specified column are in the format "%d-%m-%Y".
         The date values are converted to a standard date format and updated in the same column.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -98,6 +100,7 @@ def make_none_date_column(wb, start, end, refColumn):
         This function iterates through the specified range of rows (from 'start' to 'end') in the Excel workbook ('wb').
         It checks the length of the date values in the specified column ('refColumn').
         If the length is less than 5, the cell value is set to None.
+
     """
     sheet = wb.active
     for row in range(start, end):  # iterating through table data start row to table data end row
@@ -124,6 +127,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         This function iterates through the specified range of rows (from 'start' to 'end') in the Excel workbook ('wb').
         It merges consecutive rows in the specified column ('mergingColumn') based on the values in the reference column ('refColumn').
         The reference column is used to identify starting rows, and consecutive rows are merged until a new starting row is encountered.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -171,6 +175,7 @@ def align_date_column(wb, start, end, column):
         This function iterates through the specified range of rows (from 'start' to 'end') in the Excel workbook ('wb').
         It checks the length of each cell value in the specified date column ('column'). If the length is between 5 and 9 (exclusive),
         it copies the value from the next row to align the date data.
+
     """
     sheet = wb.active
     for row in range(start, end):  # iterating through table data start row to table data end row
@@ -194,6 +199,7 @@ def deleteHeader(wb, start):
         Note:
         This function iterates in reverse order through the rows from the specified 'start' row to the first row (1st row of the sheet),
         deleting each row along the way. It is designed to remove header rows from the Excel workbook.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of sheet
@@ -215,6 +221,7 @@ def deleteFooter(wb, end):
         Note:
         This function iterates in reverse order through the rows from the last row of the sheet to the specified 'end' row,
         deleting each row along the way. It is designed to remove footer rows from the Excel workbook.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through max row of sheet to table data end row
@@ -240,6 +247,7 @@ def aligningAllColumns(wb, start, end, refColumn):
         This function aligns misaligned data in columns C to G based on the data in the specified reference column.
         It iterates through the table data rows, aligning the data in each corresponding column (C to G) based on the
         provided reference column. It is designed to correct misalignments in the Excel workbook.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to
@@ -266,6 +274,7 @@ def kotak3_validation(wb):
         This function validates the column count for a specific core logic design. It compares the actual column count
         in the workbook with the expected count (max_column). If the counts do not match, it returns True, indicating
         a mismatch. Otherwise, it returns False, indicating a successful validation.
+
     """
     sheet = wb.active
     max_column = 6  # column count of designed core logic
@@ -285,13 +294,14 @@ def kotak3_main(wb):
 
         Returns:
         - dict: A dictionary containing the processed workbook and a status message.
-          The dictionary has the following structure:
-          {"data": openpyxl.Workbook, "msg": str or None}
+        The dictionary has the following structure:
+        {"data": openpyxl.Workbook, "msg": str or None}
 
         Note:
         This function processes the provided Excel workbook with a series of steps to format Kotak 3 data.
         The steps include deleting unwanted rows, aligning misaligned columns, deleting header and footer rows,
         validating the column count, creating new columns, and standardizing column names.
+
     """
     sheet = wb.active
     countOfColumn = 6
@@ -372,7 +382,8 @@ def kotak3_main(wb):
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Desktop/KSV/source_excel_files/sasikala_kotak__14-12-2023-10-37-39.xlsx"
     # path = "C:/Users/Admin/Downloads/R_JAYARAMAN__27-12-2023-13-29-48.xlsx"
-    path = "C:/Users/Admin/Desktop/NKP Roadways/Kasthuri/kotak-6311839988__28-12-2023-15-26-24.xlsx"
+    # path = "C:/Users/Admin/Desktop/NKP Roadways/Kasthuri/kotak-6311839988__28-12-2023-15-26-24.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = kotak3_main(wb)
-    result["data"].save("C:/Users/Admin/Desktop/Kotak3output.xlsx")
+    # result["data"].save("C:/Users/Admin/Desktop/Kotak3output.xlsx")

@@ -23,6 +23,7 @@ def dateHeaderAlter(wb, refText, actualText, lastCol):
           based on the provided reference text and actual replacement text.
         - Headers with a length less than 5 and containing the reference text will be replaced
           with the specified actual text.
+
     """
     sheet = wb.active
     column = 65  # ascii value of "A"
@@ -50,6 +51,7 @@ def dateConvertion(wb, start, end, column):
         Notes:
         - This function iterates through the specified column in the Workbook, converts
           each cell's date value to a standard date format (%d-%m-%Y), and updates the cell value.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterate through table data start row and table data end row
@@ -73,6 +75,7 @@ def removeNone(wb, start, end, column):
         Notes:
         - This function iterates through the specified column in the Workbook, checks each cell's value,
           and replaces the value with an empty string if the value is not None and contains the string "None".
+
     """
     sheet = wb.active
     for x in range(start, end):  # iterating through table data start row to table data end row
@@ -96,6 +99,7 @@ def deleteHeader(wb, start):
        - This function removes rows from the active sheet of the Workbook, starting from the specified index 'start'
          and moving upward towards the first row (header skipped).
        - It is particularly useful to remove unnecessary header information or other unwanted rows above the data.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterate through table data header row (header skipped) to 1st row of the excel sheet
@@ -120,6 +124,7 @@ def deleteRow(wb, start, refText, refColumn):
         - This function removes rows from the active sheet of the Workbook based on the presence of the specified
           reference text in the given column.
         - It is useful for removing rows containing specific information or unwanted data based on a reference text.
+
     """
 
     sheet = wb.active
@@ -143,6 +148,7 @@ def deleteFooter(wb, end):
         Notes:
         - This function removes all rows below the specified end index in the active sheet of the Workbook.
         - It is useful for deleting footer rows or unnecessary information present after the actual data in an Excel sheet.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterate through max row of sheet to table data end row
@@ -166,6 +172,7 @@ def removingNullRows(wb, start, end, column):
         Notes:
         - This function iterates through the specified range and removes rows where the specified column has a null value.
         - It is useful for cleaning up data by removing rows with missing or null values in a particular column.
+
     """
     sheet = wb.active
     for x in range(end, start, -1):  # iterating through table data end row to table data start row
@@ -192,6 +199,7 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
         - This function iterates through the specified range and merges consecutive rows in the specified column based on the reference column.
         - Rows are merged by concatenating the values in the specified merging column.
         - The merged value is placed in the first cell of the consecutive rows, and subsequent cells are cleared.
+
     """
     sheet = wb.active
     dataToMerge = []  # array to store row data
@@ -239,6 +247,7 @@ def removeRowsOnRange(wb, start, end, startText, endText, column):
         Notes:
         - This function iterates through the specified range and deletes rows based on the presence of start and end text in the specified column.
         - Rows are deleted from the first occurrence of the start text until the last occurrence of the end text (inclusive).
+
     """
     sheet = wb.active
     delete_flag = False
@@ -268,6 +277,7 @@ def federal1_validation(wb):
         Notes:
         - This function checks if the number of columns in the active sheet of the Workbook matches the expected count according to the designed core logic.
         - The designed core logic specifies a predefined count of columns (countOfColumn), and this function returns True if the actual number of columns is different, indicating a validation failure.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -294,6 +304,7 @@ def federal1_main(wb):
         - This function performs a series of operations on the Workbook to standardize the data according to the designed core logic for the Federal format.
         - It includes operations such as removing unnecessary rows, merging rows, aligning strings, deleting columns, converting date formats, and standardizing column names.
         - The function returns a dictionary containing the processed Workbook and an optional message indicating the result of the processing.
+
     """
     sheet = wb.active
     if federal1_validation(wb):  # validate columns for the core logic
@@ -401,7 +412,8 @@ def federal1_main(wb):
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Downloads/2. R RAVICHANDRAN - Federal - 2416 Pass - RAVI016 __11-09-2023-15-59-25.XLSX"
     # path = "C:/Users/Admin/Desktop/KSV/source_excel_files/1. Federal - 3448__21-12-2023-18-35-39.xlsx"
-    path = "C:/Users/Admin/Downloads/Account Statement 2214XXXXXX3265_unlocked__30-12-2023-18-38-58.xlsx"
+    # path = "C:/Users/Admin/Downloads/Account Statement 2214XXXXXX3265_unlocked__30-12-2023-18-38-58.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = federal1_main(wb)
-    result["data"].save('C:/Users/Admin/Desktop/FEDERAL1output.xlsx')
+    # result["data"].save('C:/Users/Admin/Desktop/FEDERAL1output.xlsx')

@@ -20,6 +20,7 @@ def dateConvertion(wb, start, end, column):
         Note:
         The function iterates through the specified column and converts each date value to the standard date format '%d-%b-%Y'.
         The modified Workbook is then returned.
+
     """
     sheet = wb.active
     for i in range(start, end):  # iterating through table data start row to table data end row
@@ -43,6 +44,7 @@ def deleteHeader(wb, start):
         Note:
         The function iterates through the specified rows, starting from the specified row index 'start'
         and deletes each row until it reaches the 1st row of the sheet, effectively removing header data.
+
     """
     sheet = wb.active
     for x in range(start, 0, -1):  # iterating through table data start row to 1st row of sheet
@@ -64,6 +66,7 @@ def deleteFooter(wb, end):
         Note:
         The function iterates through the specified rows, starting from the last row of the sheet,
         and deletes each row until it reaches the specified 'end' row, effectively removing footer data.
+
     """
     sheet = wb.active
     for x in range(sheet.max_row, end, -1):  # iterating through sheet max row to table data end row
@@ -80,11 +83,12 @@ def iob2_validation(wb):
 
         Returns:
         - bool: True if the number of columns in the active sheet is not equal to the expected core logic column count (7),
-                False otherwise.
+        False otherwise.
 
         Note:
         The function checks if the maximum number of columns in the active sheet is not equal to the expected core logic column count (7).
         If the condition is met, it returns True, indicating a validation failure. Otherwise, it returns False, indicating a successful validation.
+
     """
     sheet = wb.active
     max_column = sheet.max_column  # get max column using in build keyword(max_column)
@@ -110,16 +114,17 @@ def iob2_main(wb):
         1. Validates the column count for core logic using iob2_validation.
         2. If validation fails, it prints an error message and returns a response dictionary with an error message.
         3. Otherwise, it processes the Workbook:
-           - Deletes header and footer rows based on specified start and end text.
-           - Deletes the 'COD' column.
-           - Creates a new 'Sl. No.' column.
-           - Aligns strings in multiple columns.
-           - Alters header names to match the standard column names.
-           - Converts dates to a standard date format.
-           - Removes specified strings from columns.
-           - Standardizes column count and creates a new 'Transaction Type' column.
+        - Deletes header and footer rows based on specified start and end text.
+        - Deletes the 'COD' column.
+        - Creates a new 'Sl. No.' column.
+        - Aligns strings in multiple columns.
+        - Alters header names to match the standard column names.
+        - Converts dates to a standard date format.
+        - Removes specified strings from columns.
+        - Standardizes column count and creates a new 'Transaction Type' column.
 
         The modified Workbook and a success message are included in the response dictionary.
+
     """
     sheet = wb.active()
     if iob2_validation(wb):  # validating column count for core logic
@@ -189,7 +194,8 @@ def iob2_main(wb):
 
 
 if __name__ == "__main__":
-    path = "C:/Users/Admin/Downloads/last_year_statement_july_1to_october_31.xlsx"
+    # path = "C:/Users/Admin/Downloads/last_year_statement_july_1to_october_31.xlsx"
+    path = ""
     wb = openpyxl.load_workbook(path)
     result = iob2_main(wb)
-    result["data"].save("C:/Users/Admin/Desktop/last_year_statement_july_1to_october_31.xlsx")
+    # result["data"].save("C:/Users/Admin/Desktop/last_year_statement_july_1to_october_31.xlsx")

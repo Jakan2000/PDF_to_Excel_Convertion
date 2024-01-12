@@ -19,6 +19,7 @@ def unlock_pdf(pdf_document, password):
         and the password is correct, it creates a new PDF writer, inserts the unlocked PDF, and returns the unlocked PDF
         data in base64 format. If the PDF is not encrypted, it returns a message indicating that no unlocking is necessary.
         If the provided password is incorrect or an error occurs during the process, it returns an error message.
+
     """
     try:
         if pdf_document.isEncrypted:  # Check if the PDF is encrypted
