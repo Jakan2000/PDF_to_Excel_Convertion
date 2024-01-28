@@ -207,7 +207,7 @@ def icici4_main(pdf_url):
     refHeaderText1 = "Value Date"  # header text to replace with standardised column name
     refHeaderText2 = "Transaction Date"  # header text to replace with standardised column name
     refHeaderText3 = "Cheque Number"  # header text to replace with standardised column name
-    refHeaderText4 = "Transaction Remarks"  # header text to replace with standardised column name
+    refHeaderText4 = "Transaction Remarks"  # header t  ext to replace with standardised column name
     refHeaderText5 = "Withdrawal Amount"  # header text to replace with standardised column name
     refHeaderText6 = "Deposit Amount ( )"  # header text to replace with standardised column name
     refHeaderText7 = "Balance ( )"  # header text to replace with standardised column name
@@ -223,6 +223,7 @@ def icici4_main(pdf_url):
     refTextToMakeCellNone = "-"  # reference text to make cell none
     refColumnToMakeCellNone = "C"  # column to make cells with refTextToMakeCellNone to none
     columns = ["Transaction_Date", "Value_Date", "ChequeNo_RefNo", "Narration", "Deposit", "Withdrawal", "Balance"]  # standard columns to be present in the file
+
     # Download the PDF file from the URL
     response = requests.get(pdf_url)  # getting pdf url
     pdf_data = BytesIO(response.content)  # converting it to bites
@@ -238,6 +239,7 @@ def icici4_main(pdf_url):
     wb = pandas_df_to_openpyxl(df)
     # Remove the temporary PDF file
     temp_pdf.close()
+    return wb
     sheet = wb.active
     if icici4_validation(wb):  # validate columns for the core logic
         print(f"<= INVALID FORMATE : Count Of Column Mismatch =>")
@@ -278,12 +280,10 @@ def icici4_main(pdf_url):
 
 
 if __name__ == "__main__":
-    # path = "C:/Users/Admin/Desktop/KSV/source_excel_files/2._ICICI_-_4642__27-11-2023-17-43-28.xlsx"
-    # path = "C:/Users/Admin/Downloads/2._ICICI_-_4642.pdf"
-    # path = "http://ksvca-server-01:3502/ksv/%2Funlock_pdf/2._ICICI_-_4642.pdf"
-    path = ""
+    path = "http://ksvca-server-01:3502/ksv/bank_statements/hdfc_type1.pdf"
     # wb = openpyxl.load_workbook(path)
     result = icici4_main(path)
+    result.save('C:/Users/Admin/Desktop/camlot_output.xlsx')
     # if result["data"] is not None:
     #     result["data"].save('C:/Users/Admin/Desktop/ICICI4output.xlsx')
     # else:

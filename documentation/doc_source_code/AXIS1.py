@@ -7,21 +7,21 @@ from CommonClass import Excel
 
 def deleteNoneRows(wb, start, end, refColumn):
     """
-    Deletes rows in an Excel file where the specified column has a None value.
+        Deletes rows in an Excel file where the specified column has a None value.
 
-    Parameters:
-    - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
-    - start (int): The starting row index for deletion.
-    - end (int): The ending row index for deletion.
-    - refColumn (str): The column reference (e.g., 'A', 'B') where None values are checked for deletion.
+        Parameters:
+        - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
+        - start (int): The starting row index for deletion.
+        - end (int): The ending row index for deletion.
+        - refColumn (str): The column reference (e.g., 'A', 'B') where None values are checked for deletion.
 
-    Returns:
-    openpyxl.Workbook: The updated openpyxl Workbook after deleting the specified rows.
+        Returns:
+        openpyxl.Workbook: The updated openpyxl Workbook after deleting the specified rows.
 
-    Notes:
-    - The function iterates from the end to the start row and checks if the reference column has a None value.
-    - If a row contains a None value in the specified column, that row is deleted.
-    - The function modifies the Workbook in-place and returns the updated Workbook.
+        Notes:
+        - The function iterates from the end to the start row and checks if the reference column has a None value.
+        - If a row contains a None value in the specified column, that row is deleted.
+        - The function modifies the Workbook in-place and returns the updated Workbook.
 
     """
     sheet = wb.active
@@ -35,21 +35,21 @@ def deleteNoneRows(wb, start, end, refColumn):
 
 def dateConvertion(wb, start, end, column):
     """
-    Converts date values in a specified column to a standard date format in an Excel file.
+        Converts date values in a specified column to a standard date format in an Excel file.
 
-    Parameters:
-    - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
-    - start (int): The starting row index for date conversion.
-    - end (int): The ending row index for date conversion.
-    - column (str): The column reference (e.g., 'A', 'B') containing date values for conversion.
+        Parameters:
+        - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
+        - start (int): The starting row index for date conversion.
+        - end (int): The ending row index for date conversion.
+        - column (str): The column reference (e.g., 'A', 'B') containing date values for conversion.
 
-    Returns:
-    openpyxl.Workbook: The updated openpyxl Workbook after converting the specified date values.
+        Returns:
+        openpyxl.Workbook: The updated openpyxl Workbook after converting the specified date values.
 
-    Notes:
-    - The function iterates through the specified rows and converts date values in the specified column.
-    - The date values are converted to a standard date format ("%d-%m-%Y").
-    - The function modifies the Workbook in-place and returns the updated Workbook.
+        Notes:
+        - The function iterates through the specified rows and converts date values in the specified column.
+        - The date values are converted to a standard date format ("%d-%m-%Y").
+        - The function modifies the Workbook in-place and returns the updated Workbook.
 
     """
     sheet = wb.active
@@ -60,19 +60,19 @@ def dateConvertion(wb, start, end, column):
 
 def deleteHeader(wb, start):
     """
-    Deletes rows above the specified start index row in an Excel file.
+        Deletes rows above the specified start index row in an Excel file.
 
-    Parameters:
-    - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
-    - start (int): The row index from which rows above will be deleted.
+        Parameters:
+        - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
+        - start (int): The row index from which rows above will be deleted.
 
-    Returns:
-    openpyxl.Workbook: The updated openpyxl Workbook after deleting rows above the specified start index.
+        Returns:
+        openpyxl.Workbook: The updated openpyxl Workbook after deleting rows above the specified start index.
 
-    Notes:
-    - The function iterates from the specified start index to the header row (row index 0).
-    - Rows above the start index (including the start index row) are deleted.
-    - The function modifies the Workbook in-place and returns the updated Workbook.
+        Notes:
+        - The function iterates from the specified start index to the header row (row index 0).
+        - Rows above the start index (including the start index row) are deleted.
+        - The function modifies the Workbook in-place and returns the updated Workbook.
 
     """
     sheet = wb.active
@@ -83,19 +83,19 @@ def deleteHeader(wb, start):
 
 def deleteFooter(wb, end):
     """
-    Deletes all rows below the specified end (last) row in an Excel file.
+        Deletes all rows below the specified end (last) row in an Excel file.
 
-    Parameters:
-    - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
-    - end (int): The row index until which rows below will be deleted.
+        Parameters:
+        - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
+        - end (int): The row index until which rows below will be deleted.
 
-    Returns:
-    openpyxl.Workbook: The updated openpyxl Workbook after deleting rows below the specified end index.
+        Returns:
+        openpyxl.Workbook: The updated openpyxl Workbook after deleting rows below the specified end index.
 
-    Notes:
-    - The function iterates from the last row (maximum row index) to the specified end index.
-    - Rows below the end index (including the end index row) are deleted.
-    - The function modifies the Workbook in-place and returns the updated Workbook.
+        Notes:
+        - The function iterates from the last row (maximum row index) to the specified end index.
+        - Rows below the end index (including the end index row) are deleted.
+        - The function modifies the Workbook in-place and returns the updated Workbook.
 
     """
     sheet = wb.active
@@ -106,24 +106,24 @@ def deleteFooter(wb, end):
 
 def mergingRows(wb, start, end, refColumn, mergingColumn):
     """
-    Merges scattered rows in the specified mergingColumn based on a common reference column.
+        Merges scattered rows in the specified mergingColumn based on a common reference column.
 
-    Parameters:
-    - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
-    - start (int): The starting row index for merging rows.
-    - end (int): The ending row index (exclusive) for merging rows.
-    - refColumn (str): The reference column used to identify starting rows for merging.
-    - mergingColumn (str): The column in which rows will be merged.
+        Parameters:
+        - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
+        - start (int): The starting row index for merging rows.
+        - end (int): The ending row index (exclusive) for merging rows.
+        - refColumn (str): The reference column used to identify starting rows for merging.
+        - mergingColumn (str): The column in which rows will be merged.
 
-    Returns:
-    openpyxl.Workbook: The updated openpyxl Workbook after merging corresponding rows in the specified column.
+        Returns:
+        openpyxl.Workbook: The updated openpyxl Workbook after merging corresponding rows in the specified column.
 
-    Notes:
-    - The function iterates through rows in reverse order.
-    - Rows are merged in the specified mergingColumn based on a common non-empty cell in the reference column.
-    - The merged value is formed by concatenating the data in the mergingColumn for corresponding rows.
-    - The last row (end index row) is also considered for merging.
-    - The function modifies the Workbook in-place and returns the updated Workbook.
+        Notes:
+        - The function iterates through rows in reverse order.
+        - Rows are merged in the specified mergingColumn based on a common non-empty cell in the reference column.
+        - The merged value is formed by concatenating the data in the mergingColumn for corresponding rows.
+        - The last row (end index row) is also considered for merging.
+        - The function modifies the Workbook in-place and returns the updated Workbook.
 
     """
     sheet = wb.active
@@ -158,20 +158,20 @@ def mergingRows(wb, start, end, refColumn, mergingColumn):
 
 def axis1_validation(wb):
     """
-    Validates the columns in the given Workbook for a specific logic.
+        Validates the columns in the given Workbook for a specific logic.
 
-    Parameters:
-    - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
+        Parameters:
+        - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
 
-    Returns:
-    bool: True if the validation is successful, indicating the Workbook has the expected number of columns.
-    False if the validation fails, indicating the Workbook does not have the expected number of columns.
+        Returns:
+        bool: True if the validation is successful, indicating the Workbook has the expected number of columns.
+        False if the validation fails, indicating the Workbook does not have the expected number of columns.
 
-    Notes:
-    - The function checks if the number of columns in the Workbook matches the expected count.
-    - The expected count is set to 7 (countOfColumn), representing the column count for a specific logic.
-    - If the count matches, the validation is successful, and the function returns True.
-    - If the count does not match, the validation fails, and the function returns False.
+        Notes:
+        - The function checks if the number of columns in the Workbook matches the expected count.
+        - The expected count is set to 7 (countOfColumn), representing the column count for a specific logic.
+        - If the count matches, the validation is successful, and the function returns True.
+        - If the count does not match, the validation fails, and the function returns False.
 
     """
     sheet = wb.active
@@ -185,21 +185,21 @@ def axis1_validation(wb):
 
 def axis1_main(wb):
     """
-    Performs data processing and formatting for a specific logic (axis1) on the given Workbook.
+        Performs data processing and formatting for a specific logic (axis1) on the given Workbook.
 
-    Parameters:
-    - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
+        Parameters:
+        - wb (openpyxl.Workbook): The openpyxl Workbook object representing the Excel file.
 
-    Returns:
-    dict: A dictionary containing processed Workbook data and a message.
-    - 'data' (openpyxl.Workbook): Processed Workbook data.
-    - 'msg' (str): A message describing the operation performed.
+        Returns:
+        dict: A dictionary containing processed Workbook data and a message.
+        - 'data' (openpyxl.Workbook): Processed Workbook data.
+        - 'msg' (str): A message describing the operation performed.
 
-    Notes:
-    - This function assumes the input Workbook follows a specific structure for axis1 logic.
-    - Data processing includes validation, column alignment, header replacement, and other operations.
-    - The modified Workbook is included in the response dictionary under the 'data' key.
-    - The 'msg' key contains a message indicating the success or failure of the operation.
+        Notes:
+        - This function assumes the input Workbook follows a specific structure for axis1 logic.
+        - Data processing includes validation, column alignment, header replacement, and other operations.
+        - The modified Workbook is included in the response dictionary under the 'data' key.
+        - The 'msg' key contains a message indicating the success or failure of the operation.
 
     """
     sheet = wb.active  # get active sheet

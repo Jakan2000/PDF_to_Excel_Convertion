@@ -233,6 +233,7 @@ def axis1_main(wb):
         headerTextToEmptyCellToNone4 = "Deposit"  # header text to make empty cells to none
         refColumnToMerg = "A"  # reference date column to merge rows of other column
         mergingColumn = "C"  # column to merge
+
         start, end = Excel.get_start_end_row_index(wb, startText, endText, startEndDefColumn)  # get start and end row index to specify the data with in
         delFooter = deleteFooter(wb, end)  # delete fooder below the end row
         headerDeleted = deleteHeader(delFooter, start - 1)  # delete header above the start row
@@ -274,7 +275,8 @@ def axis1_main(wb):
 if __name__ == "__main__":
     # path = "C:/Users/Admin/Downloads/1.Axis_-_8874-PW_-_GNAN842166790_unlocked__19-09-2023-14-05-39.xlsx"
     # path = "C:/Users/Admin/Downloads/1.SVTTransports-AXIS1437__23-11-2023-17-46-06.xlsx"
-    path = "C:/Users/Admin/Downloads/AXIS_-_5664__31-12-2023-13-17-11.xlsx"
+    # path = "C:/Users/Admin/Downloads/AXIS_-_5664__31-12-2023-13-17-11.xlsx"
+    path = "C:/Users/Admin/Desktop/KSV/source_excel_files/1.Axis_-_8874-PW_-_GNAN842166790_unlocked__19-09-2023-14-05-39.xlsx"
     wb = openpyxl.load_workbook(path)
     result = axis1_main(wb)
     # result.save('C:/Users/Admin/Desktop/FinalOutput/AXIS1output.xlsx')

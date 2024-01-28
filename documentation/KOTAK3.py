@@ -327,6 +327,7 @@ def kotak3_main(wb):
     headerText6 = "Balance"  # standard column name
     balance_column = "F"  # colum to align balance data
     columns = ["Sl.No.", "Transaction_Date", "Value_Date", "ChequeNo_RefNo", "Narration", "Deposit", "Withdrawal", "Balance"]  # standard columns to be present in the file
+
     start, end = Excel.get_start_end_row_index(wb, startText, stopText, startEndRefColumn)  # get start and end row index to specify table data with in
     Excel.delete_rows_by_range(wb, start + 1, end + 1, deleteFlagStartText, deleteFlagEndText, deleteFlagRefColumn)  # deleting unwanted rows by range
     start, end = Excel.get_start_end_row_index(wb, startText, stopText, startEndRefColumn)  # get start and end row index to specify table data with in

@@ -252,8 +252,8 @@ def axis1_main(wb):
         start, end = Excel.get_start_end_row_index(removed2, startText, endText, startEndDefColumn)  # get start and end row index to specify the data with in
         alignedC = Excel.string_align(removed3, start, end + 1, stringAlignColumn1)  # align the string by column to make the string in a cell to a single row -> end+1 to Include Last Row
         alignedG = Excel.string_align(alignedC, start, end + 1, stringAlignColumn2)  # end+1 to Include Last Row
-        mergedColumnC = mergingRows(alignedG, start, end, refColumnToMerg, mergingColumn)  # merging the splited rows in a column
-        noneRowsDeleted = deleteNoneRows(mergedColumnC, start, end, refColumnToMerg)  # delete empty rows in date column
+        # mergedColumnC = mergingRows(alignedG, start, end, refColumnToMerg, mergingColumn)  # merging the splited rows in a column
+        noneRowsDeleted = deleteNoneRows(wb, start, end, refColumnToMerg)  # delete empty rows in date column
         start, end = Excel.get_start_end_row_index(removed2, startText, endText, startEndDefColumn)  # get start and end row index to specify the data with in
         convertedDateA = dateConvertion(noneRowsDeleted, start + 1, end + 1, dateConversionColumn)  # convert date to standard date formate -> start+1 to Sip Header, end+1 to Include Last Row
         lastCol = 65 + sheet.max_column  # 65 => ASCII value "A" -> by adding 65 + sheet.max_column we get the last column
@@ -263,12 +263,12 @@ def axis1_main(wb):
         debit = Excel.alter_header_name(naration, refHeaderText4, headerText4, lastCol)  # alter header name by standard column name
         credit = Excel.alter_header_name(debit, refHeaderText5, headerText5, lastCol)  # alter header name by standard column name
         balance = Excel.alter_header_name(debit, refHeaderText6, headerText6, lastCol)  # alter header name by standard column name
-        deletedColumnG = Excel.delete_column(balance, deleteColumnRefText)  # delete column by column header name
+        # deletedColumnG = Excel.delete_column(balance, deleteColumnRefText)  # delete column by column header name
         columnToCreateSlNo = 65 + Excel.column_count(wb)  # 65 => ASCII value "A" -> column_count() function return the column count in the sheet
-        slnoCreated = Excel.create_slno_column(deletedColumnG, start, end + 1, chr(columnToCreateSlNo))  # creating new column - slno
+        slnoCreated = Excel.create_slno_column(wb, start, end + 1, chr(columnToCreateSlNo))  # creating new column - slno
         columnFinalised = Excel.finalise_column(slnoCreated, columns)  # standardizing count of column
-        negativeValueChecked = Excel.check_neagativeValue_by_column(columnFinalised, negativeValueColumnRefText1)  # no need to convert the negative value to positive
-        valueDateConverted = Excel.empty_cell_to_none(negativeValueChecked, start, end + 1, headerTextToEmptyCellToNone1)  # making the empty cell to none in desired column
+        # negativeValueChecked = Excel.check_neagativeValue_by_column(columnFinalised, negativeValueColumnRefText1)  # no need to convert the negative value to positive
+        valueDateConverted = Excel.empty_cell_to_none(wb, start, end + 1, headerTextToEmptyCellToNone1)  # making the empty cell to none in desired column
         chqnoConverted = Excel.empty_cell_to_none(valueDateConverted, start, end + 1, headerTextToEmptyCellToNone2)  # making empty cell to none in desired column
         withdrawalConverted = Excel.empty_cell_to_none(chqnoConverted, start, end + 1, headerTextToEmptyCellToNone3)  # making empty cell to none in desired column
         depositConverted = Excel.empty_cell_to_none(withdrawalConverted, start, end + 1, headerTextToEmptyCellToNone4)  # making empty cells to none in desired column
@@ -282,8 +282,8 @@ if __name__ == "__main__":
     # path = "C:/Users/Admin/Downloads/1.Axis_-_8874-PW_-_GNAN842166790_unlocked__19-09-2023-14-05-39.xlsx"
     # path = "C:/Users/Admin/Downloads/1.SVTTransports-AXIS1437__23-11-2023-17-46-06.xlsx"
     # path = "C:/Users/Admin/Downloads/AXIS_-_5664__31-12-2023-13-17-11.xlsx"
-    path = ""
+    path = "C:/Users/Admin/Desktop/KSV/source_excel_files/axis_type1__17-01-2024-17-17-05.xlsx"
     wb = openpyxl.load_workbook(path)
     result = axis1_main(wb)
     # result.save('C:/Users/Admin/Desktop/FinalOutput/AXIS1output.xlsx')
-    # result["data"].save('C:/Users/Admin/Desktop/AXIS1output.xlsx')
+    result["data"].save('C:/Users/Admin/Desktop/AXIS1output.xlsx')

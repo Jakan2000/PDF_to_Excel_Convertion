@@ -35,8 +35,7 @@ class Excel:
                 break
         for cell in sheet[startEndDefColumn]:  # iterating through all the cells in startEndDefColumn
             end += 1  # increment end value
-            if endText in str(
-                    cell.value):  # if end text in the cell break the loop, and the cell index is stored in end variable
+            if endText in str(cell.value):  # if end text in the cell break the loop, and the cell index is stored in end variable
                 break
         return start, end
 

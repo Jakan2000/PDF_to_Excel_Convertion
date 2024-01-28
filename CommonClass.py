@@ -89,7 +89,7 @@ class Excel:
         column = 65  # ASCII value of "A"
         count = 0
         for i in range(column, column + sheet.max_column):  # iterate through all the column
-            if sheet[f"{chr(i)}1"].value is None:  # if in 1st row cell is empty or none that's the column count
+            if sheet[f"{chr(i)}1"].value is None:  # if in 1st row cell is empty or none, that's the column count
                 break
             count += 1
         return count  # return count integer

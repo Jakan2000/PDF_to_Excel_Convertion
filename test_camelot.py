@@ -54,8 +54,9 @@ def test_camelot_main(pdf_url):
 
 
 if __name__ == "__main__":
-    pdf_url = "http://ksvca-server-01:3502/ksv/%2Funlock_pdf/2._ICICI_-_4642.pdf"
+    # pdf_url = "http://ksvca-server-01:3502/ksv/%2Funlock_pdf/2._ICICI_-_4642.pdf"
+    pdf_url = "http://ksvca-server-01:3502/ksv/bank_statements/hdfc_type1.pdf"
     # pdf_url = "http://ksvca-server-01:3502/ksv/bank_statements/1.Axis_-_8874-PW_-_GNAN842166790_unlocked.pdf"
     # wb = openpyxl.load_workbook(path)
     result = test_camelot_main(pdf_url)
-    result.save('C:/Users/Admin/Desktop/ICICI4output.xlsx')
+    result.save('C:/Users/Admin/Desktop/camelot_output.xlsx')

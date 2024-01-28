@@ -180,8 +180,6 @@ def iob1_main(wb):
         endText = "available balance"  # text define table data end row
         startEndRefColumn = "A"  # column containing start end text
         dateSplitColumn = "A"  # column containing transaction date and value date
-        start = 1  # assigning 1st row to start variable
-        end = sheet.max_row  # assigning sheet max row
         stringAlignColumn1 = "A"  # column to aligning string by removing the \n from the string
         stringAlignColumn2 = "B"  # column to aligning string by removing the \n from the string
         stringAlignColumn3 = "C"  # column to aligning string by removing the \n from the string

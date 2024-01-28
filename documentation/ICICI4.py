@@ -218,7 +218,7 @@ def icici4_main(pdf_url):
     columns = ["Transaction_Date", "Value_Date", "ChequeNo_RefNo", "Narration", "Deposit", "Withdrawal", "Balance"]  # standard columns to be present in the file
     # Download the PDF file from the URL
     response = requests.get(pdf_url)  # getting pdf url
-    pdf_data = BytesIO(response.content)  # converting it to bites
+    pdf_data = BytesIO(response.content)  # converting it to bytes
     # Save the BytesIO content to a temporary PDF file
     with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as temp_pdf:
         temp_pdf.write(pdf_data.getvalue())
